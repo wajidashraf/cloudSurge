@@ -9,13 +9,12 @@ import dataverse from '@/assets/marquee_logos/Dataverse_scalable.svg';
 import dynamics365 from '@/assets/marquee_logos/Dynamics365_scalable.svg';
 import microsoftAzure from '@/assets/marquee_logos/Microsoft_Azure.svg.png';
 import microsoftCopilot from '@/assets/marquee_logos/Microsoft_Copilot_Icon.svg.png';
-import powerApps from '@/assets/marquee_logos/PowerApps_scalable.svg';
-import powerAutomate from '@/assets/marquee_logos/PowerAutomate_scalable.svg';
-import powerBI from '@/assets/marquee_logos/PowerBI_scalable.svg';
-import powerPages from '@/assets/marquee_logos/PowerPages_scalable.svg';
 import powerPlatform from '@/assets/marquee_logos/PowerPlatform_scalable.svg';
 import microsoftPartner from '@/assets/marquee_logos/logo-microsoft-partner_400x400.png.avif';
 import salesforce from '@/assets/marquee_logos/new-salesforce-logo-blue-png-large-size.png';
+import TrustedClientsSection from '@/components/Home/trustedClientsSection';
+import WhatWeDeliver from '@/components/Home/whatWeDeliver';
+import WhoWeHelp from '@/components/Home/whoWeHelp';
 
 
 const ScrollToTop = lazy(
@@ -75,6 +74,12 @@ export const Home: React.FC = () => {
       <Suspense fallback={simpleFallback}>
         <Hero />
       </Suspense>
+      <Suspense fallback={simpleFallback}>
+      <TrustedClientsSection/>
+      </Suspense>
+      <Suspense fallback={simpleFallback}>
+      <WhatWeDeliver/>
+      </Suspense>
 
       <Suspense fallback={simpleFallback}>
         <ScrollingImages images={[
@@ -83,14 +88,17 @@ export const Home: React.FC = () => {
           dynamics365,
           microsoftAzure,
           microsoftCopilot,
-          powerApps,
-          powerAutomate,
-          powerBI,
-          powerPages,
           powerPlatform,
           microsoftPartner,
           salesforce
+          
         ]} />
+      </Suspense>
+      <Suspense fallback={simpleFallback}>
+        <PodWorkflowSection />
+      </Suspense>
+      <Suspense fallback={simpleFallback}>
+        <WhoWeHelp />
       </Suspense>
 
       <Suspense fallback={simpleFallback}>
@@ -101,9 +109,6 @@ export const Home: React.FC = () => {
         <ScrollTimeline />
       </Suspense>
 
-      <Suspense fallback={simpleFallback}>
-        <PodWorkflowSection />
-      </Suspense>
 
       <Suspense fallback={simpleFallback}>
         <SuccessStories />

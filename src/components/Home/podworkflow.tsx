@@ -1,207 +1,577 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import Marquee from './marquee';
+import React, { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
+import { Link } from "@tanstack/react-router";
 
-import PlanningImg from '@/assets/workflow_images/Planning.png';
-import DevelopmentImg from '@/assets/workflow_images/Development.png';
-import QAImg from '@/assets/workflow_images/QA.png';
-import DeploymentImg from '@/assets/workflow_images/Deployment.png';
-import FeedbackImg from '@/assets/workflow_images/Feedback.png';
+const FONT = "'Bahnschrift', 'DIN Alternate', sans-serif";
 
-interface Slide {
-  title: string;
-  description: string;
-  image: string;
-}
+// ── SVG Icons (unchanged) ──────────────────────────────────────────────────
 
-const slides: Slide[] = [
+const TimerIcon = () => (
+  <svg
+    width="12"
+    height="15"
+    viewBox="0 0 12 15"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M3.65026 13.2478L9.65108 12.4388L9.36159 10.2915C9.24798 9.44886 8.86154 8.76808 8.20226 8.24918C7.54285 7.72933 6.79181 7.5262 5.94914 7.63981C5.10647 7.75342 4.436 8.14795 3.93774 8.82339C3.43949 9.49883 3.24716 10.2579 3.36077 11.1006L3.65026 13.2478ZM7.81884 5.41062C8.31805 4.73505 8.51088 3.97617 8.39734 3.13397L8.10785 0.986733L2.10631 1.79586L2.3958 3.9431C2.50941 4.78577 2.89586 5.46656 3.55513 5.98546C4.21454 6.50531 4.96558 6.70843 5.80825 6.59482C6.65093 6.48121 7.32139 6.08669 7.81965 5.41124M1.73694 14.2345L1.64044 13.5188L2.93451 13.3443L2.64502 11.1971C2.52588 10.3134 2.69101 9.4931 3.14041 8.73631C3.5898 7.97952 4.22891 7.47675 5.05774 7.228C4.19195 7.19897 3.44222 6.88126 2.80855 6.27486C2.17489 5.66845 1.79872 4.92337 1.68006 4.03959L1.39057 1.89235L0.0964968 2.06682L0 1.35107L10.0205 0.000119577L10.1169 0.715866L8.82288 0.890332L9.11237 3.03757C9.23151 3.92128 9.06609 4.73938 8.61612 5.49188C8.16615 6.24438 7.52733 6.7493 6.69966 7.00664C7.56416 7.02612 8.3136 7.34168 8.94797 7.95334C9.58174 8.5641 9.9582 9.31133 10.0773 10.195L10.3668 12.3423L11.6609 12.1678L11.7574 12.8836L1.73694 14.2345Z"
+      fill="#929191"
+    />
+  </svg>
+);
+
+const DiscoveryIcon = () => (
+  <svg
+    width="32"
+    height="32"
+    viewBox="0 0 32 32"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M111.333 63.6667L114 61M108.667 78.3333L119.333 67.6667M114 85L116.667 82.3333M120 82.3333C120.884 82.3333 121.732 81.9821 122.357 81.357C122.982 80.7319 123.333 79.8841 123.333 79C123.333 78.1159 122.982 77.2681 122.357 76.643C121.732 76.0179 120.884 75.6667 120 75.6667C119.116 75.6667 118.268 76.0179 117.643 76.643C117.018 77.2681 116.667 78.1159 116.667 79C116.667 79.8841 117.018 80.7319 117.643 81.357C118.268 81.9821 119.116 82.3333 120 82.3333ZM108 70.3333C108.884 70.3333 109.732 69.9821 110.357 69.357C110.982 68.7319 111.333 67.8841 111.333 67C111.333 66.1159 110.982 65.2681 110.357 64.643C109.732 64.0179 108.884 63.6667 108 63.6667C107.116 63.6667 106.268 64.0179 105.643 64.643C105.018 65.2681 104.667 66.1159 104.667 67C104.667 67.8841 105.018 68.7319 105.643 69.357C106.268 69.9821 107.116 70.3333 108 70.3333ZM105.333 85C106.217 85 107.065 84.6488 107.69 84.0237C108.315 83.3986 108.667 82.5507 108.667 81.6667C108.667 80.7826 108.315 79.9348 107.69 79.3096C107.065 78.6845 106.217 78.3333 105.333 78.3333C104.449 78.3333 103.601 78.6845 102.976 79.3096C102.351 79.9348 102 80.7826 102 81.6667C102 82.5507 102.351 83.3986 102.976 84.0237C103.601 84.6488 104.449 85 105.333 85ZM122.667 67.6667C123.551 67.6667 124.399 67.3155 125.024 66.6904C125.649 66.0652 126 65.2174 126 64.3333C126 63.4493 125.649 62.6014 125.024 61.9763C124.399 61.3512 123.551 61 122.667 61C121.783 61 120.935 61.3512 120.31 61.9763C119.685 62.6014 119.333 63.4493 119.333 64.3333C119.333 65.2174 119.685 66.0652 120.31 66.6904C120.935 67.3155 121.783 67.6667 122.667 67.6667Z"
+      stroke="#5D5D5D"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      transform="translate(-95 -55)"
+    />
+  </svg>
+);
+
+const PodMatchIcon = () => (
+  <svg
+    width="32"
+    height="32"
+    viewBox="0 0 32 32"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M15.2562 7C16.528 6.99974 17.7791 7.31586 18.8932 7.91892C20.0073 8.52199 20.9481 9.39239 21.628 10.4491C22.3079 11.5058 22.7049 12.7145 22.7819 13.9626C22.8588 15.2107 22.6134 16.4577 22.0683 17.5874H19.5636C20.2913 16.6334 20.6701 15.4658 20.6386 14.2737C20.6071 13.0816 20.1671 11.9348 19.3899 11.0193C18.6128 10.1037 17.544 9.47298 16.3566 9.22924C15.1693 8.98551 13.9331 9.14305 12.8483 9.67636C11.7634 10.2097 10.8935 11.0875 10.3794 12.1676C9.86536 13.2477 9.73729 14.4668 10.016 15.6275C10.2946 16.7881 10.9637 17.8222 11.9148 18.5622C12.8659 19.3023 14.0433 19.7049 15.2562 19.7049H26.6557L25.2623 18.337C25.0601 18.1382 24.9465 17.8686 24.9465 17.5874C24.9465 17.3063 25.0601 17.0367 25.2623 16.8379C25.4645 16.6391 25.7387 16.5274 26.0247 16.5274C26.3106 16.5274 26.5849 16.6391 26.7871 16.8379L30.0176 20.0141C30.1179 20.1124 30.1975 20.2293 30.2518 20.3579C30.306 20.4865 30.334 20.6244 30.334 20.7637C30.334 20.9029 30.306 21.0408 30.2518 21.1695C30.1975 21.2981 30.1179 21.4149 30.0176 21.5133L26.7871 24.6895C26.5849 24.8883 26.3106 25 26.0247 25C25.7387 25 25.4645 24.8883 25.2623 24.6895C25.0601 24.4907 24.9465 24.2211 24.9465 23.9399C24.9465 23.6588 25.0601 23.3891 25.2623 23.1903L26.6557 21.8224H15.2562C13.257 21.8224 11.3397 21.0416 9.92604 19.6517C8.5124 18.2619 7.71823 16.3768 7.71823 14.4112C7.71823 12.4456 8.5124 10.5606 9.92604 9.1707C11.3397 7.78082 13.257 7 15.2562 7ZM7.19703 19.7049C7.74192 20.5054 8.40526 21.2189 9.16336 21.8224H3.41083C3.12524 21.8224 2.85133 21.7109 2.64939 21.5123C2.44744 21.3138 2.33398 21.0445 2.33398 20.7637C2.33398 20.4829 2.44744 20.2136 2.64939 20.015C2.85133 19.8165 3.12524 19.7049 3.41083 19.7049H7.19703Z"
+      fill="#5D5D5D"
+    />
+  </svg>
+);
+
+const SprintIcon = () => (
+  <svg
+    width="32"
+    height="32"
+    viewBox="0 0 32 32"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M17.0336 11.7663C16.9591 11.692 16.9 11.6037 16.8597 11.5065C16.8193 11.4093 16.7986 11.3051 16.7986 11.1999C16.7986 11.0947 16.8193 10.9905 16.8597 10.8933C16.9 10.7961 16.9591 10.7078 17.0336 10.6335L21.8336 5.83349C21.908 5.75911 21.9963 5.7001 22.0935 5.65985C22.1907 5.6196 22.2948 5.59888 22.4 5.59888C22.5052 5.59888 22.6094 5.6196 22.7065 5.65985C22.8037 5.7001 22.892 5.75911 22.9664 5.83349C23.0408 5.90787 23.0998 5.99617 23.1401 6.09335C23.1803 6.19054 23.201 6.2947 23.201 6.39989C23.201 6.50508 23.1803 6.60924 23.1401 6.70642C23.0998 6.8036 23.0408 6.89191 22.9664 6.96629L18.1664 11.7663C18.0921 11.8408 18.0038 11.8999 17.9066 11.9402C17.8094 11.9806 17.7052 12.0013 17.6 12.0013C17.4948 12.0013 17.3906 11.9806 17.2934 11.9402C17.1962 11.8999 17.1079 11.8408 17.0336 11.7663Z"
+      fill="#5D5D5D"
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M27.7663 11.7663C27.692 11.8408 27.6037 11.8999 27.5065 11.9402C27.4093 11.9806 27.3051 12.0013 27.1999 12.0013C27.0947 12.0013 26.9905 11.9806 26.8933 11.9402C26.7961 11.8999 26.7078 11.8408 26.6335 11.7663L21.8335 6.96629C21.6833 6.81607 21.5989 6.61233 21.5989 6.39989C21.5989 6.18745 21.6833 5.98371 21.8335 5.83349C21.9837 5.68327 22.1874 5.59888 22.3999 5.59888C22.6123 5.59888 22.8161 5.68327 22.9663 5.83349L27.7663 10.6335C27.8408 10.7078 27.8999 10.7961 27.9402 10.8933C27.9806 10.9905 28.0013 11.0947 28.0013 11.1999C28.0013 11.3051 27.9806 11.4093 27.9402 11.5065C27.8999 11.6037 27.8408 11.692 27.7663 11.7663Z"
+      fill="#5D5D5D"
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M22.4001 6.3999C22.6123 6.3999 22.8157 6.48419 22.9658 6.63422C23.1158 6.78425 23.2001 6.98773 23.2001 7.1999V22.3999C23.2001 22.6121 23.1158 22.8156 22.9658 22.9656C22.8157 23.1156 22.6123 23.1999 22.4001 23.1999C22.1879 23.1999 21.9844 23.1156 21.8344 22.9656C21.6844 22.8156 21.6001 22.6121 21.6001 22.3999V7.1999C21.6001 6.98773 21.6844 6.78425 21.8344 6.63422C21.9844 6.48419 22.1879 6.3999 22.4001 6.3999ZM14.9665 20.2335C15.041 20.3078 15.1001 20.3961 15.1404 20.4933C15.1808 20.5905 15.2015 20.6947 15.2015 20.7999C15.2015 20.9051 15.1808 21.0093 15.1404 21.1065C15.1001 21.2037 15.041 21.292 14.9665 21.3663L10.1665 26.1663C10.0163 26.3165 9.81252 26.4009 9.60008 26.4009C9.38764 26.4009 9.1839 26.3165 9.03368 26.1663C8.88346 26.0161 8.79907 25.8123 8.79907 25.5999C8.79907 25.3875 8.88346 25.1837 9.03368 25.0335L13.8337 20.2335C13.908 20.159 13.9963 20.0999 14.0935 20.0596C14.1907 20.0192 14.2949 19.9985 14.4001 19.9985C14.5053 19.9985 14.6095 20.0192 14.7067 20.0596C14.8039 20.0999 14.8922 20.159 14.9665 20.2335Z"
+      fill="#5D5D5D"
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M4.23357 20.2336C4.30788 20.1591 4.39616 20.1 4.49335 20.0596C4.59054 20.0193 4.69474 19.9985 4.79997 19.9985C4.90519 19.9985 5.00939 20.0193 5.10658 20.0596C5.20377 20.1 5.29205 20.1591 5.36637 20.2336L10.1664 25.0336C10.2407 25.1079 10.2997 25.1962 10.34 25.2934C10.3803 25.3906 10.401 25.4948 10.401 25.6C10.401 25.7052 10.3803 25.8093 10.34 25.9065C10.2997 26.0037 10.2407 26.092 10.1664 26.1664C10.092 26.2407 10.0037 26.2997 9.9065 26.34C9.80932 26.3803 9.70516 26.401 9.59997 26.401C9.49478 26.401 9.39061 26.3803 9.29343 26.34C9.19625 26.2997 9.10795 26.2407 9.03357 26.1664L4.23357 21.3664C4.15906 21.2921 4.09996 21.2038 4.05963 21.1066C4.01929 21.0094 3.99854 20.9052 3.99854 20.8C3.99854 20.6947 4.01929 20.5905 4.05963 20.4934C4.09996 20.3962 4.15906 20.3079 4.23357 20.2336Z"
+      fill="#5D5D5D"
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M9.60005 25.5998C9.38788 25.5998 9.18439 25.5155 9.03436 25.3655C8.88433 25.2155 8.80005 25.012 8.80005 24.7998V9.5998C8.80005 9.38763 8.88433 9.18415 9.03436 9.03412C9.18439 8.88409 9.38788 8.7998 9.60005 8.7998C9.81222 8.7998 10.0157 8.88409 10.1657 9.03412C10.3158 9.18415 10.4 9.38763 10.4 9.5998V24.7998C10.4 25.012 10.3158 25.2155 10.1657 25.3655C10.0157 25.5155 9.81222 25.5998 9.60005 25.5998Z"
+      fill="#5D5D5D"
+    />
+  </svg>
+);
+
+const ReviewIcon = () => (
+  <svg
+    width="32"
+    height="32"
+    viewBox="0 0 32 32"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M8.00008 18.6667H12.0667L20.1001 10.6334L16.1334 6.46675L8.00008 14.6001V18.6667ZM10.0001 16.6667V15.4001L13.3667 12.0334L14.0334 12.6334L14.6334 13.3001L11.2667 16.6667H10.0001ZM14.0334 12.6334L14.6334 13.3001L13.3667 12.0334L14.0334 12.6334ZM14.9001 18.6667H24.0001V16.0001H17.5667L14.9001 18.6667ZM2.66675 29.3334V2.66675H29.3334V24.0001H8.00008L2.66675 29.3334ZM6.86675 21.3334H26.6667V5.33341H5.33341V22.8334L6.86675 21.3334Z"
+      fill="#5D5D5D"
+    />
+  </svg>
+);
+
+const ScaleIcon = () => (
+  <svg
+    width="32"
+    height="32"
+    viewBox="0 0 32 32"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M17.0336 11.7663C16.9591 11.692 16.9 11.6037 16.8597 11.5065C16.8193 11.4093 16.7986 11.3051 16.7986 11.1999C16.7986 11.0947 16.8193 10.9905 16.8597 10.8933C16.9 10.7961 16.9591 10.7078 17.0336 10.6335L21.8336 5.83349C21.908 5.75911 21.9963 5.7001 22.0935 5.65985C22.1907 5.6196 22.2948 5.59888 22.4 5.59888C22.5052 5.59888 22.6094 5.6196 22.7065 5.65985C22.8037 5.7001 22.892 5.75911 22.9664 5.83349C23.0408 5.90787 23.0998 5.99617 23.1401 6.09335C23.1803 6.19054 23.201 6.2947 23.201 6.39989C23.201 6.50508 23.1803 6.60924 23.1401 6.70642C23.0998 6.8036 23.0408 6.89191 22.9664 6.96629L18.1664 11.7663C18.0921 11.8408 18.0038 11.8999 17.9066 11.9402C17.8094 11.9806 17.7052 12.0013 17.6 12.0013C17.4948 12.0013 17.3906 11.9806 17.2934 11.9402C17.1962 11.8999 17.1079 11.8408 17.0336 11.7663Z"
+      fill="#5D5D5D"
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M27.7663 11.7663C27.692 11.8408 27.6037 11.8999 27.5065 11.9402C27.4093 11.9806 27.3051 12.0013 27.1999 12.0013C27.0947 12.0013 26.9905 11.9806 26.8933 11.9402C26.7961 11.8999 26.7078 11.8408 26.6335 11.7663L21.8335 6.96629C21.6833 6.81607 21.5989 6.61233 21.5989 6.39989C21.5989 6.18745 21.6833 5.98371 21.8335 5.83349C21.9837 5.68327 22.1874 5.59888 22.3999 5.59888C22.6123 5.59888 22.8161 5.68327 22.9663 5.83349L27.7663 10.6335C27.8408 10.7078 27.8999 10.7961 27.9402 10.8933C27.9806 10.9905 28.0013 11.0947 28.0013 11.1999C28.0013 11.3051 27.9806 11.4093 27.9402 11.5065C27.8999 11.6037 27.8408 11.692 27.7663 11.7663Z"
+      fill="#5D5D5D"
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M22.4001 6.3999C22.6123 6.3999 22.8157 6.48419 22.9658 6.63422C23.1158 6.78425 23.2001 6.98773 23.2001 7.1999V22.3999C23.2001 22.6121 23.1158 22.8156 22.9658 22.9656C22.8157 23.1156 22.6123 23.1999 22.4001 23.1999C22.1879 23.1999 21.9844 23.1156 21.8344 22.9656C21.6844 22.8156 21.6001 22.6121 21.6001 22.3999V7.1999C21.6001 6.98773 21.6844 6.78425 21.8344 6.63422C21.9844 6.48419 22.1879 6.3999 22.4001 6.3999ZM14.9665 20.2335C15.041 20.3078 15.1001 20.3961 15.1404 20.4933C15.1808 20.5905 15.2015 20.6947 15.2015 20.7999C15.2015 20.9051 15.1808 21.0093 15.1404 21.1065C15.1001 21.2037 15.041 21.292 14.9665 21.3663L10.1665 26.1663C10.0163 26.3165 9.81252 26.4009 9.60008 26.4009C9.38764 26.4009 9.1839 26.3165 9.03368 26.1663C8.88346 26.0161 8.79907 25.8123 8.79907 25.5999C8.79907 25.3875 8.88346 25.1837 9.03368 25.0335L13.8337 20.2335C13.908 20.159 13.9963 20.0999 14.0935 20.0596C14.1907 20.0192 14.2949 19.9985 14.4001 19.9985C14.5053 19.9985 14.6095 20.0192 14.7067 20.0596C14.8039 20.0999 14.8922 20.159 14.9665 20.2335Z"
+      fill="#5D5D5D"
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M4.23357 20.2336C4.30788 20.1591 4.39616 20.1 4.49335 20.0596C4.59054 20.0193 4.69474 19.9985 4.79997 19.9985C4.90519 19.9985 5.00939 20.0193 5.10658 20.0596C5.20377 20.1 5.29205 20.1591 5.36637 20.2336L10.1664 25.0336C10.2407 25.1079 10.2997 25.1962 10.34 25.2934C10.3803 25.3906 10.401 25.4948 10.401 25.6C10.401 25.7052 10.3803 25.8093 10.34 25.9065C10.2997 26.0037 10.2407 26.092 10.1664 26.1664C10.092 26.2407 10.0037 26.2997 9.9065 26.34C9.80932 26.3803 9.70516 26.401 9.59997 26.401C9.49478 26.401 9.39061 26.3803 9.29343 26.34C9.19625 26.2997 9.10795 26.2407 9.03357 26.1664L4.23357 21.3664C4.15906 21.2921 4.09996 21.2038 4.05963 21.1066C4.01929 21.0094 3.99854 20.9052 3.99854 20.8C3.99854 20.6947 4.01929 20.5905 4.05963 20.4934C4.09996 20.3962 4.15906 20.3079 4.23357 20.2336Z"
+      fill="#5D5D5D"
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M9.60005 25.5998C9.38788 25.5998 9.18439 25.5155 9.03436 25.3655C8.88433 25.2155 8.80005 25.012 8.80005 24.7998V9.5998C8.80005 9.38763 8.88433 9.18415 9.03436 9.03412C9.18439 8.88409 9.38788 8.7998 9.60005 8.7998C9.81222 8.7998 10.0157 8.88409 10.1657 9.03412C10.3158 9.18415 10.4 9.38763 10.4 9.5998V24.7998C10.4 25.012 10.3158 25.2155 10.1657 25.3655C10.0157 25.5155 9.81222 25.5998 9.60005 25.5998Z"
+      fill="#5D5D5D"
+    />
+  </svg>
+);
+
+// ── Arrow Icon for CTA ─────────────────────────────────────────────────────
+
+const ArrowRightIcon = () => (
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M5 12H19M19 12L13 6M19 12L13 18"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const KickoffIcon = () => (
+ <svg
+    width="32"
+    height="32"
+    viewBox="0 0 32 32"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M5 25C4.60444 25 4.21776 25.1173 3.88886 25.3371C3.55996 25.5568 3.30362 25.8692 3.15224 26.2346C3.00087 26.6001 2.96126 27.0022 3.03843 27.3902C3.1156 27.7781 3.30608 28.1345 3.58579 28.4142C3.86549 28.6939 4.22186 28.8844 4.60982 28.9616C4.99778 29.0387 5.39992 28.9991 5.76537 28.8478C6.13082 28.6964 6.44318 28.44 6.66294 28.1111C6.8827 27.7822 7 27.3956 7 27C6.99842 26.4701 6.7872 25.9623 6.41247 25.5875C6.03774 25.2128 5.52995 25.0016 5 25ZM16 25C15.6044 25 15.2178 25.1173 14.8889 25.3371C14.56 25.5568 14.3036 25.8692 14.1522 26.2346C14.0009 26.6001 13.9613 27.0022 14.0384 27.3902C14.1156 27.7781 14.3061 28.1345 14.5858 28.4142C14.8655 28.6939 15.2219 28.8844 15.6098 28.9616C15.9978 29.0387 16.3999 28.9991 16.7654 28.8478C17.1308 28.6964 17.4432 28.44 17.6629 28.1111C17.8827 27.7822 18 27.3956 18 27C17.9984 26.4701 17.7872 25.9623 17.4125 25.5875C17.0377 25.2128 16.5299 25.0016 16 25ZM27 25C26.6044 25 26.2178 25.1173 25.8889 25.3371C25.56 25.5568 25.3036 25.8692 25.1522 26.2346C25.0009 26.6001 24.9613 27.0022 25.0384 27.3902C25.1156 27.7781 25.3061 28.1345 25.5858 28.4142C25.8655 28.6939 26.2219 28.8844 26.6098 28.9616C26.9978 29.0387 27.3999 28.9991 27.7654 28.8478C28.1308 28.6964 28.4432 28.44 28.6629 28.1111C28.8827 27.7822 29 27.3956 29 27C28.9984 26.4701 28.7872 25.9623 28.4125 25.5875C28.0377 25.2128 27.5299 25.0016 27 25ZM28 23H26V11C25.9984 10.4701 25.7872 9.96227 25.4125 9.58753C25.0377 9.2128 24.5299 9.00158 24 9H22V7H24C25.0601 7.00264 26.0759 7.42492 26.8255 8.17449C27.5751 8.92406 27.9974 9.93995 28 11V23ZM15 12H17V23H15V12ZM6 23H4V11C4.00264 9.93995 4.42492 8.92406 5.17449 8.17449C5.92406 7.42492 6.93995 7.00264 8 7H10V9H8C7.47005 9.00158 6.96227 9.2128 6.58754 9.58753C6.21281 9.96227 6.00158 10.4701 6 11V23ZM16 2L14.7 4.634L11.794 5.054L13.897 7.106L13.4 10L16 8.634L18.6 10L18.103 7.106L20.206 5.057L17.3 4.634L16 2Z"
+      fill="#5D5D5D"
+    />
+  </svg>
+);
+
+// ── Step data ───────────────────────────────────────────────────────────────
+
+const STEPS = [
   {
-    title: 'Planning',
-    description:
-      'Every successful delivery starts with a clear plan. We take the time to deeply understand your project requirements, team dynamics, and business goals, so we can build a delivery strategy tailored to your exact needs.',
-    image: PlanningImg,
+    number: 1,
+    title: "Discovery & Fit Check",
+    duration: "15-30 minutes",
+    icon: <DiscoveryIcon />,
   },
   {
-    title: 'Development',
-    description:
-      'Your dedicated Pod begins development with velocity and precision. With developers, solution architects and technical leads working in sync, progress is fast, efficient, and transparent built on agile sprints and clear milestones.',
-    image: DevelopmentImg,
+    number: 2,
+    title: "Pod Match & Kick-off",
+    duration: "48 hours",
+    icon: <KickoffIcon/> ,
   },
   {
-    title: 'QA',
-    description:
-      'Quality isn’t an afterthought it’s built into the Pod. With continuous testing, peer reviews, and QA specialists baked into the process, we ensure every deliverable meets the highest standard before it moves forward.',
-    image: QAImg,
+    number: 3,
+    title: "Delivery Sprint",
+    duration: "1-2 weeks",
+    icon: <PodMatchIcon />,
   },
   {
-    title: 'Deployment',
-    description:
-      'We don’t just build we launch. Deployment is handled with care, ensuring smooth handovers, system integration, and minimal disruption. Our Pods work closely with your team to go live without a hitch.',
-    image: DeploymentImg,
+    number: 4,
+    title: "Review, Improve, Ship",
+    duration: null,
+    icon: <ReviewIcon />,
   },
   {
-    title: 'Feedback',
-    description:
-      'We’re committed to constant improvement. After delivery, we gather feedback from your team to fine-tune processes, tackle enhancements, and prepare for the next sprint building a cycle of consistent value.',
-    image: FeedbackImg,
+    number: 5,
+    title: "Scale Up / Scale Down",
+    duration: "monthly/project-based",
+    icon: <ScaleIcon />,
   },
 ];
 
+// ── Step Card ───────────────────────────────────────────────────────────────
+
+const StepCard: React.FC<{
+  step: (typeof STEPS)[0];
+  index: number;
+  inView: boolean;
+}> = ({ step, index, inView }) => (
+  <motion.div
+    className="pod-step-wrapper"
+    initial={{ opacity: 0, y: 32 }}
+    animate={inView ? { opacity: 1, y: 0 } : {}}
+    transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
+  >
+    {/* Red step badge */}
+    <div className="pod-step-badge">{step.number}</div>
+
+    {/* White card - fixed height matching Figma 140px */}
+    <div className="pod-step-card">
+      <div className="pod-step-icon">{step.icon}</div>
+      <p className="pod-step-title">{step.title}</p>
+      {step.duration ? (
+        <div className="pod-step-duration">
+          <TimerIcon />
+          <span>{step.duration}</span>
+        </div>
+      ) : (
+        /* Invisible spacer to keep card content aligned across all cards */
+        <div className="pod-step-duration" style={{ visibility: "hidden" }}>
+          <TimerIcon />
+          <span>placeholder</span>
+        </div>
+      )}
+    </div>
+  </motion.div>
+);
+
+// ── Main Component ──────────────────────────────────────────────────────────
+
 const PodWorkflowSection: React.FC = () => {
-  const [current, setCurrent] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const intervalRef = useRef<number | null>(null);
-  const pauseTimeoutRef = useRef<number | null>(null);
-  const [loadedImages, setLoadedImages] = useState<{ [src: string]: boolean }>({});
+  const ref = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
 
-  // Preload images
   useEffect(() => {
-    slides.forEach((slide) => {
-      const img = new Image();
-      img.src = slide.image;
-      img.onload = () => setLoadedImages((prev) => ({ ...prev, [slide.image]: true }));
-    });
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setInView(true);
+      },
+      { threshold: 0.15 },
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
   }, []);
-
-  useEffect(() => {
-    if (!paused) {
-      intervalRef.current = window.setInterval(() => {
-        setCurrent((prev) => (prev + 1) % slides.length);
-      }, 1200000000);
-    }
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    };
-  }, [paused]);
-
-  useEffect(() => {
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-      if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
-    };
-  }, []);
-
-  const handleClickStep = (idx: number) => {
-    setCurrent(idx);
-    setPaused(true);
-    if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
-    pauseTimeoutRef.current = window.setTimeout(() => setPaused(false), 20000);
-  };
-
-  const scrollToPricing = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    const el = document.getElementById('pricing');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
 
   return (
-    <section className="w-full h-full min-h-screen md:py-5 bg-[#DEDEDE]">
-      <Marquee text="Pod Workflow &nbsp; " repeat={20} speed={100} />
+    <section ref={ref} className="pod-workflow-section">
+      <style>{`
+        /* ── Section ── */
+        .pod-workflow-section {
+          width: 100%;
+          background: #E6E5E5;
+          padding: 53px 24px 52px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
 
-      <div className="w-full py-8 md:py-20 px-4 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-        {/* Left: Image + Text (Desktop only) */}
-        <div className="hidden md:flex flex-col md:w-[60%] lg:w-[65%] xl:w-[70%] 2xl:w-[80%] md:ml-10">
-          <div className="w-full h-64 md:h-full overflow-hidden mb-4 relative">
-            <AnimatePresence initial={false} mode="sync">
-              {loadedImages[slides[current].image] && (
-                <motion.img
-                  key={slides[current].image}
-                  src={slides[current].image}
-                  alt={slides[current].title}
-                  loading="lazy"
-                  className="object-contain object-left w-full h-full absolute top-0 left-0"
-                  initial={{ y: '100%' }}
-                  animate={{ y: '0%' }}
-                  exit={{ y: '-100%' }}
-                  transition={{ duration: 0.6, ease: 'easeInOut' }}
-                />
-              )}
-            </AnimatePresence>
-          </div>
+        /* ── Heading ── */
+        .pod-workflow-title {
+          font-family: ${FONT};
+          font-weight: 700;
+          font-size: 60px;
+          line-height: 72px;
+          text-align: center;
+          color: #000;
+          margin: 0;
+        }
 
-          <div className="ml-0 md:ml-0 flex-1">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={current}
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -50 }}
-                transition={{ duration: 0.5 }}
-              >
-                <h2 className="text-xl lg:text-xl xl:text-2xl 2xl:text-4xl text-left font-bold text-[#EF4123] mb-2">
-                  {slides[current].title}
-                </h2>
-                <p className="text-sm lg:text-sm xl:text-base 2xl:text-base text-gray-500 leading-relaxed text-left">
-                  {slides[current].description}
-                </p>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-        </div>
+        .pod-workflow-subtitle {
+          font-family: ${FONT};
+          font-weight: 350;
+          font-size: 18px;
+          line-height: 22px;
+          text-align: center;
+          color: #727272;
+          margin: 8px 0 0;
+        }
 
-        {/* Right: Steps */}
-        <div className="flex flex-col h-full self-start md:pl-20">
-          <span className="w-full h-[2px] md:h-[3px] bg-[#EB4124] md:ml-4" />
-          <div className="w-full md:ml-4 md:w-full">
-            {slides.map((step, idx) => (
-              <div
-                key={idx}
-                onClick={() => handleClickStep(idx)}
-                className={`flex flex-col cursor-pointer transform transition-transform duration-300 md:origin-right ${
-                  current === idx ? 'scale-[1.05] md:scale-[1.1]' : 'scale-100'
-                }`}
-              >
-                <h3
-                  className={`text-2xl lg:text-3xl xl:text-4xl 2xl:text-6xl font-bold text-[#EB4124] text-left pt-4 pb-4 ${
-                    current === idx ? 'text-white pl-4 bg-[#ef4123]' : ''
-                  }`}
-                >
-                  {step.title}
-                </h3>
-                <span className="block w-full h-[2px] md:h-[3px] bg-[#EB4124]" />
+        /* ── Cards row ── */
+        .pod-steps-row {
+          display: flex;
+          flex-direction: row;
+          align-items: flex-start;
+          gap: 16px;
+          width: 100%;
+          max-width: 1216px;
+          margin-top: 20px;
+          justify-content: center;
+        }
 
-                {/* Mobile only: Image + Description under clicked step */}
-                <AnimatePresence>
-                  {current === idx && (
-                    <motion.div
-                      className="md:hidden flex flex-col mt-2 pl-2 pr-2 items-start"
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      {loadedImages[step.image] && (
-                        <img
-                          src={step.image}
-                          alt={step.title}
-                          className="w-full h-48 object-contain object-left rounded-md mb-2"
-                        />
-                      )}
-                      <p className="text-gray-500 text-sm leading-relaxed text-left">{step.description}</p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            ))}
-          </div>
+        /* ── Individual step wrapper (badge + card) ── */
+        .pod-step-wrapper {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          width: 230px;
+          flex-shrink: 0;
+        }
 
-          <div className="pl-4 mt-12 text-left w-full">
-            <span
-              aria-hidden="true"
-              className="text-[#EB4124] text-xl lg:text-2xl xl:text-2xl 2xl:text-3xl"
-            >
-              ↳ &nbsp;
-            </span>
-            <a
-              href="#pricing"
-              onClick={scrollToPricing}
-              className="inline-flex items-center text-gray-500 hover:underline text-base lg:text-base xl:text-base 2xl:text-lg"
-            >
-              Pricing Overview
-            </a>
-          </div>
-        </div>
+        /* ── Red number badge ── */
+        .pod-step-badge {
+          width: 47px;
+          height: 47px;
+          border-radius: 50%;
+          background: #EF4123;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: ${FONT};
+          font-weight: 600;
+          font-size: 24px;
+          line-height: 28px;
+          color: #fff;
+          position: relative;
+          z-index: 1;
+          flex-shrink: 0;
+          margin-bottom: -24px; /* overlap into card by half */
+        }
+
+        /* ── White card — fixed 140px height from Figma ── */
+        .pod-step-card {
+          background: #fff;
+          width: 215px;
+          height: 140px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: flex-start;
+          padding-top: 33px; /* icon top from Figma */
+          box-sizing: border-box;
+          gap: 0;
+        }
+
+        /* ── Icon ── */
+        .pod-step-icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 32px;
+          height: 32px;
+          flex-shrink: 0;
+        }
+
+        /* ── Step title ── */
+        .pod-step-title {
+          font-family: ${FONT};
+          font-weight: 400;
+          font-size: 18px;
+          line-height: 22px;
+          text-align: center;
+          color: #5D5D5D;
+          margin: 8px 0 0;
+        }
+
+        /* ── Duration badge ── */
+        .pod-step-duration {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          margin-top: 8px;
+        }
+
+        .pod-step-duration span {
+          font-family: ${FONT};
+          font-weight: 350;
+          font-size: 16px;
+          line-height: 19px;
+          color: #929191;
+        }
+
+        /* ── Tagline ── */
+        .pod-workflow-tagline {
+          font-family: ${FONT};
+          font-weight: 400;
+          font-size: 20px;
+          line-height: 24px;
+          text-align: center;
+          color: #757272;
+          max-width: 954px;
+          margin: 40px 0 0;
+        }
+
+        /* ── CTA button ── */
+        .pod-workflow-cta {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          margin-top: 32px;
+          background: #EC3F24;
+          padding: 0 28px;
+          height: 41px;
+          font-family: ${FONT};
+          font-weight: 600;
+          font-size: 18px;
+          line-height: 22px;
+          color: #fff;
+          text-decoration: none;
+          transition: background 0.2s, transform 0.15s;
+          white-space: nowrap;
+          border: none;
+          cursor: pointer;
+        }
+
+        .pod-workflow-cta:hover {
+          background: #d03519;
+          transform: translateY(-1px);
+        }
+
+        /* ── Responsive: Tablet ── */
+        @media (max-width: 1100px) {
+          .pod-workflow-title {
+            font-size: clamp(28px, 5vw, 60px);
+            line-height: 1.2;
+          }
+          .pod-workflow-subtitle {
+            font-size: 16px;
+          }
+          .pod-steps-row {
+            flex-wrap: wrap;
+            justify-content: center;
+          }
+          .pod-workflow-tagline {
+            font-size: 18px;
+            padding: 0 16px;
+          }
+        }
+
+        /* ── Responsive: Mobile ── */
+        @media (max-width: 639px) {
+          .pod-workflow-section {
+            padding: 40px 20px 48px;
+          }
+          .pod-workflow-title {
+            font-size: 28px;
+            line-height: 34px;
+          }
+          .pod-workflow-subtitle {
+            font-size: 14px;
+          }
+          .pod-steps-row {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 24px;
+          }
+          .pod-step-wrapper {
+            flex-direction: row;
+            align-items: flex-start;
+            width: 100%;
+            gap: 12px;
+          }
+          .pod-step-badge {
+            margin-bottom: 0;
+            margin-top: 8px;
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+          }
+          .pod-step-card {
+            width: 100%;
+            height: auto;
+            min-height: 80px;
+            padding: 16px;
+            align-items: flex-start;
+            flex: 1;
+          }
+          .pod-step-icon {
+            width: 28px;
+            height: 28px;
+          }
+          .pod-step-title {
+            text-align: left;
+            font-size: 16px;
+          }
+          .pod-step-duration span {
+            font-size: 14px;
+          }
+          .pod-step-duration[style*="hidden"] {
+            display: none;
+          }
+          .pod-workflow-tagline {
+            font-size: 15px;
+            line-height: 20px;
+            margin-top: 28px;
+          }
+          .pod-workflow-cta {
+            font-size: 16px;
+            height: 38px;
+            padding: 0 20px;
+            margin-top: 24px;
+          }
+        }
+      `}</style>
+
+      {/* Heading */}
+      <motion.h2
+        className="pod-workflow-title"
+        initial={{ opacity: 0, y: 20 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+      >
+        How Pods Works as a Flow
+      </motion.h2>
+
+      <motion.p
+        className="pod-workflow-subtitle"
+        initial={{ opacity: 0, y: 16 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.5, delay: 0.08, ease: "easeOut" }}
+      >
+        From Brief to Delivery - In Days
+      </motion.p>
+
+      {/* Steps */}
+      <div className="pod-steps-row">
+        {STEPS.map((step, i) => (
+          <StepCard key={step.number} step={step} index={i} inView={inView} />
+        ))}
       </div>
+
+      {/* Tagline */}
+      <motion.p
+        className="pod-workflow-tagline"
+        initial={{ opacity: 0, y: 16 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.5, delay: 0.55, ease: "easeOut" }}
+      >
+        A simple, reliable delivery system that keeps work moving and
+        stakeholders confident - without the chaos.
+      </motion.p>
+
+      {/* CTA */}
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.5, delay: 0.65, ease: "easeOut" }}
+      >
+        <Link to="/" className="pod-workflow-cta">
+          <ArrowRightIcon />
+          Explore the Fusion Pods model
+        </Link>
+      </motion.div>
     </section>
   );
 };

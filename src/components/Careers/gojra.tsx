@@ -7,11 +7,11 @@ import {
   type MotionValue,
   AnimatePresence
 } from 'framer-motion';
-import profilePic1 from '@/assets/Naveed.jpg'; // Testimonial image 1
-import profilePic2 from '@/assets/Haseeb Khan.jpg';  // Testimonial image 2
-import profilePic3 from '@/assets/Tayyaba.jpg';  // Testimonial image 3
-import profilePic4 from '@/assets/Umar.jpg';  // Testimonial image 4
-import profilePic5 from '@/assets/Zarqa Kanwal.jpg';  // Testimonial image 5
+import profilePic1 from '@/assets/Naveed Ali.png'; // Testimonial image 1
+import profilePic2 from '@/assets/Haseeb Khan.png';  // Testimonial image 2
+import profilePic3 from '@/assets/Tayyaba Naseer.jpg';  // Testimonial image 3
+import profilePic4 from '@/assets/Umar Gulzar.png';  // Testimonial image 4
+import profilePic5 from '@/assets/Zarqa Kanwal.png';  // Testimonial image 5
 // ... import additional images if neededs
 
 interface Testimonial {

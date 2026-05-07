@@ -115,7 +115,7 @@ const Navbar: React.FC<NavbarProps> = ({ delayAnimation = false }) => {
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="hidden sm:block md:w-4 md:h-4 lg:w-4 lg:h-4 xl:w-4 xl:h-4 2xl:w-5 2xl:h-5 text-[#EB4124] flex-shrink-0"
+                className="hidden sm:block md:w-4 md:h-4 lg:w-4 lg:h-4 xl:w-4 xl:h-4 2xl:w-5 2xl:h-5 text-[#fff] flex-shrink-0"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
