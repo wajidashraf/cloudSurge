@@ -1,0 +1,127 @@
+{
+	"navigationFallback": {
+		"rewrite": "/index.html",
+		"exclude": [
+			"/static/*",
+			"/images/*",
+			"/favicon.ico"
+		]
+	},
+	"routes": [
+		{
+			"route": "/english",
+			"redirect": "https://www.efset.org/",
+			"statusCode": 301
+		},
+		{
+			"route": "/personality",
+			"redirect": "https://www.16personalities.com/free-personality-test",
+			"statusCode": 301
+		},
+		{
+			"route": "/iq",
+			"redirect": "https://forms.office.com/e/jvvMRZZiW4",
+			"statusCode": 301
+		},
+		{
+			"route": "/test",
+			"redirect": "https://forms.office.com/e/Gg0vGWMiuc",
+			"statusCode": 301
+		},
+		{
+			"route": "/stressfree",
+			"redirect": "https://outlook.office.com/book/BookingPortal%40cloudsurge.uk/s/415EkajqlkmqjlrwrJr44g2",
+			"statusCode": 301
+		},
+		{
+			"route": "/techaudit",
+			"redirect": "https://outlook.office.com/book/BookingPortal%40cloudsurge.uk/s/C_6uNPwxmUuIMsIPiAr4kA2",
+			"statusCode": 301
+		},
+		{
+			"route": "/charitystrategy",
+			"redirect": "https://outlook.office.com/book/BookingPortal%40cloudsurge.uk/s/MnnoPcqGKU2T2lApMFDtVA2",
+			"statusCode": 301
+		},
+		{
+			"route": "/mtf2025",
+			"redirect": "https://outlook.office.com/book/BookingPortal%40cloudsurge.uk/s/n6KimVsCmUeOwJli3THHKw2",
+			"statusCode": 301
+		},
+		{
+			"route": "/cloud-surge-whitepaper",
+			"redirect": "https://cloudsurge.uk/whitepaper/",
+			"statusCode": 301
+		},
+		{
+			"route": "/nextwebinar",
+			"redirect": "https://events.teams.microsoft.com/event/9f6cc38e-712c-46b2-8d88-247a1f1b3ba3%4046c9827f-ab05-45a8-b96f-476ecc729df9",
+			"statusCode": 301
+		},
+		{
+			"route": "/feedback",
+			"redirect": "https://forms.microsoft.com/Pages/ResponsePage.aspx?id=f4LJRgWrqEW5b0duzHKd-TCJIbHbKOJKqZu2yb9aJ9JUNU9JWFQ5SkJFR0ZUM1Y2U1FMNDE3VEpGUiQlQCN0PWcu",
+			"statusCode": 301
+		},
+		{
+			"route": "/whatsappgroup",
+			"redirect": "https://chat.whatsapp.com/IRFwtmfMzQ2BhqLpwZJWke",
+			"statusCode": 301
+		},
+		{
+			"route": "/welcomebyilyas",
+			"redirect": "https://www.youtube.com/watch?v=q5RCN7EHOp4",
+			"statusCode": 301
+		},
+		{
+			"route": "/kpibook",
+			"redirect": "https://www.amazon.co.uk/Key-Person-Influence-Five-Step-Industry/dp/B01BUK3C1W/ref=sr_1_1?crid=12PY90Q3Z3HO&dib=eyJ2IjoiMSJ9.m1Cq_zbTvUrqvQh9ilxZ1N48krws7K7YfA_LINQ50_WNj752n6f_dL2W1mZxmZkOBgfhsIyjcx8gLcz-z6UBopj00WUg-h8teICASrvd5l0RTewSoWKJzx41eRBzbG-FMxl2ATlRbcOKhoEZm_j9MTiLbMwgWsLxBeyxvQXhF0eUJGRuLdsEBBfNEH9SQz6uam4Kq6o3HFIjmAnH4HuA-6gphcuKz3q7I04szXW9xvo.InO3NIQUUCTJDGk3P9yOlvGcx6JUtd26F35XkXir0mk&dib_tag=se&keywords=key%2Bperson%2Bof%2Binfluence&qid=1727859453&sprefix=key%2Bperson%2Bof%2Binfluence%2Caps%2C63&sr=8-1",
+			"statusCode": 301
+		},
+		{
+			"route": "/webinar",
+			"redirect": "https://events.teams.microsoft.com/event/fbad434d-43d1-45c2-881f-36c668f16c01%4046c9827f-ab05-45a8-b96f-476ecc729df9",
+			"statusCode": 301
+		},
+		{
+			"route": "/newsletter",
+			"redirect": "https://cloudsurge.uk/newsletter-2/",
+			"statusCode": 301
+		},
+		{
+			"route": "/cspods",
+			"redirect": "https://cloudsurge.uk/pod-model/",
+			"statusCode": 301
+		},
+		{
+			"route": "/mastermind",
+			"redirect": "https://chat.whatsapp.com/IRFwtmfMzQ2BhqLpwZJWke",
+			"statusCode": 301
+		},
+		{
+			"route": "/linkedingroup",
+			"redirect": "https://www.linkedin.com/company/cloud-surge",
+			"statusCode": 301
+		},
+		{
+			"route": "/csinfo",
+			"redirect": "https://outlook.office.com/book/BookingPortal%40cloudsurge.uk/s/415EkajqlkmqjlrwrJr44g2",
+			"statusCode": 301
+		},
+		{
+			"route": "/linkedin-zhagum",
+			"redirect": "https://link.v1ce.co.uk/aaft3o/351736",
+			"statusCode": 301
+		},
+		{
+			"route": "/linkedin-ilyas",
+			"redirect": "https://ik.bizcard.cloudsurge.uk/",
+			"statusCode": 301
+		},
+		{
+			"route": "/linkedin-zayyan",
+			"redirect": "https://www.linkedin.com/in/zayyan-hafeez-653866209/",
+			"statusCode": 301
+		}
+	]
+}

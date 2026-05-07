@@ -1,0 +1,253 @@
+import React, { useState, useEffect, useRef } from 'react';
+import {
+  motion,
+  useViewportScroll,
+  useTransform,
+  type MotionValue,
+} from 'framer-motion';
+import clickIcon from '@/assets/click.svg';
+
+interface GojraProps {
+  imageSrc?: string;
+  altText?: string;
+}
+
+// GradientText driven by scroll‐scrubbed MotionValue<string>
+const GradientText: React.FC<{
+  text: string;
+  fillProgress: MotionValue<string>;
+  gradientStyle: React.CSSProperties;
+}> = ({ text, fillProgress, gradientStyle }) => {
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  return (
+    <span className="relative inline-block">
+      <span className="text-[#D9D9D9] block whitespace-nowrap ">
+        {text}
+      </span>
+      <motion.span
+        className="absolute top-0 left-0 bg-clip-text text-transparent block whitespace-nowrap overflow-hidden"
+        style={{
+          ...gradientStyle,
+          width: isMobile ? '100%' : fillProgress,
+        }}
+      >
+        {text}
+      </motion.span>
+    </span>
+  );
+};
+
+const cards = [
+  {
+    title: '25%',
+    content: (
+      <>
+        increase in project capacity for our partners<br/><br/>
+      </>
+    ),
+  },
+  {
+    title: '50%',
+    content: (
+      <>
+        reduction in<br/> time-to-productivity<br/><br/>
+      </>
+    ),
+  },
+  {
+    title: '98%',
+    content: (
+      <>
+        client satisfaction rate <br/><br/><br/>
+      </>
+    ),
+  },
+  {
+    title: '100+',
+    content: (
+      <>
+        successfully delivered projects across diverse industries
+      </>
+    ),
+  },
+];
+
+const Cardssuccess: React.FC<GojraProps> = () => {
+  const { scrollYProgress } = useViewportScroll();
+
+  const gradientShift = useTransform(
+    scrollYProgress,
+    [0, 1],
+    ['0% 50%', '100% 50%']
+  );
+
+  const lines = ['The Cloud Surge Impact'];
+
+  const fillWidths = [
+    useTransform(scrollYProgress, [0, 0.3], ['0%', '100%']),
+  ];
+
+  const iconOpacity = useTransform(scrollYProgress, [0, 0.3], [0, 1]);
+
+  return (
+    <>
+      {/* Animated Heading */}
+      <section className="py-10 md:py-30 h-full">
+        <div className="container px-4 md:px-30">
+          <h2 className="text-2xl sm:text-3xl md:text-6xl lg:text-7xl leading-tight flex flex-row flex-wrap items-center">
+            <div className="flex flex-row items-center mr-0 sm:mr-3">
+              {lines.map((line, idx) => (
+                <motion.div
+                  key={idx}
+                  style={{ backgroundPosition: gradientShift }}
+                  transition={{ duration: 0.6, ease: 'easeInOut' }}
+                  className="flex items-center"
+                >
+                  <GradientText
+                    text={line}
+                    fillProgress={fillWidths[idx]}
+                    gradientStyle={{
+                      backgroundImage:
+                        'linear-gradient(105deg, #ec3f24 50%, #7300bf 70%, #0a0a90 100%)',
+                      WebkitBackgroundClip: 'text',
+                      backgroundClip: 'text',
+                    }}
+                  />
+                </motion.div>
+              ))}
+              <motion.img
+                src={clickIcon}
+                alt="Click icon"
+                className="w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 ml-2 sm:ml-3 md:mt-10"
+                style={{ opacity: iconOpacity }}
+              />
+            </div>
+          </h2>
+        </div>
+      </section>
+
+      {/* Fusion Pods Cards */}
+      <PowerPodsCards />
+    </>
+  );
+};
+
+// Internal PowerPodsCards component
+const PowerPodsCards: React.FC = () => {
+  const [scrollProgress, setScrollProgress] = useState<number>(0);
+  const [isInView, setIsInView] = useState<boolean>(false);
+  const [counters, setCounters] = useState<number[]>([0, 0, 0, 0]);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const initialMargins = [0, 500, 1000, 1500];
+  const targetValues = [25, 50, 98, 100]; // Target values for counters
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current) return;
+
+      const sectionTop = sectionRef.current.offsetTop;
+      const sectionHeight = sectionRef.current.offsetHeight;
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+
+      const startOffset = sectionTop - windowHeight * 1.9;
+      const endOffset = sectionTop + sectionHeight * 0.5;
+
+      let progress = (scrollY - startOffset) / (endOffset - startOffset);
+      progress = Math.min(Math.max(progress, 0), 1);
+
+      setScrollProgress(progress);
+
+      // Check if section is in view for counter animation
+      const sectionBottom = sectionTop + sectionHeight;
+      const viewportTop = scrollY;
+      const viewportBottom = scrollY + windowHeight;
+      
+      // More generous viewport detection - trigger when 20% of section is visible
+      const triggerPoint = sectionTop + (sectionHeight * 0.2);
+      const inView = triggerPoint < viewportBottom && sectionTop > viewportTop - windowHeight;
+      
+      if (inView && !isInView) {
+        setIsInView(true);
+        
+        // Animate each counter
+        targetValues.forEach((target, index) => {
+          let start = 0;
+          const duration = 2000; // 2 seconds
+          const startTime = Date.now();
+          
+          const animate = () => {
+            const elapsed = Date.now() - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            
+            // Easing function for smooth animation
+            const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+            const current = Math.floor(start + (target - start) * easeOutQuart);
+            
+            setCounters(prev => {
+              const newCounters = [...prev];
+              newCounters[index] = current;
+              return newCounters;
+            });
+            
+            if (progress < 1) {
+              requestAnimationFrame(animate);
+            }
+          };
+          
+          // Stagger the animation start for each counter
+          setTimeout(() => {
+            requestAnimationFrame(animate);
+          }, index * 200);
+        });
+      } else if (!inView) {
+        setIsInView(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isInView, targetValues]);
+
+  return (
+    <div ref={sectionRef} className="w-full relative py-0 mb-20 md:mb-55">
+      <div className="overflow-hidden w-full px-4 sm:px-6 lg:px-8 flex justify-center">
+        <div className="max-w-[85%] md:max-w-[90%] mx-auto w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-x-3 lg:gap-x-3 xl:gap-x-4 2xl:gap-x-0">
+          {cards.map((card, i) => {
+            const currentMargin = window.innerWidth >= 1024 ? Math.max(0, initialMargins[i] * (0.7 - scrollProgress)) : 0;
+
+            return (
+              <div
+                key={i}
+                className="transition-all duration-50 ease-out"
+                style={{ marginTop: `${currentMargin}px` }}
+              >
+                <div className="flex flex-col p-4 md:p-3 lg:p-3 xl:p-4 2xl:p-4 md:pl-6 lg:pl-7 xl:pl-7 2xl:pl-8 pt-6 md:pt-16 lg:pt-18 xl:pt-20 2xl:pt-25 bg-[#EFEFEF] min-h-[150px] sm:min-h-[250px] md:min-h-[240px] lg:min-h-[250px] xl:min-h-[260px] 2xl:min-h-[300px] w-full md:w-[200px] lg:w-[220px] xl:w-[240px] 2xl:w-90">
+                  <h2 className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl text-left sm:text-5xl font-semibold text-[#EF4123] mb-2 sm:mb-4">
+                    {i === 3 ? `${counters[i]}+` : `${counters[i]}%`}
+                  </h2>
+                  <div className="w-full h-1 bg-[#EF4123] mb-4 sm:mb-6" />
+                  <p className="text-[#EF4123] text-left text-sm sm:text-base md:text-base lg:text-lg xl:text-xl 2xl:text-2xl max-w-[95%] md:max-w-[90%] leading-tight">
+                    {card.content}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Cardssuccess;
