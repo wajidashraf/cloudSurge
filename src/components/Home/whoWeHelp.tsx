@@ -91,6 +91,8 @@ const WhoWeHelp: React.FC = () => {
           flex-direction: row;
           /* Only transition flex-grow so siblings shrink as hovered card grows */
           transition: flex-grow 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+          // box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+          // // border-radius: 6px;
         }
 
         /* Expanded card gets extra flex-grow to claim the text panel width */
@@ -111,9 +113,9 @@ const WhoWeHelp: React.FC = () => {
         /* Title */
         .wwh-card-title {
           position: absolute;
-          left: 23px;
+          left: 2.5%;
           top: 23px;
-          font-size: clamp(20px, 2.2vw, 32px);
+          font-size: clamp(20px, 2.2vw, 28px);
           font-weight: 600;
           color: #5D5D5D;
           line-height: 1.13;
@@ -124,18 +126,29 @@ const WhoWeHelp: React.FC = () => {
           text-align: left;
         }
 
-        /* Image: centred horizontally, pinned to bottom */
+        /* Image: centred horizontally, pinned to bottom, fills ~87% of card */
         .wwh-card-img {
           position: absolute;
           left: 50%;
           transform: translateX(-50%);
-          bottom: 23px;
-          width: calc(100% - 46px); /* 23px margin each side */
-          max-width: 262px;
-          height: 152px;
+          bottom: 10px;
+          width: 95%;
+          max-width: 95%;
+          height: 180px;
           object-fit: cover;
+          object-position: center top;
           transition: width 0.45s cubic-bezier(0.4, 0, 0.2, 1),
-                      max-width 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+                      max-width 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+                      height 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+                      bottom 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Shrink image when card is expanded to give text panel visual breathing room */
+        .wwh-card.expanded .wwh-card-img {
+          height: 180px;
+          bottom: 12px;
+          width: calc(100% - 16px);
+          max-width: calc(100% - 16px);
         }
 
         /* ── Right pane: fixed width text panel, hidden until expanded ── */
@@ -183,11 +196,21 @@ const WhoWeHelp: React.FC = () => {
             height: auto !important;
             flex-direction: column !important;
           }
+          /* Card left: tall enough for title + full image */
           .wwh-card-left {
             width: 100% !important;
             height: auto !important;
-            min-height: 220px;
+            min-height: 260px;
+            padding-bottom: 0 !important;
           }
+          /* Title: single line, smaller so it never wraps */
+          .wwh-card-title {
+            font-size: 18px !important;
+            white-space: nowrap !important;
+            top: 16px !important;
+            left: 16px !important;
+          }
+          /* Image: relative flow so card expands to contain it */
           .wwh-card-img {
             position: relative !important;
             left: unset !important;
@@ -195,10 +218,13 @@ const WhoWeHelp: React.FC = () => {
             transform: none !important;
             width: 100% !important;
             max-width: 100% !important;
-            height: 180px !important;
+            height: 200px !important;
             display: block;
-            margin-top: 80px;
+            margin-top: 52px;
+            object-fit: cover;
+            object-position: center top;
           }
+          /* Text panel: always visible, full width */
           .wwh-card-right {
             width: 100% !important;
             height: auto !important;
@@ -213,6 +239,14 @@ const WhoWeHelp: React.FC = () => {
             flex-wrap: wrap !important;
             gap: 12px !important;
           }
+          /* Ticker: stack title on top, track below full width */
+          .wwh-ticker-row {
+            flex-direction: column !important;
+            gap: 12px !important;
+            align-items: flex-start !important;
+          }
+          .wwh-ticker-divider { display: none !important; }
+          .wwh-ticker-outer   { width: 100% !important; flex: unset !important; }
         }
 
         @media (max-width: 540px) {
@@ -248,7 +282,7 @@ const WhoWeHelp: React.FC = () => {
           <span
             className="wwh-subtitle"
             style={{
-              fontSize: "clamp(16px, 2vw, 27.5px)",
+              fontSize: "clamp(20px, 2vw, 27.5px)",
               fontWeight: 350,
               color: "#EF4123",
               lineHeight: 1.08,
@@ -266,7 +300,7 @@ const WhoWeHelp: React.FC = () => {
         {/* ── Tagline ── */}
         <p
           style={{
-            fontSize: "clamp(13px, 1.3vw, 18px)",
+            fontSize: "clamp(17px, 1.3vw, 20px)",
             fontWeight: 350,
             color: "#EF4123",
             letterSpacing: "-0.01em",
@@ -304,7 +338,7 @@ const WhoWeHelp: React.FC = () => {
 
         {/* ── Ticker ── */}
         <div style={{ marginTop: 48, borderTop: "1px solid #e0e0e0", paddingTop: 24 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 40 }}>
+          <div className="wwh-ticker-row" style={{ display: "flex", alignItems: "center", gap: 40 }}>
             <span
               className="wwh-ticker-heading"
               style={{
@@ -318,7 +352,7 @@ const WhoWeHelp: React.FC = () => {
             >
               Common teams we support
             </span>
-            <div style={{ width: 0, height: 46, borderLeft: "1.5px solid #DEDEDE", flexShrink: 0 }} />
+            <div className="wwh-ticker-divider" style={{ width: 0, height: 46, borderLeft: "1.5px solid #DEDEDE", flexShrink: 0 }} />
             <div
               className="wwh-ticker-outer"
               style={{ overflow: "hidden", flex: 1, position: "relative" }}
@@ -345,7 +379,7 @@ const WhoWeHelp: React.FC = () => {
                 ))}
               </div>
             </div>
-            <div style={{ width: 0, height: 46, borderLeft: "1.5px solid #DEDEDE", flexShrink: 0 }} />
+            <div className="wwh-ticker-divider" style={{ width: 0, height: 46, borderLeft: "1.5px solid #DEDEDE", flexShrink: 0 }} />
           </div>
         </div>
 

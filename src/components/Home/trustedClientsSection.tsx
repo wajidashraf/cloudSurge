@@ -12,16 +12,21 @@ function useCounter(target: number, duration = 8000, active: boolean) {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    if (!active) return;
+    if (!active) {
+      setCount(0);
+      return;
+    }
     let start: number | null = null;
+    let rafId: number;
     const step = (timestamp: number) => {
       if (!start) start = timestamp;
       const progress = Math.min((timestamp - start) / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
       setCount(Math.floor(eased * target));
-      if (progress < 1) requestAnimationFrame(step);
+      if (progress < 1) rafId = requestAnimationFrame(step);
     };
-    requestAnimationFrame(step);
+    rafId = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(rafId);
   }, [active, target, duration]);
 
   return count;
@@ -38,7 +43,10 @@ const StatItem: React.FC<{
   const [started, setStarted] = useState(false);
 
   useEffect(() => {
-    if (!active) return;
+    if (!active) {
+      setStarted(false);
+      return;
+    }
     const t = setTimeout(() => setStarted(true), delay);
     return () => clearTimeout(t);
   }, [active, delay]);
@@ -64,8 +72,8 @@ const TrustedClientsSection: React.FC = () => {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setInView(true); },
-      { threshold: 0.2 }
+      ([entry]) => setInView(entry.isIntersecting),
+      { threshold: 0.3 }
     );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
@@ -75,18 +83,17 @@ const TrustedClientsSection: React.FC = () => {
     <section className="trusted-section relative z-20 w-full flex justify-center px-4 sm:px-6">
       <style>{`
 
-        /* ── Section wrapper: no overlap on mobile, overlap on lg+ ── */
         .trusted-section {
-          margin-top: -15vh;
+          margin-top: -18vh;
         }
         @media (min-width: 768px) {
           .trusted-section {
-            margin-top: -12vh;
+            margin-top: -20vh;
           }
         }
         @media (min-width: 1024px) {
           .trusted-section {
-            margin-top: -10vh;
+            margin-top: -18vh;
           }
         }
 
@@ -152,7 +159,6 @@ const TrustedClientsSection: React.FC = () => {
           }
         }
 
-        /* ── Divider: top border on mobile, left border on sm+ ── */
         .stat-divided {
           border-top: 1px solid rgba(12, 8, 4, 0.15);
         }

@@ -1,170 +1,427 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import type { FC } from 'react';
 import logo from '@/assets/CS_red.svg';
+import { Link } from '@tanstack/react-router';
 
-interface FooterSectionProps {}
+const FONT = "'Bahnschrift', 'DIN Alternate', 'Arial Narrow', sans-serif";
 
-export const FooterSection: FC<FooterSectionProps> = () => {
-  const ref = useRef<HTMLElement>(null);
+const NAV_LINKS = [
+  { label: 'ABOUT', to: '/about' },
+  { label: 'FUSION PODS', to: '/fusion-pods' },
+  { label: 'SURGE CARE', to: '/surge-care' },
+  { label: 'SUCCESS STORIES', to: '/success-stories' },
+  { label: 'CAREERS', to: '/careers' },
+  { label: 'CONTACT US', to: '/contact' },
+];
+
+const SOCIAL_LINKS = [
+  {
+    label: 'Instagram',
+    href: 'https://www.instagram.com/cloudsurgeuk/',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="2" width="20" height="20" rx="5" stroke="#EC3F24" strokeWidth="2"/>
+        <circle cx="12" cy="12" r="4" stroke="#EC3F24" strokeWidth="2"/>
+        <circle cx="17.5" cy="6.5" r="1.5" fill="#EC3F24"/>
+      </svg>
+    ),
+  },
+  {
+    label: 'LinkedIn',
+    href: 'https://www.linkedin.com/company/cloud-surge',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="#EC3F24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.22 8.29h4.56V23H.22zM8.35 8.29h4.37v2.01h.06c.61-1.16 2.11-2.38 4.34-2.38 4.64 0 5.5 3.05 5.5 7.01V23h-4.75v-6.53c0-1.56-.03-3.57-2.17-3.57-2.17 0-2.5 1.69-2.5 3.44V23H8.35z"/>
+      </svg>
+    ),
+  },
+  {
+    label: 'Youtube',
+    href: 'https://www.youtube.com/@cloudsurge',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="#EC3F24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.5 31.5 0 0 0 0 12a31.5 31.5 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.5 31.5 0 0 0 24 12a31.5 31.5 0 0 0-.5-5.8zM9.7 15.5V8.5l6.3 3.5-6.3 3.5z"/>
+      </svg>
+    ),
+  },
+];
+
+export const FooterSection: FC = () => {
+  const [email, setEmail] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (email) setSubmitted(true);
+  };
 
   return (
     <footer
-      ref={ref}
-      className="w-full bg-[#D9D9D9] text-[#5D5D5D] py-4 md:py-12 relative overflow-hidden max-h-[70vh] md:max-h-none"
+      style={{
+        width: '100%',
+        background: '#D9D9D9',
+        fontFamily: FONT,
+        boxSizing: 'border-box',
+      }}
     >
-      <div className="w-full grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 2xl:ml-20 2xl:grid-cols-3 gap-4 md:gap-8 px-6 md:px-8 lg:px-10 xl:px-12 2xl:px-12 relative z-10">
-        {/* Logo & Description */}
-        <div className="text-left order-1 md:order-none">
-          <img
-            src={logo}
-            alt="Cloud Surge"
-            className="h-10 md:h-20 mb-6 md:mb-6"
-          />
-          <p className="text-[10px] md:text-sm md:text-gray-500 mb-2 md:mb-6 leading-tight">
-            Cloud Surge Solutions Ltd trading as Cloud Surge is a company registered in England and Wales: company number 1442129.
-          </p>
-          <div className="hidden md:block">
-            <p className="font-bold text-sm md:text-xl mb-1 md:mb-2">0121 816 1121</p>
-            <a
-              href="mailto:info@cloudsurge.uk"
-              className="font-bold text-sm md:text-4xl hover:text-[#ef4123] transition-colors duration-300 cursor-pointer"
-            >
-              info@cloudsurge.uk
-            </a>
+      <style>{`
+        .footer-inner {
+          // max-width: 1280px;
+          margin: 0 auto;
+          padding: 60px 64px 0;
+          box-sizing: border-box;
+        }
+
+        /* ── Top content row ── */
+        .footer-content {
+          display: flex;
+          flex-direction: row;
+          align-items: flex-start;
+          gap: 80px;
+        }
+
+        /* ── Left: logo + tagline + newsletter ── */
+        .footer-left {
+          display: flex;
+          flex-direction: column;
+          gap: 54px;
+          width: 500px;
+          flex-shrink: 0;
+        }
+
+        .footer-logo-block {
+          display: flex;
+          flex-direction: column;
+          gap: 24px;
+        }
+
+        .footer-logo {
+          height: 84px;
+          width: auto;
+          object-fit: contain;
+          object-position: left;
+        }
+
+        .footer-tagline {
+          font-family: ${FONT};
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 150%;
+          color: #5D5D5D;
+          margin: 0;
+        }
+
+        /* Newsletter */
+        .footer-newsletter {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+        }
+
+        .footer-newsletter-heading {
+          font-family: ${FONT};
+          font-weight: 600;
+          font-size: 32px;
+          line-height: 150%;
+          color: #5D5D5D;
+          margin: 0;
+        }
+
+        .footer-form {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          width: 468px;
+          height: 40px;
+          border-bottom: 1.5px solid #EF4123;
+          position: relative;
+        }
+
+        .footer-input {
+          flex: 1;
+          background: transparent;
+          border: none;
+          outline: none;
+          font-family: ${FONT};
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 150%;
+          color: #5D5D5D;
+          padding: 8px 0;
+        }
+        .footer-input::placeholder {
+          color: rgba(12, 8, 4, 0.6);
+        }
+
+        .footer-submit {
+          width: 32px;
+          height: 32px;
+          background: #EF4123;
+          border: none;
+          border-radius: 50%;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          transition: background 0.2s;
+        }
+        .footer-submit:hover { background: #C0311A; }
+
+        /* ── Right: nav links + contact + social ── */
+        .footer-right {
+          flex: 1;
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-end;
+          align-items: flex-start;
+          gap: 40px;
+        }
+
+        /* Nav links column */
+        .footer-nav {
+          display: flex;
+          flex-direction: column;
+          gap: 0;
+          width: 194px;
+        }
+
+        .footer-nav-link {
+          display: flex;
+          align-items: center;
+          padding: 8px 0;
+          font-family: ${FONT};
+          font-weight: 600;
+          font-size: 16px;
+          line-height: 150%;
+          color: #EC3F24;
+          text-decoration: none;
+          transition: opacity 0.2s;
+          border-bottom: none;
+          position: relative;
+        }
+        .footer-nav-link::after {
+          content: '';
+          position: absolute;
+          bottom: 4px;
+          left: 0;
+          width: 0;
+          height: 1.5px;
+          background: #C0311A;
+          opacity: 0.5;
+          transition: width 0.3s ease;
+        }
+        .footer-nav-link:hover::after { width: 100%; }
+
+        /* Contact + social column */
+        .footer-contact {
+          display: flex;
+          flex-direction: column;
+          gap: 0;
+          width: 178px;
+        }
+
+        .footer-contact-row {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 12px;
+          padding: 8px 0;
+          text-decoration: none;
+          color: #EC3F24;
+          font-family: ${FONT};
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 150%;
+          transition: opacity 0.2s;
+        }
+        .footer-contact-row:hover { opacity: 0.75; }
+
+        /* ── Bottom credits bar ── */
+        .footer-credits {
+          margin-top: 56px;
+          border-top: 1px solid rgba(12, 8, 4, 0.15);
+          padding: 16px 0 32px;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          gap: 24px;
+          flex-wrap: wrap;
+        }
+
+        .footer-copyright {
+          font-family: ${FONT};
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 150%;
+          color: #EC3F24;
+          margin: 0;
+        }
+
+        .footer-legal-links {
+          display: flex;
+          flex-direction: row;
+          gap: 24px;
+          flex-wrap: wrap;
+        }
+
+        .footer-legal-link {
+          font-family: ${FONT};
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 150%;
+          color: #EC3F24;
+          text-decoration: underline;
+          transition: opacity 0.2s;
+        }
+        .footer-legal-link:hover { opacity: 0.75; }
+
+        /* ── Responsive ── */
+        @media (max-width: 1100px) {
+          .footer-inner { padding: 48px 40px 0; }
+          .footer-content { gap: 48px; }
+          .footer-left { width: 420px; }
+          .footer-form { width: 100%; }
+        }
+
+        @media (max-width: 860px) {
+          .footer-inner { padding: 40px 24px 0; }
+          .footer-content {
+            flex-direction: column;
+            gap: 40px;
+          }
+          .footer-left { width: 100%; }
+          .footer-form { width: 100%; max-width: 468px; }
+          .footer-right {
+            width: 100%;
+            justify-content: flex-start;
+            gap: 32px;
+          }
+        }
+
+        @media (max-width: 560px) {
+          .footer-inner { padding: 32px 20px 0; }
+          .footer-right {
+            flex-direction: column;
+            gap: 8px;
+          }
+          .footer-nav { width: 100%; }
+          .footer-contact { width: 100%; }
+          .footer-newsletter-heading { font-size: 24px; }
+          .footer-logo { height: 56px; }
+          .footer-credits {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 16px 0 24px;
+          }
+          .footer-legal-links { gap: 16px; }
+        }
+      `}</style>
+
+      <div className="footer-inner">
+
+        {/* ── Top content ── */}
+        <div className="footer-content">
+
+          {/* Left column */}
+          <div className="footer-left">
+            <div className="footer-logo-block">
+              <img src={logo} alt="Cloud Surge" className="footer-logo" />
+              <p className="footer-tagline text-left">
+                Cloud Surge Solutions Ltd trading as Cloud Surge is a company registered
+                in England and Wales: company number 14421129.
+              </p>
+            </div>
+
+            <div className="footer-newsletter">
+              <p className="footer-newsletter-heading text-left">Stay Connected</p>
+              {submitted ? (
+                <p style={{ fontFamily: FONT, fontSize: 16, color: '#EF4123', margin: 0 }}>
+                  Thanks for subscribing!
+                </p>
+              ) : (
+                <form className="footer-form" onSubmit={handleSubmit}>
+                  <input
+                    className="footer-input"
+                    type="email"
+                    placeholder="Enter your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    aria-label="Email address"
+                  />
+                  <button className="footer-submit" type="submit" aria-label="Subscribe">
+                    <svg width="12" height="14" viewBox="0 0 12 14" fill="none">
+                      <path d="M2 1L10 7L2 13" stroke="#D9D9D9" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </button>
+                </form>
+              )}
+            </div>
           </div>
-        </div>
 
-        {/* Newsletter */}
-        <div className="md:mt-0 order-2 md:order-none">
-          <h3 className="text-lg md:text-3xl font-semibold mb-0 md:mb-4 text-left text-[#5D5D5D]">
-            Stay connected
-          </h3>
-          <p className="text-xs md:text-sm mb-2 md:mb-4 text-left leading-tight">
-            Join our newsletter and stay updated on the latest trends in digital design
-          </p>
-          <form className="relative">
-            <input
-              type="email"
-              placeholder="E-mail"
-              className="w-full pr-10 md:pr-12 px-2 md:px-4 py-1.5 md:py-2 border-b-2 border-[#ef4123] focus:outline-none text-xs md:text-sm bg-transparent transition-all duration-300 hover:border-[#c0311a] focus:border-[#c0311a]"
-            />
-            <button
-              type="submit"
-              className="absolute right-1 top-1/3 h-7 md:h-9 transform -translate-y-1/2 px-2 md:px-3 bg-[#ef4123] text-white rounded-full text-xs"
-            >
-              ▶︎
-            </button>
-          </form>
-        </div>
+          {/* Right columns */}
+          <div className="footer-right">
 
-        {/* Links & Contact */}
-        <div className="mt-4 md:mt-0 md:ml-20 lg:ml-24 xl:ml-32 2xl:ml-40 order-3 md:order-none">
-          <div className="grid grid-cols-2 gap-3 md:block">
-            <ul className="space-y-1 text-left text-[11px] md:text-lg">
-              {[
-                { name: 'About', url: '/about' },
-                { name: 'Fusion Pods', url: '/fusion-pods' },
-                { name: 'Success Stories', url: '/success-stories' },
-                { name: 'Careers', url: '/careers' },
-                { name: 'Contacts', url: '/contact' },
-                { name: 'Terms Of Service', url: '/terms-of-service', hideOnMobile: true },
-                { name: 'Privacy Notice', url: '/privacy-notice', hideOnMobile: true },
-              ].map((link) => (
-                <li key={link.name} className={link.hideOnMobile ? 'hidden md:block' : ''}>
-                  <a
-                    href={link.url}
-                    className="block relative text-[11px] md:text-lg text-[#ef4123] hover:font-bold group"
-                  >
-                    {link.name}
-                    <span className="absolute -bottom-1 right-0 w-0 h-0.5 bg-[#c0311a] opacity-50 group-hover:w-full transition-all duration-600 delay-100 ease-out" />
-                  </a>
-                </li>
+            {/* Nav links */}
+            <nav className="footer-nav" aria-label="Footer navigation">
+              {NAV_LINKS.map((link) => (
+                <Link key={link.to} to={link.to} className="footer-nav-link">
+                  {link.label}
+                </Link>
               ))}
-            </ul>
-            <div className="flex flex-col justify-end text-[11px] md:text-base text-left space-y-1 md:mt-4 md:hidden">
-              <p className="font-bold text-sm">0121 816 1121</p>
-              <a
-                href="mailto:info@cloudsurge.uk"
-                className="font-bold text-base hover:text-[#ef4123] transition-colors duration-300 cursor-pointer"
-              >
+            </nav>
+
+            {/* Contact + social */}
+            <div className="footer-contact">
+              <a href="tel:01218161121" className="footer-contact-row">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C9.6 21 3 14.4 3 6c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z" stroke="#EC3F24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                0121 816 1121
+              </a>
+
+              <a href="mailto:info@cloudsurge.uk" className="footer-contact-row">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="#EC3F24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <polyline points="22,6 12,13 2,6" stroke="#EC3F24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
                 info@cloudsurge.uk
               </a>
-              <a
-                href="/terms-of-service"
-                className="block text-[11px] text-[#ef4123] hover:font-bold"
-              >
-                Terms Of Service
-              </a>
-              <a
-                href="/privacy-notice"
-                className="block text-[11px] text-[#ef4123] hover:font-bold"
-              >
-                Privacy Notice
-              </a>
-              <div className="flex items-center gap-3 pt-1">
+
+              {SOCIAL_LINKS.map((s) => (
                 <a
-                  href="https://www.linkedin.com/company/cloud-surge"
+                  key={s.label}
+                  href={s.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="LinkedIn"
-                  className="text-[#ef4123] hover:text-[#c0311a]"
+                  className="footer-contact-row"
+                  aria-label={s.label}
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    className="w-4 h-4 md:w-6 md:h-6"
-                    fill="currentColor"
-                  >
-                    <path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.22 8.29h4.56V23H.22zM8.35 8.29h4.37v2.01h.06c.61-1.16 2.11-2.38 4.34-2.38 4.64 0 5.5 3.05 5.5 7.01V23h-4.75v-6.53c0-1.56-.03-3.57-2.17-3.57-2.17 0-2.5 1.69-2.5 3.44V23H8.35z" />
-                  </svg>
+                  {s.icon}
+                  {s.label}
                 </a>
-                <a
-                  href="https://www.instagram.com/cloudsurgeuk/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Instagram"
-                  className="text-[#ef4123] hover:text-[#c0311a]"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    className="w-4 h-4 md:w-6 md:h-6"
-                    fill="currentColor"
-                  >
-                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                  </svg>
-                </a>
-              </div>
+              ))}
             </div>
-            <div className="hidden md:block">
-              <ul className="space-y-1 text-left">
-                <li>
-                  <a
-                    href="https://www.linkedin.com/company/cloud-surge"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block relative text-lg text-[#ef4123] hover:font-bold group"
-                  >
-                    LinkedIn
-                    <span className="absolute -bottom-1 right-0 w-0 h-0.5 bg-[#c0311a] opacity-50 group-hover:w-full transition-all duration-600 delay-100 ease-out" />
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://www.instagram.com/cloudsurgeuk/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block relative text-lg text-[#ef4123] hover:font-bold group"
-                  >
-                    Instagram
-                    <span className="absolute -bottom-1 right-0 w-0 h-0.5 bg-[#c0311a] opacity-50 group-hover:w-full transition-all duration-600 delay-100 ease-out" />
-                  </a>
-                </li>
-              </ul>
-            </div>
+
           </div>
         </div>
+
+        {/* ── Credits bar ── */}
+        <div className="footer-credits">
+          <p className="footer-copyright">© All rights reserved.</p>
+          <div className="footer-legal-links">
+            <Link to="/privacy-notice" className="footer-legal-link">Privacy Policy</Link>
+            <Link to="/terms-of-service" className="footer-legal-link">Terms of Service</Link>
+            <Link to="/" className="footer-legal-link">Cookies Settings</Link>
+          </div>
+        </div>
+
       </div>
     </footer>
   );
 };
+
+export default FooterSection;

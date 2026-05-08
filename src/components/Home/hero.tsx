@@ -60,8 +60,8 @@ const Hero: React.FC = () => {
     >
       <style>{`
        .hero-section {
-      height: 100vh ;
-      padding-bottom: 0;
+      height: 120vh;
+      padding-bottom: 20vh;
     }
 
     
@@ -111,10 +111,12 @@ const Hero: React.FC = () => {
         }
       `}</style>
 
-      {/* Background image */}
+      {/* Background image — 120vh so it bleeds into the next section */}
       <div
-        className="absolute inset-0 w-full h-full"
+        className="absolute w-full"
         style={{
+          top: 0,
+          height: "120vh",
           backgroundImage: `url(${heroBg})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
@@ -122,19 +124,20 @@ const Hero: React.FC = () => {
         }}
       />
 
-      {/* Mouse-tracking gradient overlay
-          — starts centered, follows cursor via RAF lerp */}
+      {/* Mouse-tracking gradient overlay — also 120vh */}
       <div
         ref={gradientRef}
-        className="absolute inset-0 w-full h-full"
+        className="absolute w-full"
         style={{
+          top: 0,
+          height: "120vh",
           background:
             "linear-gradient(180deg, #ec3f24 0%, #ec3f24 70%, #7300bf 85%, #0a0a90 100%)",
         }}
       />
 
-      {/* Glassmorphism strips */}
-      <div className="absolute inset-0 flex flex-row items-stretch pointer-events-none overflow-hidden">
+      {/* Glassmorphism strips — 120vh to match background/overlay */}
+      <div className="absolute w-full flex flex-row items-stretch pointer-events-none overflow-hidden" style={{ top: 0, height: "120vh" }}>
         {Array.from({ length: GLASS_STRIPS }).map((_, i) => (
           <div
             key={i}

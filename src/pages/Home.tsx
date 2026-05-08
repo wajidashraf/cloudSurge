@@ -15,6 +15,8 @@ import salesforce from '@/assets/marquee_logos/new-salesforce-logo-blue-png-larg
 import TrustedClientsSection from '@/components/Home/trustedClientsSection';
 import WhatWeDeliver from '@/components/Home/whatWeDeliver';
 import WhoWeHelp from '@/components/Home/whoWeHelp';
+import WhatWeOffer from '@/components/Home/whatWeOffer';
+import CtaSection from '@/components/Home/ctaSection';
 
 
 const ScrollToTop = lazy(
@@ -47,6 +49,7 @@ const FooterSection = lazy(
   () =>
     import('@/components/common/footer').then(module => ({ default: module.FooterSection }))
 );
+
 
 export const Home: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -102,12 +105,15 @@ export const Home: React.FC = () => {
       </Suspense>
 
       <Suspense fallback={simpleFallback}>
+        <WhatWeOffer />
+      </Suspense>
+      {/* <Suspense fallback={simpleFallback}>
         <PowerPodsCards />
       </Suspense>
 
       <Suspense fallback={simpleFallback}>
         <ScrollTimeline />
-      </Suspense>
+      </Suspense> */}
 
 
       <Suspense fallback={simpleFallback}>
@@ -119,8 +125,8 @@ export const Home: React.FC = () => {
       </Suspense>
 
       <Suspense fallback={simpleFallback}>
-        <HeroSection />
-      </Suspense>
+        <CtaSection />
+      </Suspense> 
       <Suspense fallback={simpleFallback}>
         <FooterSection />
       </Suspense>

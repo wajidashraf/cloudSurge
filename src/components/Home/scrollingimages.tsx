@@ -7,7 +7,7 @@ interface ScrollingImagesProps {
 
 const ScrollingImages: React.FC<ScrollingImagesProps> = ({
   images,
-  speed = 18,
+  speed = 12,
 }) => {
  
   const duplicatedImages = [...images, ...images];
