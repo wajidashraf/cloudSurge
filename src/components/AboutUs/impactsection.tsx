@@ -46,7 +46,7 @@ const ImpactSection: React.FC = () => {
         <h2 className="flex flex-col md:flex-row items-start text-left font-semibold leading-tight mb-6">
           <div className="flex flex-col items-start">
             <span
-              className="block text-[80px] sm:text-[100px] md:text-[140px] lg:text-[200px] xl:text-[260px] 2xl:text-[350px] leading-none"
+              className="block text-[60px] sm:text-[100px] md:text-[140px] lg:text-[200px] xl:text-[260px] 2xl:text-[280px] leading-none"
               style={{
                 backgroundImage: 'linear-gradient(105deg, #ec3f24 50%, #7300bf 70%, #0a0a90 100%)',
                 WebkitBackgroundClip: 'text',
