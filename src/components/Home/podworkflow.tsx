@@ -228,7 +228,7 @@ const StepCard: React.FC<{
   step: (typeof STEPS)[0];
   index: number;
   inView: boolean;
-}> = ({ step, index, inView }) => (
+}> = React.memo(({ step, index, inView }) => (
   <motion.div
     className="pod-step-wrapper"
     initial={{ opacity: 0, y: 32 }}
@@ -256,7 +256,7 @@ const StepCard: React.FC<{
       )}
     </div>
   </motion.div>
-);
+));
 
 // ── Main Component ──────────────────────────────────────────────────────────
 
@@ -280,9 +280,8 @@ const PodWorkflowSection: React.FC = () => {
       <style>{`
         /* ── Section ── */
         .pod-workflow-section {
-          width: 100%;
           background: #E6E5E5;
-          padding: 53px 24px 52px;
+          padding: 130px ;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -524,6 +523,7 @@ const PodWorkflowSection: React.FC = () => {
         }
       `}</style>
 
+  <div className="lg:px-6 max-w-[1280px]">
       {/* Heading */}
       <motion.h2
         className="pod-workflow-title"
@@ -572,6 +572,7 @@ const PodWorkflowSection: React.FC = () => {
           Explore the Fusion Pods model
         </Link>
       </motion.div>
+      </div>
     </section>
   );
 };

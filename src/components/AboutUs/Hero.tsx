@@ -116,7 +116,7 @@ const HeroSection: React.FC = () => {
           <p
   className="text-3xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-[85px] font-extrabold text-[#ef4123] leading-[0.9]"
 >
-  Building Bridges
+  Built to Deliver.
 </p>
 <motion.p
   className="text-[#ef4123] mt-2 sm:mt-3 text-xl sm:text-2xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-4xl font-extrabold"
@@ -124,40 +124,31 @@ const HeroSection: React.FC = () => {
   whileInView={{ opacity: 1 }}
   transition={{ delay: 0.6 }}
 >
-  empowering&nbsp;
+  And built to&nbsp;
   {/* hidden on mobile, shown from sm upwards */}
   <br className="hidden sm:block" />
-  communities
+mean something.
 </motion.p>
 
         </motion.div>
 
         <motion.div
-          className="absolute left-4 md:left-auto md:translate-x-0 md:right-5 sm:right-0 bottom-2 sm:bottom-4 md:bottom-8 lg:bottom-12 xl:bottom-16 2xl:bottom-8 bg-[#D9D9D9]/50 backdrop-blur-sm flex flex-col justify-end lg:flex-row lg:items-end lg:divide-y-0 lg:[&>*+*]:border-l-4 lg:[&>*+*]:border-[#D9D9D9] md:[&>*+*]:h-32 lg:[&>*+*]:h-36 xl:[&>*+*]:h-38 2xl:[&>*+*]:h-40 lg:[&>*+*]:my-auto w-[calc(100vw-2rem)] sm:max-w-[min(600px,40vw)] md:max-w-[min(480px,42vw)] lg:max-w-[min(600px,48vw)] xl:max-w-[min(720px,54vw)] 2xl:max-w-[min(900px,60vw)]"
+          className="absolute left-4 md:left-auto md:translate-x-0 md:right-5 sm:right-0 bottom-3 sm:bottom-4 md:bottom-8 lg:bottom-12 xl:bottom-20 2xl:bottom-16 bg-[#D9D9D9]/50 backdrop-blur-sm flex flex-col justify-end lg:flex-row lg:items-end lg:divide-y-0 lg:[&>*+*]:border-l-4 lg:[&>*+*]:border-[#D9D9D9] md:[&>*+*]:h-32 lg:[&>*+*]:h-36 xl:[&>*+*]:h-38 2xl:[&>*+*]:h-40 lg:[&>*+*]:my-auto w-[calc(100vw-2rem)] sm:max-w-[min(600px,40vw)] md:max-w-[min(480px,42vw)] lg:max-w-[min(600px,48vw)] xl:max-w-[min(720px,54vw)] 2xl:max-w-[min(900px,60vw)]"
           initial={{ opacity: 0, x: 20 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
           viewport={{ once: true, margin: "-100px" }}
         >
-          <motion.div
-            className="px-4 sm:px-6 pt-4 sm:pt-6 pb-4 sm:pb-6 md:px-4 md:py-4 lg:px-5 lg:py-5 xl:px-6 xl:py-6 2xl:pr-8 2xl:py-8 flex-1 border-b-4 border-[#D9D9D9] md:border-b-0"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
-          >
-            <p className="text-[#ef4123] font-medium text-base sm:text-lg md:text-sm lg:text-base xl:text-lg 2xl:text-xl leading-snug">
-              We're on a mission to close the global IT skills gap and create lasting opportunities in emerging economies.
-            </p>
-          </motion.div>
+        
 
           <motion.div
-            className="px-4 sm:px-6 pt-4 sm:pt-6 pb-4 sm:pb-6 md:px-4 md:py-2 lg:px-6 lg:py-2 xl:px-7 xl:py-3 2xl:pl-8 2xl:pr-20 2xl:py-3 flex-2"
+            className="px-4 sm:px-6 pt-4 sm:pt-16 pb-4 sm:pb-6 md:px-4 md:py-2 lg:px-6 lg:py-2 xl:px-7 xl:py-3 2xl:pl-8 2xl:pr-20 2xl:py-3 flex-2"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 1.0 }}
           >
-            <p className="text-[#5D5D5D] text-sm sm:text-base md:text-xs lg:text-sm xl:text-base 2xl:text-lg max-w-full">
-              At Cloud Surge, we believe technology can be a catalyst for positive change, both for businesses and the individuals who power them. Our innovative Pod model and global talent academy are opening doors where they've never been opened before.
+            <p className="text-[#5D5D5D] lg:py-6 leading-5 text-sm sm:text-base md:text-xs lg:text-sm xl:text-base 2xl:text-lg max-w-full">
+              Cloud Surge is a UK tech delivery partner. We provide pre-formed teams that integrate with your environment and start delivering in 48 hours. We are also on a mission to create one million tech jobs in underserved communities, starting in Gojra, Pakistan.
             </p>
           </motion.div>
         </motion.div>

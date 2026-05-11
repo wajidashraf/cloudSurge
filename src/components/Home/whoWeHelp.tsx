@@ -1,5 +1,4 @@
 import React, { useRef, useState } from "react";
-import { useInView } from "framer-motion";
 import ITPartnerImage from "@/assets/IT Partners and MSP.jpg";
 import EnterpriseImage from "@/assets/Enterprise and in house team.jpg";
 import TechImage from "@/assets/Tech Product Companies.jpg";
@@ -37,7 +36,6 @@ const TEXT_PANEL_W = 292; // width of the revealed text panel on hover
 
 const WhoWeHelp: React.FC = () => {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
   const [expandedIdx, setExpandedIdx] = useState<number | null>(null);
 
   return (
@@ -46,7 +44,7 @@ const WhoWeHelp: React.FC = () => {
       style={{
         width: "100%",
         background: "#fff",
-        padding: "52px 0 60px",
+        padding: "100px 0 80px",
         fontFamily: FONT,
         boxSizing: "border-box",
         overflow: "hidden",
@@ -63,6 +61,8 @@ const WhoWeHelp: React.FC = () => {
           gap: 16px;
           animation: tickerRTL 22s linear infinite;
           width: max-content;
+          will-change: transform;
+          backface-visibility: hidden;
         }
         .wwh-ticker-outer:hover .wwh-ticker-track {
           animation-play-state: paused;
@@ -257,7 +257,7 @@ const WhoWeHelp: React.FC = () => {
         }
       `}</style>
 
-      <div style={{ maxWidth: 1216, margin: "0 auto", padding: "0 24px" }}>
+      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px" }}>
 
         {/* ── Header ── */}
         <div
@@ -268,7 +268,7 @@ const WhoWeHelp: React.FC = () => {
             className="wwh-title"
             style={{
               fontSize: "clamp(36px, 5vw, 72px)",
-              fontWeight: 600,
+              fontWeight: 500,
               color: "#EF4123",
               lineHeight: 1.13,
               letterSpacing: "-0.01em",
@@ -276,14 +276,14 @@ const WhoWeHelp: React.FC = () => {
               fontFamily: FONT,
             }}
           >
-            Who we help
+            Who we <strong>help</strong>
           </span>
           <div style={{ width: 0, height: 61, borderLeft: "1.5px solid #EF4123", flexShrink: 0 }} />
           <span
             className="wwh-subtitle"
             style={{
-              fontSize: "clamp(20px, 2vw, 27.5px)",
-              fontWeight: 350,
+              fontSize: "clamp(24px, 2vw, 30px)",
+              fontWeight: 400,
               color: "#EF4123",
               lineHeight: 1.08,
               letterSpacing: "-0.01em",
@@ -300,8 +300,8 @@ const WhoWeHelp: React.FC = () => {
         {/* ── Tagline ── */}
         <p
           style={{
-            fontSize: "clamp(17px, 1.3vw, 20px)",
-            fontWeight: 350,
+            fontSize: "clamp(18px, 1.4vw, 24px)",
+            fontWeight: 400,
             color: "#EF4123",
             letterSpacing: "-0.01em",
             margin: "60px 0 28px",
@@ -337,8 +337,8 @@ const WhoWeHelp: React.FC = () => {
         </div>
 
         {/* ── Ticker ── */}
-        <div style={{ marginTop: 48, borderTop: "1px solid #e0e0e0", paddingTop: 24 }}>
-          <div className="wwh-ticker-row" style={{ display: "flex", alignItems: "center", gap: 40 }}>
+        <div style={{ marginTop: 48, borderTop: "1px solid transparent", paddingTop: 24 }}>
+          <div className="wwh-ticker-row" style={{ display: "flex", alignItems: "center", gap: 20 }}>
             <span
               className="wwh-ticker-heading"
               style={{
@@ -348,11 +348,12 @@ const WhoWeHelp: React.FC = () => {
                 whiteSpace: "nowrap",
                 flexShrink: 0,
                 fontFamily: FONT,
+                marginRight:"100px"
               }}
             >
               Common teams we support
             </span>
-            <div className="wwh-ticker-divider" style={{ width: 0, height: 46, borderLeft: "1.5px solid #DEDEDE", flexShrink: 0 }} />
+            <div className="wwh-ticker-divider" style={{ width: '4px', height: 46, flexShrink: 0, background: "linear-gradient(182deg,#E94325 23%, #090979 73%)" }} />
             <div
               className="wwh-ticker-outer"
               style={{ overflow: "hidden", flex: 1, position: "relative" }}
@@ -379,7 +380,7 @@ const WhoWeHelp: React.FC = () => {
                 ))}
               </div>
             </div>
-            <div className="wwh-ticker-divider" style={{ width: 0, height: 46, borderLeft: "1.5px solid #DEDEDE", flexShrink: 0 }} />
+            <div className="wwh-ticker-divider" style={{ width: '4px', height: 46,  flexShrink: 0, background: "linear-gradient(182deg,#E94325 23%, #090979 73%)" }} />
           </div>
         </div>
 

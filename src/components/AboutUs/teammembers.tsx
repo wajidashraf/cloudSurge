@@ -5,7 +5,7 @@ import {
   useTransform,
   type MotionValue,
 } from 'framer-motion';
-import ilyas from '@/assets/ilyas-new.png';
+import ilyas from '@/assets/ilyasKhanImage.png';
 import zhagum from '@/assets/zhagum-new.jpeg';
 
 interface Member {
@@ -53,9 +53,12 @@ const GradientText: React.FC<{
 const members: Member[] = [
   {
     name: 'Ilyas Khan',
-    role: 'Founder & IT Delivery Expert',
-    subtitle:
-      "Decades of tech expertise underpin Ilyas's commitment to scalable IT solutions through the Pod model.",
+    role: 'Co-Founder & IT Delivery Expert',
+    subtitle: (
+      <>
+      <strong>Ilyas</strong> has spent decades in tech delivery. He built Cloud Surge because he kept seeing the same problem: talented people being underused and clients being underserved by an industry that treated both as commodities. The Pod model is his answer to both.,
+      </>
+    ),
     imageUrl: ilyas,
   },
   {
@@ -63,7 +66,7 @@ const members: Member[] = [
     role: 'Co-Founder & Social Visionary',
     subtitle: (
       <>
-        <strong>Zhagum</strong> blends business acumen with a passion for social uplift, shaping Cloud Surge's global outreach.
+        <strong>Zhagum</strong> brings together business strategy and social purpose. He is the driving force behind Cloud Surge's community mission and its expansion into emerging talent markets, starting in Gojra.
       </>
     ),
     imageUrl: zhagum,
@@ -91,8 +94,8 @@ const TeamMembers: React.FC = () => {
   const headerLines = ['Meet the minds,', 'Driving the Cloud Surge'];
 
   return (
-    <section className="relative py-24 h-full">
-      <div className="container mx-auto px-4">
+    <section className="relative lg:px-6 max-w-[1280px] mx-auto py-24 h-full">
+      <div className="container">
         <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl leading-tight flex flex-col sm:flex-row flex-wrap">
           <div className="flex flex-col items-start mr-0 sm:mr-3">
             {headerLines.map((line, idx) => (
@@ -149,7 +152,7 @@ const TeamMembers: React.FC = () => {
                   whileInView={{ scaleX: 1 }}
                   viewport={{ once: true, amount: 0.3 }}
                   transition={{ duration: 0.4, delay: idx * 0.2 + 0.2 }}
-                  className="w-full border-t-2 border-[#D9D9D9]"
+                  className="w-full border-t-5 border-[#D9D9D9]"
                 />
                 <motion.h3
                   initial={{ opacity: 0, x: 20 }}

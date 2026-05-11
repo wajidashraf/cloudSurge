@@ -330,18 +330,28 @@ const GreyCard: React.FC<{ mobile?: boolean }> = ({ mobile }) => (
 // ── Main component ───────────────────────────────────────────────────────────
 const SuccessStories: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const progressRef = useRef(0);
+  const rafPendingRef = useRef(false);
   const [scrollProgress, setScrollProgress] = useState(0);
 
-  const INITIAL_MARGINS = [0, 280, 560, 840];
+  const INITIAL_OFFSETS = [0, 280, 560, 840];
 
   useEffect(() => {
     const handleScroll = () => {
-      if (!sectionRef.current) return;
-      const { offsetTop, offsetHeight } = sectionRef.current;
-      const start = offsetTop - window.innerHeight * 0.96;
-      const end = offsetTop + offsetHeight * 0.5;
-      const p = Math.min(Math.max((window.scrollY - start) / (end - start), 0), 1);
-      setScrollProgress(p);
+      if (rafPendingRef.current) return;
+      rafPendingRef.current = true;
+      requestAnimationFrame(() => {
+        rafPendingRef.current = false;
+        if (!sectionRef.current) return;
+        const { offsetTop, offsetHeight } = sectionRef.current;
+        const start = offsetTop - window.innerHeight * 0.96;
+        const end = offsetTop + offsetHeight * 0.5;
+        const p = Math.min(Math.max((window.scrollY - start) / (end - start), 0), 1);
+        if (Math.abs(p - progressRef.current) > 0.001) {
+          progressRef.current = p;
+          setScrollProgress(p);
+        }
+      });
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
@@ -368,9 +378,9 @@ const SuccessStories: React.FC = () => {
     >
       <style>{`
         .ss-inner {
-          max-width: 1380px;
+          max-width: 1280px;
           margin: 0 auto;
-          padding: 80px 56px 60px;
+          padding: 80px 6px 60px;
           box-sizing: border-box;
         }
         .ss-desktop {
@@ -380,7 +390,7 @@ const SuccessStories: React.FC = () => {
           align-items: end;
         }
         .ss-card-wrap {
-          transition: margin-top 0s;
+          will-change: transform;
         }
         .ss-explore-row {
           display: flex;
@@ -405,9 +415,9 @@ const SuccessStories: React.FC = () => {
         {/* ── Desktop grid ── */}
         <div className="ss-desktop">
           {CARDS.map(({ component: Card }, i) => {
-            const mt = Math.max(INITIAL_MARGINS[i] * (0.7 - scrollProgress), 0);
+            const offset = Math.max(INITIAL_OFFSETS[i] * (0.7 - scrollProgress), 0);
             return (
-              <div key={i} className="ss-card-wrap" style={{ marginTop: mt, height: 421 }}>
+              <div key={i} className="ss-card-wrap" style={{ transform: `translateY(${offset}px)`, height: 421 }}>
                 <Card mobile={false} />
               </div>
             );

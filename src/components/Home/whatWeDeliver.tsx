@@ -9,12 +9,33 @@ interface DeliveryCard {
 }
 
 const cards: DeliveryCard[] = [
-  { title: "Azure Solutions Delivery", bgOpacity: 0.4 },
-  { title: "Power Platform Development", bgOpacity: 0.55 },
-  { title: "Modern Web & Cloud Solutions", bgOpacity: 0.75 },
-  { title: "Application Development Services", bgOpacity: 0.9 },
   {
-    title: "Salesforce Development & Integration", bgOpacity: 1,
+    title: "Azure Solutions Delivery",
+    bgOpacity: 0.4,
+    description:
+      "Strong cloud foundations, secure environments, integrations and data setups built to handle pressure.",
+  },
+  {
+    title: "Power Platform Development",
+    bgOpacity: 0.55,
+    description:
+      "Rapid internal tools, automations and business apps built and delivered with proper governance.",
+  },
+  {
+    title: "Modern Web & Cloud Solutions",
+    bgOpacity: 0.75,
+    description:
+      "Secure and scalable web platforms and cloud-native services built for growth.",
+  },
+  {
+    title: "Application Development Services",
+    bgOpacity: 0.9,
+    description:
+      "Build and modernise applications that scale - from MVP to enterprise-grade systems.",
+  },
+  {
+    title: "Salesforce Development & Integration",
+    bgOpacity: 1,
     description:
       "Customisation, integrations and delivery support that fit your roadmap.",
     isSolid: true,
@@ -22,25 +43,24 @@ const cards: DeliveryCard[] = [
 ];
 
 const CARD_HEIGHT = 243;
-const OVERLAP = 170; // cards overlap by this many px
+const OVERLAP = 170;
 
-// Each card is progressively wider; widest (last) = container width
 const DESKTOP_WIDTHS = [453, 470, 486, 502, 518];
 const CONTAINER_W = DESKTOP_WIDTHS[DESKTOP_WIDTHS.length - 1]; // 518
 
-// Mobile uses the same proportions but scaled down to fit narrow screens
 const MOBILE_WIDTHS = [248, 258, 268, 278, 288];
 const MOBILE_CONTAINER_W = MOBILE_WIDTHS[MOBILE_WIDTHS.length - 1]; // 288
 const MOBILE_CARD_H = 134;
-const MOBILE_OVERLAP = 93; // keeps same ratio as desktop (170/243 ≈ 0.7)
+const MOBILE_OVERLAP = 93;
 
+/* Returns the base background string for a card (used in initial & non-hovered state) */
 function cardBg(card: DeliveryCard): string {
   return card.isSolid
     ? "#F03717"
     : `linear-gradient(0deg,rgba(236,63,36,${card.bgOpacity}),rgba(236,63,36,${card.bgOpacity})),#FFFFFF`;
 }
 
-/* ── Arrow icon from uploaded SVG ── */
+/* ── Arrow icon ── */
 const ArrowIcon: React.FC = () => (
   <svg
     width="20"
@@ -64,7 +84,7 @@ const ArrowIcon: React.FC = () => (
   </svg>
 );
 
-/* ── Shared card text ── */
+/* ── Card text ── */
 const CardContent: React.FC<{ card: DeliveryCard; small?: boolean }> = ({
   card,
   small,
@@ -102,8 +122,7 @@ const CardContent: React.FC<{ card: DeliveryCard; small?: boolean }> = ({
 );
 
 /* ────────────────────────────────────────────────
-   Stacked card stack — reused for both desktop and
-   mobile (widths / heights differ via props)
+   Card Stack
 ──────────────────────────────────────────────── */
 interface StackProps {
   isInView: boolean;
@@ -122,40 +141,62 @@ const CardStack: React.FC<StackProps> = ({
   overlap,
   small,
 }) => {
+  const [hoveredIndex, setHoveredIndex] = React.useState<number | null>(null);
   const totalH = cardH + (cards.length - 1) * (cardH - overlap);
+  const someHovered = hoveredIndex !== null;
 
   return (
     <div style={{ position: "relative", width: containerW, height: totalH }}>
       {cards.map((card, i) => {
         const w = widths[i];
         const topOffset = i * (cardH - overlap);
-        // Center every card horizontally inside the container
         const leftOffset = (containerW - w) / 2;
+        const isHovered = hoveredIndex === i;
+
+        // Stagger from the BOTTOM card upward: last card has delay 0, first card has max delay
+        const staggerDelay = (cards.length - 1 - i) * 0.1;
 
         return (
           <motion.div
             key={card.title}
-            initial={{ x: 160, opacity: 0 }}
+            initial={{ y: 60, opacity: 0 }}
             animate={
-              isInView ? { x: 0, opacity: 1 } : { x: 160, opacity: 0 }
+              isInView
+                ? {
+                    y: isHovered ? (small ? -12 : -22) : 0,
+                    opacity: someHovered && !isHovered ? 0.25 : 1,
+                    scale: isHovered ? 1.02 : 1,
+                  }
+                : { y: 60, opacity: 0 }
             }
-            whileHover={{
-              y: small ? -8 : -18,
-              background: "#EF4123",
-              boxShadow: "0 18px 48px rgba(239,65,35,0.38)",
-            }}
-            transition={{
-              duration: 0.55,
-              delay: i * 0.09,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
+            transition={
+              // Fast, responsive transition during hover; staggered on entry
+              someHovered || isHovered
+                ? { duration: 0.28, ease: [0.25, 0.46, 0.45, 0.94] }
+                : {
+                    duration: 0.55,
+                    delay: staggerDelay,
+                    ease: [0.25, 0.46, 0.45, 0.94],
+                  }
+            }
+            onHoverStart={() => setHoveredIndex(i)}
+            onHoverEnd={() => setHoveredIndex(null)}
             style={{
+              // ── Position & Size ──────────────────────────
               position: "absolute",
               top: topOffset,
               left: leftOffset,
               width: w,
               height: cardH,
-              background: cardBg(card),
+              // ── z-index: hovered card always on top ──────
+              // Applied directly (not via framer animate) so it takes effect instantly
+              zIndex: isHovered ? cards.length + 10 : i + 1,
+              // ── Background: managed here, NOT in animate ─
+              background: isHovered ? "#EF4123" : cardBg(card),
+              boxShadow: isHovered
+                ? "0 24px 56px rgba(239,65,35,0.15)"
+                : "0 4px 24px rgba(0,0,0,0.08)",
+              // ── Layout ───────────────────────────────────
               borderRadius: 12,
               padding: small ? "14px 16px" : "26px",
               boxSizing: "border-box",
@@ -163,9 +204,9 @@ const CardStack: React.FC<StackProps> = ({
               flexDirection: "column",
               justifyContent: "flex-start",
               gap: small ? 6 : 12,
-              zIndex: i + 1,
-              boxShadow: "0 4px 24px rgba(0,0,0,0.08)",
               cursor: "pointer",
+              // Smooth background & shadow on hover (CSS transition covers what framer doesn't)
+              transition: "background 0.25s ease, box-shadow 0.25s ease",
             }}
           >
             <CardContent card={card} small={small} />
@@ -176,13 +217,10 @@ const CardStack: React.FC<StackProps> = ({
   );
 };
 
-/* ── Tiny matchMedia hook ── */
+/* ── Media query hook ── */
 function useMediaQuery(query: string): boolean {
-  const [matches, setMatches] = React.useState<boolean>(
-    () =>
-      typeof window !== "undefined"
-        ? window.matchMedia(query).matches
-        : false
+  const [matches, setMatches] = React.useState<boolean>(() =>
+    typeof window !== "undefined" ? window.matchMedia(query).matches : false
   );
   React.useEffect(() => {
     if (typeof window === "undefined") return;
@@ -195,24 +233,16 @@ function useMediaQuery(query: string): boolean {
   return matches;
 }
 
-/* ── CTA links ── */
-const CTALinks: React.FC<{ isInView: boolean; delay?: number }> = ({
-  isInView,
-  delay = 0.2,
-}) => (
-  <motion.div
-    initial={{ opacity: 0, y: 14 }}
-    animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
-    transition={{ duration: 0.6, delay, ease: "easeOut" }}
-    style={{ display: "flex", flexDirection: "column", gap: 16 }}
-  >
+/* ── CTA Links — no animation, just static ── */
+const CTALinks: React.FC = () => (
+  <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
     {["Book a consultation today", "Explore Fusion Pods"].map((label) => (
       <a
         key={label}
         href="#"
         style={{
           display: "inline-flex",
-          alignItems: "baseline",
+          alignItems: "center",
           gap: 10,
           fontFamily: "'Bahnschrift','Segoe UI',sans-serif",
           fontWeight: 600,
@@ -226,7 +256,50 @@ const CTALinks: React.FC<{ isInView: boolean; delay?: number }> = ({
         {label}
       </a>
     ))}
-  </motion.div>
+  </div>
+);
+
+/* ── Static left-side text panel ── */
+const LeftPanel: React.FC<{ mobile?: boolean }> = ({ mobile }) => (
+  <div
+    style={{
+      textAlign: "left",
+      ...(mobile ? { width: "100%", maxWidth: 520 } : {}),
+    }}
+  >
+    <h2
+      style={{
+        fontFamily: "'Bahnschrift','Segoe UI',sans-serif",
+        fontWeight: 600,
+        fontSize: mobile ? "clamp(34px, 8vw, 52px)" : "clamp(36px, 5vw, 72px)",
+        lineHeight: 1.2,
+        letterSpacing: "-0.01em",
+        color: "#EC3F24",
+        margin: "0 0 16px",
+        textAlign: "left",
+      }}
+    >
+      What we Deliver?
+    </h2>
+
+    <p
+      style={{
+        fontFamily: "'Bahnschrift','Segoe UI',sans-serif",
+        fontWeight: 350,
+        fontSize: mobile ? "clamp(14px, 3.5vw, 18px)" : "clamp(15px, 1.8vw, 20px)",
+        lineHeight: 1.5,
+        color: "#727272",
+        margin: mobile ? "0 0 24px" : "0 0 36px",
+        maxWidth: 520,
+        textAlign: "left",
+      }}
+    >
+      We take your AI-generated code and transform it into a secure, scalable
+      application that you own and control.
+    </p>
+
+    <CTALinks />
+  </div>
 );
 
 /* ════════════════════════════════════════════════
@@ -234,7 +307,6 @@ const CTALinks: React.FC<{ isInView: boolean; delay?: number }> = ({
 ════════════════════════════════════════════════ */
 const WhatWeDeliver: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  // once: false → animates back out when section leaves viewport
   const isInView = useInView(sectionRef, { once: false, amount: 0.25 });
   const isMobile = useMediaQuery("(max-width: 1024px)");
 
@@ -247,9 +319,7 @@ const WhatWeDeliver: React.FC = () => {
           padding: 120px 0;
           overflow: hidden;
           max-height: 1125px;
-          
         }
-        /* Desktop: side-by-side */
         .wwd-inner {
           max-width: 1180px;
           margin: 0 auto;
@@ -262,7 +332,6 @@ const WhatWeDeliver: React.FC = () => {
         }
         .wwd-left { flex: 0 1 560px; min-width: 0; }
 
-        /* ── Tablet / Mobile ── */
         @media (max-width: 1024px) {
           .wwd-section  { padding: 56px 0; }
           .wwd-inner    {
@@ -271,7 +340,6 @@ const WhatWeDeliver: React.FC = () => {
             gap: 40px;
             padding: 0 24px;
           }
-          /* On mobile the left panel goes ABOVE the cards */
           .wwd-left {
             flex: unset;
             width: 100%;
@@ -288,9 +356,7 @@ const WhatWeDeliver: React.FC = () => {
 
       <section ref={sectionRef} className="wwd-section">
         <div className="wwd-inner">
-
           {isMobile ? (
-            /* ══ MOBILE LAYOUT: heading → text → cards → links ══ */
             <div
               style={{
                 width: "100%",
@@ -300,120 +366,27 @@ const WhatWeDeliver: React.FC = () => {
                 gap: 32,
               }}
             >
-              {/* 1. Avatar + Heading + Body */}
-              <div style={{ width: "100%", maxWidth: 520 }}>
-                
+              {/* Static text — no animation */}
+              <LeftPanel mobile />
 
-                <motion.h2
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={
-                    isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
-                  }
-                  transition={{ duration: 0.55, ease: "easeOut" }}
-                  style={{
-                    fontFamily: "'Bahnschrift','Segoe UI',sans-serif",
-                    fontWeight: 600,
-                    fontSize: "clamp(34px, 8vw, 52px)",
-                    lineHeight: 1.2,
-                    letterSpacing: "-0.01em",
-                    color: "#EC3F24",
-                    margin: "0 0 16px",
-                  }}
-                >
-                  What we Deliver?
-                </motion.h2>
-
-                <motion.p
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={
-                    isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }
-                  }
-                  transition={{ duration: 0.55, delay: 0.08, ease: "easeOut" }}
-                  style={{
-                    fontFamily: "'Bahnschrift','Segoe UI',sans-serif",
-                    fontWeight: 350,
-                    fontSize: "clamp(14px, 3.5vw, 18px)",
-                    lineHeight: 1.5,
-                    color: "#727272",
-                    margin: 0,
-                  }}
-                >
-                  We take your AI-generated code and transform it into a secure,
-                  scalable application that you own and control.
-                </motion.p>
-              </div>
-
-              {/* 2. Stacked cards — same layered design, scaled for mobile */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-                transition={{ duration: 0.4, delay: 0.15 }}
-              >
-                <CardStack
-                  isInView={isInView}
-                  widths={MOBILE_WIDTHS}
-                  containerW={MOBILE_CONTAINER_W}
-                  cardH={MOBILE_CARD_H}
-                  overlap={MOBILE_OVERLAP}
-                  small
-                />
-              </motion.div>
-
-              {/* 3. CTA links */}
-              <div style={{ width: "100%", maxWidth: 520 }}>
-                <CTALinks isInView={isInView} delay={0.3} />
-              </div>
+              {/* Card stack animates in */}
+              <CardStack
+                isInView={isInView}
+                widths={MOBILE_WIDTHS}
+                containerW={MOBILE_CONTAINER_W}
+                cardH={MOBILE_CARD_H}
+                overlap={MOBILE_OVERLAP}
+                small
+              />
             </div>
           ) : (
-            /* ══ DESKTOP LAYOUT: text left | cards right ══ */
             <>
+              {/* Static text left — no animation */}
               <div className="wwd-left">
-                {/* Avatar badge */}
-               
-
-                <motion.h2
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={
-                    isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }
-                  }
-                  transition={{ duration: 0.6, ease: "easeOut" }}
-                  style={{
-                    fontFamily: "'Bahnschrift','Segoe UI',sans-serif",
-                    fontWeight: 600,
-                    fontSize: "clamp(36px, 5vw, 72px)",
-                    lineHeight: 1.2,
-                    letterSpacing: "-0.01em",
-                    color: "#EC3F24",
-                    margin: "0 0 20px",
-                  }}
-                >
-                  What we Deliver?
-                </motion.h2>
-
-                <motion.p
-                  initial={{ opacity: 0, y: 18 }}
-                  animate={
-                    isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }
-                  }
-                  transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-                  style={{
-                    fontFamily: "'Bahnschrift','Segoe UI',sans-serif",
-                    fontWeight: 350,
-                    fontSize: "clamp(15px, 1.8vw, 20px)",
-                    lineHeight: 1.5,
-                    color: "#727272",
-                    margin: "0 0 36px",
-                    maxWidth: 520,
-                  }}
-                >
-                  We take your AI-generated code and transform it into a secure,
-                  scalable application that you own and control.
-                </motion.p>
-
-                <CTALinks isInView={isInView} delay={0.2} />
+                <LeftPanel />
               </div>
 
-              {/* Desktop card stack — centered pyramid */}
+              {/* Card stack animates in */}
               <CardStack
                 isInView={isInView}
                 widths={DESKTOP_WIDTHS}

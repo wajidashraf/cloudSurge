@@ -1,14 +1,15 @@
-import React from 'react';
+import React from "react";
 import {
   motion,
   useViewportScroll,
   useTransform,
   type Variants,
   type MotionValue,
-} from 'framer-motion';
-import pakistanSvg from '@/assets/pakistan.svg';
-import clickIcon from '@/assets/click.svg';
-import sparkAsset from '@/assets/redicon.svg';
+} from "framer-motion";
+import pakistanSvg from "@/assets/pakistan.svg";
+import clickIcon from "@/assets/click.svg";
+import sparkAsset from "@/assets/redicon.svg";
+import click from "@/assets/CursorPng.png";
 
 interface GojraProps {
   imageSrc?: string;
@@ -26,22 +27,20 @@ const GradientText: React.FC<{
   React.useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
   return (
     <span className="relative inline-block">
       {/* Gray underlay */}
-      <span className="text-[#D9D9D9] block whitespace-nowrap">
-        {text}
-      </span>
+      <span className="text-[#D9D9D9] block whitespace-nowrap">{text}</span>
       {/* Gradient overlay clipped to text, width driven by MotionValue */}
       <motion.span
         className="absolute top-0 left-0 bg-clip-text text-transparent block whitespace-nowrap overflow-hidden"
         style={{
           ...gradientStyle,
-          width: isMobile ? '100%' : fillProgress,
+          width: isMobile ? "100%" : fillProgress,
         }}
       >
         {text}
@@ -57,40 +56,42 @@ const sparkVariants: Variants = {
 
 const Gojra: React.FC<GojraProps> = ({
   imageSrc = pakistanSvg,
-  altText = 'Cloud Surge Illustration',
+  altText = "Cloud Surge Illustration",
 }) => {
   const { scrollYProgress } = useViewportScroll();
 
   // transforms
-  const imgX = useTransform(scrollYProgress, [0, 0.5], ['-50%', '80%']);
+  const imgX = useTransform(scrollYProgress, [0, 0.5], ["-50%", "55%"]);
   const gradientShift = useTransform(
     scrollYProgress,
     [0, 1],
-    ['0% 50%', '100% 50%']
+    ["0% 50%", "100% 50%"],
   );
   const [isMobile, setIsMobile] = React.useState(false);
 
   React.useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  const textOpacity = useTransform(scrollYProgress, [0.1, 0.15], [0, 1]);
-  const rowX = useTransform(scrollYProgress, [0, 1], ['-20px', '20px']);
+  const textOpacity = useTransform(scrollYProgress, [0.16, 0.20], [0, 1]);
+  const rowX = useTransform(scrollYProgress, [0, 1], ["-20px", "20px"]);
   const rowScale = useTransform(scrollYProgress, [0, 1], [0.9, 1.1]);
 
-  const lines = ['a spark in Birmingham,', 'a movement around the world'];
+  const lines = ["Founded in Birmingham.", "With roots in Gojra."];
+  
+
 
   // produce MotionValue<string> from '0%' → '100%'
   const fillWidths = [
-    useTransform(scrollYProgress, [0, 0.06], ['0%', '100%']),
-    useTransform(scrollYProgress, [0.06, 0.11], ['0%', '100%']),
+    useTransform(scrollYProgress, [0.10, 0.14], ["0%", "100%"]),
+    useTransform(scrollYProgress, [0.10, 0.15], ["0%", "100%"]),
   ];
 
   // new transform for icon opacity: appear when second line fill completes
-  const iconOpacity = useTransform(scrollYProgress, [0.11, 0.12], [0, 1]);
+  const iconOpacity = useTransform(scrollYProgress, [0.11, 0.14], [0, 1]);
   const [showIconOnMobile, setShowIconOnMobile] = React.useState(false);
 
   React.useEffect(() => {
@@ -104,25 +105,25 @@ const Gojra: React.FC<GojraProps> = ({
 
   return (
     <>
-      <section className="py-8 sm:py-16 md:py-8 lg:py-10 xl:py-12 2xl:py-16 h-full flex items-end pb-4">
-        <div className="w-[80%] md:w-auto md:container md:mx-auto pl-4 sm:px-6">
-          <h2 className="text-2xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl leading-tight flex flex-col sm:flex-row flex-wrap items-start">
+      <section className="mx-auto px-4 lg:px-6 max-w-[1280px] py-8 sm:py-16 md:py-8 lg:py-10 xl:py-12 2xl:py-16 h-full flex items-end pb-4">
+        <div className="">
+          <h2 className="text-2xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl leading-tight flex flex-col sm:flex-row flex-wrap items-start pt-12">
             <div className="flex flex-col items-start mr-0 sm:mr-3">
               {lines.map((line, idx) => (
                 <motion.div
                   key={idx}
                   style={{ backgroundPosition: gradientShift }}
-                  transition={{ duration: 0.6, ease: 'easeInOut' }}
-                  className={idx === 1 ? 'flex items-center gap-2' : ''}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
+                  className={idx === 1 ? "flex items-center gap-2" : ""}
                 >
                   <GradientText
                     text={line}
                     fillProgress={fillWidths[idx]}
                     gradientStyle={{
                       backgroundImage:
-                        'linear-gradient(105deg, #ec3f24 50%, #7300bf 70%, #0a0a90 100%)',
-                      WebkitBackgroundClip: 'text',
-                      backgroundClip: 'text',
+                        "linear-gradient(105deg, #ec3f24 50%, #7300bf 70%, #0a0a90 100%)",
+                      WebkitBackgroundClip: "text",
+                      backgroundClip: "text",
                     }}
                   />
                   {/* Mobile-only arrow placed after the word "world" (end of second line) */}
@@ -149,7 +150,7 @@ const Gojra: React.FC<GojraProps> = ({
         </div>
       </section>
 
-      <section className="flex flex-col lg:flex-row items-center bg-[#D9D9D9] px-4 py-6 sm:py-12 md:py-8 lg:py-10 xl:py-12 2xl:py-16">
+      <section className="flex flex-col lg:flex-row items-center bg-[#fff] px-4 py-6 sm:py-12 md:py-8 lg:pt-10 xl:pt-8 ">
         {/* Map/Image - First on mobile */}
         <motion.div
           style={{ x: isMobile ? 0 : imgX }}
@@ -183,7 +184,7 @@ const Gojra: React.FC<GojraProps> = ({
                   className="w-6 h-6 transform"
                   variants={sparkVariants}
                   whileHover={{ scale: 1.7, y: 3 }}
-                  transition={{ type: 'spring', stiffness: 300 }}
+                  transition={{ type: "spring", stiffness: 300 }}
                 />
               ))}
             </motion.div>
@@ -192,20 +193,22 @@ const Gojra: React.FC<GojraProps> = ({
           {/* Text - Third on mobile, left aligned */}
           <motion.div
             style={{ opacity: isMobile ? 1 : textOpacity }}
-            className="text-[#5D5D5D] space-y-4 md:space-y-2 lg:space-y-3 xl:space-y-3 2xl:space-y-4 text-sm sm:text-base md:text-sm lg:text-base xl:text-lg 2xl:text-2xl max-w-full lg:max-w-3/4 mt-4 md:mt-4 lg:mt-6 xl:mt-8 2xl:mt-10 text-left mb-4 md:mb-6 lg:mb-7 xl:mb-8 2xl:mb-10 lg:text-left">
+            className="text-[#5D5D5D] space-y-4 md:space-y-2 lg:space-y-3 xl:space-y-3 2xl:space-y-4 text-sm sm:text-base md:text-sm lg:text-base xl:text-lg 2xl:text-2xl max-w-full lg:max-w-3/4 mt-4 md:mt-4 lg:mt-6 xl:mt-8 2xl:mt-10 text-left mb-4 md:mb-6 lg:mb-7 xl:mb-8 2xl:mb-10 lg:text-left"
+          >
+            
             <p>
-              <strong>Cloud Surge</strong> was founded in 2022 by two friends,
-              <strong> Zhagum Arshad</strong> and <strong>Ilyas Khan</strong>,
-              united by the vision of bridging the global technology skills gap.
-              Born in Birmingham with strong roots in Pakistan, they saw firsthand
-              how underrepresented communities often miss out on high-growth tech
-              careers.
+              <strong>Cloud Surge</strong> was founded in 2022 by <strong>Ilyas Khan</strong> and <strong> Zhagum Arshad</strong>,
+              two friends who grew up between Birmingham and Pakistan and saw
+              the same pattern play out in both places: talented people being
+              left out of high-growth tech careers because of where they were
+              from.
             </p>
             <p>
-              Today, Cloud Surge has become more than just a scaling partner;
-              we're a platform for social impact and innovation, cultivating
-              talent, fostering collaboration, and transforming local economies
-              worldwide.
+              The commercial model and the social mission are the same thing. We
+              build great delivery teams, we give those teams to clients who
+              need them, and we find the people for those teams in places that
+              have been overlooked. That is how a business in Birmingham creates
+              IT careers in Gojra.
             </p>
           </motion.div>
 
@@ -228,7 +231,7 @@ const Gojra: React.FC<GojraProps> = ({
                   className="w-6 h-6 transform"
                   variants={sparkVariants}
                   whileHover={{ scale: 1.7, y: 3 }}
-                  transition={{ type: 'spring', stiffness: 300 }}
+                  transition={{ type: "spring", stiffness: 300 }}
                 />
               ))}
             </motion.div>

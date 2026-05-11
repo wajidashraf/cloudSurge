@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import logoImage from '/src/assets/Asset19.svg';
 
 interface NavbarProps {
@@ -9,8 +9,8 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ delayAnimation = false }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showNavbar, setShowNavbar] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
-  const [scrollY, setScrollY] = useState(0);   // ← new
+  const lastScrollYRef = useRef(0);
+  const [scrollY, setScrollY] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
   const [showInitialAnimation, setShowInitialAnimation] = useState(true);
   // Define navigation links array
@@ -26,17 +26,17 @@ const Navbar: React.FC<NavbarProps> = ({ delayAnimation = false }) => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       setScrollY(currentScrollY);
-      if (currentScrollY > lastScrollY && currentScrollY > 50) {
+      if (currentScrollY > lastScrollYRef.current && currentScrollY > 50) {
         setShowNavbar(false);
       } else {
         setShowNavbar(true);
       }
-      setLastScrollY(currentScrollY);
+      lastScrollYRef.current = currentScrollY;
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
+  }, []);
 
   useEffect(() => {
     if (isMenuOpen) {

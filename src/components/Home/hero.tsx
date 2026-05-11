@@ -28,18 +28,25 @@ const Hero: React.FC = () => {
     let currentX = 50;
     let currentY = 50;
     const LERP = 0.06; // lower = smoother/slower follow
+    const IDLE_THRESHOLD = 0.01; // stop RAF when movement is negligible
 
     const tick = () => {
-      currentX += (mouse.current.x - currentX) * LERP;
-      currentY += (mouse.current.y - currentY) * LERP;
+      const dx = mouse.current.x - currentX;
+      const dy = mouse.current.y - currentY;
 
-      // Calculate angle from center toward cursor, use it as gradient direction
+      // Skip DOM write and reschedule only if there's meaningful movement
+      if (Math.abs(dx) < IDLE_THRESHOLD && Math.abs(dy) < IDLE_THRESHOLD) {
+        raf.current = requestAnimationFrame(tick);
+        return;
+      }
+
+      currentX += dx * LERP;
+      currentY += dy * LERP;
+
       const angleRad = Math.atan2(currentY - 50, currentX - 50);
-      const angleDeg = angleRad * (180 / Math.PI) + 90; // +90 offsets to top-origin
+      const angleDeg = angleRad * (180 / Math.PI) + 90;
 
-      overlay.style.background = `
-    linear-gradient(${angleDeg}deg, #ec3f24 0%, #ec3f24 50%, #7300bf 75%, #0a0a90 100%)
-  `;
+      overlay.style.background = `linear-gradient(${angleDeg}deg, #ec3f24 0%, #ec3f24 50%, #7300bf 75%, #0a0a90 100%)`;
 
       raf.current = requestAnimationFrame(tick);
     };
@@ -133,6 +140,7 @@ const Hero: React.FC = () => {
           height: "120vh",
           background:
             "linear-gradient(180deg, #ec3f24 0%, #ec3f24 70%, #7300bf 85%, #0a0a90 100%)",
+          willChange: "background",
         }}
       />
 

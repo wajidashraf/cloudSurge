@@ -6,6 +6,10 @@ import Target from '@/assets/timeline(3).svg';
 import Worldwide from '@/assets/timeline(4).svg';
 import Culture from '@/assets/timeline(5).svg';
 import CentralIcon from '@/assets/redicon.svg';
+import users from '@/assets/users-group.png';
+import stackLine from '@/assets/stack-line.svg';
+import vector from '@/assets/Vector.svg';
+
 
 // Define the shape of a timeline item
 interface TimelineItem {
@@ -17,17 +21,20 @@ interface TimelineItem {
 
 // Array of timeline items
 const timelineItems: TimelineItem[] = [
-  { side: 'right', title: 'Plug-and-play Integration', description: 'Our Fusion Pods are not just plug-and-play resources but a strategic fusion of talent that integrates seamlessly with your existing teams.', image: PlugAndPlay },
-  { side: 'left', title: 'Seamless Communication', description: 'With seamless communication, the Fusion Pod operates as a natural extension of your team, ensuring collaboration and alignment, while our UK team ensures nothing gets lost in translation.', image: Talking },
-  { side: 'right', title: 'Focused Accountability', description: 'With focused accountability, each team is dedicated to a single client, driven by their goals, and fully committed to their success.', image: Target },
-  { side: 'left', title: 'Global Talent Access', description: 'We tap into untapped talent pools worldwide, ensuring our partners benefit from diverse and highly skilled professionals.', image: Worldwide },
-  { side: 'right', title: 'Inclusive Culture', description: 'Our inclusive culture fosters innovation and collaboration, making every team feel at home regardless of geography.', image: Culture }
+  { side: 'right', title: 'Teams, not individuals', description: 'Individual contractors create single points of failure. Our Pods are pre-formed teams who already know how to work together, so you do not spend the first month watching them figure each other out.', image: users },
+  { side: 'left', title: '48 hours to running', description: 'Traditional hiring or subcontracting takes weeks. Our teams assess, assemble, and start in 48 hours from a confirmed engagement.', image: PlugAndPlay },
+  { side: 'right', title: 'Governance from day one', description: 'Every Pod includes a Pod Lead with project management and QA built in. You get oversight and accountability, not just resource.', image: Talking },
+  { side: 'left', title: 'Stack-inclusive', description: 'We work across Microsoft (Dynamics 365, Power Platform, Azure), Salesforce, AWS, and custom application development. One partner for most of what you need.', image: stackLine },
+  { side: 'right', title: 'Scale without lock-in', description: 'Scale up or reduce capacity as projects demand, without long notice periods or contractual penalties.', image: vector }
 ];
 
+
+
+
 // Timeline item content
-const TimelineItemContent: React.FC<{ item: TimelineItem; visible: boolean; delay: number; isIntermediate: boolean }> = ({ item, visible, delay, isIntermediate }) => (
+const TimelineItemContent: React.FC<{ item: TimelineItem; visible: boolean; delay: number; isIntermediate: boolean; rightAlign?: boolean }> = ({ item, visible, delay, isIntermediate, rightAlign }) => (
   <motion.div
-    className="bg-white p-4 md:p-4 lg:p-5 xl:p-5 2xl:p-6 max-w-xs md:max-w-sm lg:max-w-md xl:max-w-md 2xl:max-w-lg"
+    className={`bg-white p-4 md:p-4 lg:p-5 xl:p-5 2xl:p-6 max-w-xs md:max-w-sm lg:max-w-md xl:max-w-md 2xl:max-w-lg ${rightAlign ? 'text-right' : 'text-left'}`}
     initial={{ opacity: 0, y: 50, scale: 0.8 }}
     animate={visible ? { opacity: 1, y: 0, scale: 1 } : {}}
     transition={{ duration: isIntermediate ? 0.4 : 0.8, delay: delay }}
@@ -81,7 +88,7 @@ const ScrollTimeline: React.FC = () => {
       const end = rect.height;
       // bottom of growing line relative to top of container
       const bottomPos = Math.min(Math.max(windowHeight - rect.top - start, 0), end);
-      const progress = (bottomPos / end)+0.09;
+      const progress = (bottomPos / end)+0.18;
       setScrollProgress(progress);
     };
     window.addEventListener('scroll', handleScroll);
@@ -93,13 +100,13 @@ const ScrollTimeline: React.FC = () => {
   const dynamicHeight = `${scrollProgress * 85}%`;
 
   return (
-    <div ref={containerRef} className="relative w-full flex flex-col items-center pt-4 pb-16 md:pt-8 md:pb-32">
+    <div ref={containerRef} className="relative w-full flex flex-col items-center -mt-14 pb-16 md:pb-46">
       {/* heading */}
-      <div className="text-center mb-16 md:mb-20 lg:mb-24 xl:mb-28 2xl:mb-32 px-4">
+      {/* <div className="text-center mb-16 md:mb-20 lg:mb-24 xl:mb-28 2xl:mb-32 px-4">
         <h1 className="text-3xl md:text-5xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-extrabold text-[#EF4123]">
           How It Works
         </h1>
-      </div>
+      </div> */}
       {/* central icon and base line */}
       <div className="relative w-full flex justify-center mb-8">
         <div className="absolute top-1/2 left-0 right-0 h-[3px] bg-[#DDDDDD] -translate-y-1/2 z-0" />
@@ -110,14 +117,16 @@ const ScrollTimeline: React.FC = () => {
 
       {/* growing vertical line */}
       <motion.div
-        className="absolute top-36 md:top-52 lg:top-56 xl:top-60 2xl:top-80 left-1/2 transform -translate-x-1/2 w-1 bg-[#DDDDDD] z-0"
+        className="absolute left-1/2 transform -translate-x-1/2 w-1 z-0"
+        style={{ background: 'linear-gradient(to bottom, #DDDDDD 60%, rgba(221,221,221,0) 100%)' }}
         initial={{ height: '0%' }}
         animate={{ height: dynamicHeight }}
-        transition={{ ease: 'easeOut', duration: 0.5 }}               
+        transition={{ ease: 'easeOut', duration: 0.5 }}
       >
-      <div
-      className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-[#DDDDDD] rounded-full"
-      />
+        <div
+          className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full"
+          style={{ background: 'radial-gradient(circle, #fff 0%, rgba(221,221,221,0) 100%)' }}
+        />
       </motion.div>
       {/* timeline items */}
       <div className="flex flex-col w-full space-y-12 md:space-y-16 lg:space-y-18 xl:space-y-20 2xl:space-y-24">
@@ -131,10 +140,10 @@ const ScrollTimeline: React.FC = () => {
               <div className="w-full flex justify-between">
                 {item.side === 'left' ? (
                   <>
-                    <div className="w-1/2 flex justify-end pr-4 text-left">
-                      <TimelineItemContent item={item} visible={visible} delay={delay} isIntermediate={isIntermediate} />
+                    <div className="w-1/2 flex justify-end pr-4">
+                      <TimelineItemContent item={item} visible={visible} delay={delay} isIntermediate={isIntermediate} rightAlign />
                     </div>
-                    <div className="w-1/2 flex justify-start pl-4 text-left">
+                    <div className="w-1/2 flex justify-start pl-4">
                       <TimelineIcon image={item.image} visible={visible} delay={delay} isIntermediate={isIntermediate} />
                     </div>
                   </>
@@ -152,7 +161,7 @@ const ScrollTimeline: React.FC = () => {
               </div>
               {/* circle marker */}
               <motion.div
-                className="absolute left-1/2 mt-6 transform -translate-x-1/2 bg-[#dddddd] rounded-full p-2 z-10"
+                className="absolute left-1/2 mt-6 transform -translate-x-1/2 bg-[#DDDDDD] rounded-full p-2 z-10"
                 initial={{ opacity: 0 }}
                 animate={visible ? { opacity: 1 } : {}}
                 transition={{ duration: 0 }}

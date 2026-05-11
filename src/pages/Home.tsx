@@ -1,7 +1,8 @@
-import React, { lazy, Suspense, useState, useEffect } from 'react';
+import React, { lazy, Suspense, useState } from 'react';
 import Loader from '@/components/common/loading';
 import logo from '@/assets/redicon.svg';
 import Navbar from '@/components/common/transparent-navbar';
+import { useLenis } from '@/hooks/useLenis';
 
 // Import marquee logos
 import copilotStudio from '@/assets/marquee_logos/CopilotStudio_scalable.svg';
@@ -17,6 +18,7 @@ import WhatWeDeliver from '@/components/Home/whatWeDeliver';
 import WhoWeHelp from '@/components/Home/whoWeHelp';
 import WhatWeOffer from '@/components/Home/whatWeOffer';
 import CtaSection from '@/components/Home/ctaSection';
+import ToolsActionButton from '@/components/common/ToolsActionButton';
 
 
 const ScrollToTop = lazy(
@@ -30,7 +32,7 @@ const PowerPodsCards = lazy(
   () => import('@/components/Home/scrollcards')
 );
 const ScrollTimeline = lazy(
-  () => import('@/components/Home/scrolltimeline')
+  () => import('@/components/AboutUs/scrolltimeline')
 );
 const PodWorkflowSection = lazy(
   () => import('@/components/Home/podworkflow')
@@ -52,6 +54,7 @@ const FooterSection = lazy(
 
 
 export const Home: React.FC = () => {
+  useLenis();
   const [isLoading, setIsLoading] = useState(true);
   const simpleFallback = <div className="text-center py-8"></div>;
 
@@ -110,10 +113,9 @@ export const Home: React.FC = () => {
       {/* <Suspense fallback={simpleFallback}>
         <PowerPodsCards />
       </Suspense>
+      */}
 
-      <Suspense fallback={simpleFallback}>
-        <ScrollTimeline />
-      </Suspense> */}
+      
 
 
       <Suspense fallback={simpleFallback}>
@@ -131,6 +133,8 @@ export const Home: React.FC = () => {
         <FooterSection />
       </Suspense>
       </div>
+
+      <ToolsActionButton />
     </div>
   );
 };

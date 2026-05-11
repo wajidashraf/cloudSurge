@@ -7,46 +7,60 @@ interface ScrollingImagesProps {
 
 const ScrollingImages: React.FC<ScrollingImagesProps> = ({
   images,
-  speed = 12,
+  speed = 8,
 }) => {
- 
-  const duplicatedImages = [...images, ...images];
+  // Three copies so the seam is never visible even on very wide screens
+  const tripled = [...images, ...images, ...images, ...images, ...images, ...images, ...images, ...images, ...images];
+
 
   return (
-    <div className="w-full overflow-hidden py-4">
+    <div className="w-full overflow-hidden py-12">
       <style>{`
         @keyframes seamless-scroll {
-          from { transform: translateX(0); }
-          to   { transform: translateX(-50%); }
+          from { transform: translate3d(0, 0, 0); }
+          to   { transform: translate3d(-33.333%, 0, 0); }
         }
         .scroll-track {
+          /* translate3d keeps the element on its own GPU compositing layer,
+             so the loop-reset frame never triggers a repaint / blink */
           animation: seamless-scroll linear infinite;
-          /* Prevents subpixel jitter on the reset frame */
+          -webkit-animation: seamless-scroll linear infinite;
+
           will-change: transform;
-          /* Backface visibility stops flicker in some browsers */
+
+          /* Belt-and-suspenders flicker prevention */
           backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
+          -webkit-perspective: 1000;
+          perspective: 1000;
         }
       `}</style>
 
-      <div className="relative">
+      {/*
+        overflow:hidden on the outer wrapper + isolation:isolate creates a new
+        stacking context, stopping any compositing leak from sibling elements.
+      */}
+      <div className="relative" style={{ isolation: 'isolate' }}>
         <div
           className="scroll-track flex whitespace-nowrap"
           style={{ animationDuration: `${speed}s` }}
         >
-          {duplicatedImages.map((src, index) => (
+          {tripled.map((src, index) => (
             <img
               key={index}
               src={src}
               alt={`img-${index}`}
-              loading="lazy"
+              // eager: all images are decoded before the first paint so the
+              // track has its final width when the animation starts
+              loading="eager"
+              decoding="sync"
+              draggable={false}
               className={[
                 'object-contain flex-shrink-0',
-                // Spacing — mr instead of gap so the last item in each
-                // copy also has trailing space, keeping the seam uniform
-                'mr-24',
-                // Vertical nudge
+                'mr-12',
+                'md:mr-15',
+                'lg:mr-17',
                 'mt-2 2xl:mt-3',
-                // Sizes: base → md → lg → xl (+10%) → 2xl (+10%)
                 'w-18 h-7',
                 'md:w-18 md:h-9',
                 'lg:w-20 lg:h-10',

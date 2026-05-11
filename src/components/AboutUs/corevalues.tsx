@@ -48,7 +48,7 @@ export const CoreValues: React.FC = () => {
         className="bg-white p-6"
         style={{ opacity: headerOpacity }}
       >
-        <div className="flex items-end flex-nowrap ml-5 sm:ml-10 md:ml-20 gap-2 sm:gap-4">
+        <div className="max-w-[1280px] mx-auto flex items-end flex-nowrap gap-4">
           <motion.h2
             className="text-[#EF4123] text-3xl sm:text-5xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold cursor-pointer whitespace-nowrap"
             style={{ y: headerY }}
