@@ -302,10 +302,10 @@ export const FooterSection: FC = () => {
 
         @media (max-width: 560px) {
           .footer-inner { padding: 32px 20px 0; }
-          .footer-right {
-            flex-direction: column;
-            gap: 8px;
-          }
+          // .footer-right {
+          //   flex-direction: column;
+          //   gap: 8px;
+          // }
           .footer-nav { width: 100%; }
           .footer-contact { width: 100%; }
           .footer-newsletter-heading { font-size: 24px; }
