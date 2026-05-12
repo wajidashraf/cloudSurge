@@ -1,5 +1,28 @@
 import React from "react";
 
+export const ArrowIcon: React.FC = () => (
+  <svg
+    width="20"
+    height="25"
+    viewBox="0 0 20 25"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    style={{ flexShrink: 0 }}
+  >
+    <g clipPath="url(#wwd-arrow-clip)">
+      <path
+        d="M13.6218 11.505L12.4029 12.7562L16.2259 16.705H2.06583V0H0V18.8256H15.933L11.738 23.075L12.957 24.3344L19.5581 17.6394L13.6218 11.505Z"
+        fill="#EF4123"
+      />
+    </g>
+    <defs>
+      <clipPath id="wwd-arrow-clip">
+        <rect width="19.5581" height="24.3344" fill="white" />
+      </clipPath>
+    </defs>
+  </svg>
+);
+
 // ─── PowerAutomate ────────────────────────────────────────────────────────────
 export const PowerAutomateIcon = ({
   width = 62,

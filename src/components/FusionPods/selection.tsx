@@ -19,7 +19,7 @@ const cards: Card[] = [
   {
     id: 1,
     title: "Immediate Scalability",
-    description: "Expand your workforce quickly, free from the overhead of traditional hiring.",
+    description: "A Pod can be integrated and working within 48 hours of a confirmed engagement. No job ads, no interview processes, no three-month notice periods.",
     imageSrc: fourArrowsImg,
     bg: "bg-[#ffffff]",
     border: "border",
@@ -28,7 +28,7 @@ const cards: Card[] = [
   {
     id: 2,
     title: "Expert Collaboration",
-    description: "Pre-assembled specialists who excel at working together from day one.",
+    description: "Pre-formed Pods have already worked through the dynamics, communication patterns, and quality processes that take months to develop when assembling a team from scratch. You get the benefit without the wait.",
     imageSrc: communityImg,
     bg: "bg-[#F78A84]",
     border: "",
@@ -37,7 +37,7 @@ const cards: Card[] = [
   {
     id: 3,
     title: "Built-In Oversight",
-    description: "Dedicated management and quality checks ensure top-tier delivery.",
+    description: "The Pod Lead is accountable for delivery quality, project progress, and team output. You do not need to manage the team directly. You manage the outcome.",
     imageSrc: thumbUpImg,
     bg: "bg-[#CECECE]",
     border: "",
@@ -45,8 +45,8 @@ const cards: Card[] = [
   },
   {
     id: 4,
-    title: "Flexible Engagement",
-    description: "Subscription or ad-hoc options to adapt as your project demands evolve.",
+    title: "Flexible from the start.",
+    description: "Subscription or project basis. Scale up or reduce as delivery demands change. No lock-in beyond the current engagement.",
     imageSrc: bellImg,
     bg: "bg-[#EF4123]",
     border: "",
@@ -61,7 +61,7 @@ const PodModelSection: React.FC = () => {
   const isInView = useInView(ref, { once: true, margin: "-10%" });
 
   return (
-    <section ref={ref} className="py-24 md:py-16 lg:py-16 xl:py-16 2xl:py-24 px-4">
+    <section ref={ref} className="py-24 md:py-16 lg:py-16 xl:py-26 2xl:py-30 px-4">
       <h2 className="text-4xl md:text-5xl lg:text-5xl xl:text-5xl 2xl:text-6xl text-center mb-22 md:mb-16 lg:mb-16 xl:mb-16 2xl:mb-22 text-[#ef4123]">
         Why Choose the <strong>Pod Model</strong>?
       </h2>
@@ -90,22 +90,7 @@ const PodModelSection: React.FC = () => {
         })}
       </div>
 
-      <div className="border-[4px] sm:border-[6px] md:border-[8px] lg:border-[8px] xl:border-[8px] 2xl:border-[10px] border-[#ef4123] bg-transparent text-[#ef4123] p-6 sm:p-8 md:p-6 lg:p-6 xl:p-6 2xl:p-8 w-full sm:w-[80vw] md:w-[60vw] lg:w-[80vw] mx-auto mb-10 mt-35 md:mt-24 lg:mt-24 xl:mt-24 2xl:mt-35">
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end space-y-4 lg:space-y-0">
-          {/* Left Text */}
-          <div className="text-left">
-            <h2 className="text-base leading-tight sm:text-4xl md:text-3xl lg:text-3xl xl:text-3xl 2xl:text-4xl font-bold mb-0 md:mb-2">Transforming IT Delivery</h2>
-            <h3 className="text-base leading-tight sm:text-4xl md:text-3xl lg:text-3xl xl:text-3xl 2xl:text-4xl font-bold">with Innovative Pod Model</h3>
-          </div>
-
-          {/* Right Links */}
-          <div className="space-y-4">
-            <a href="/contact" className="flex items-center gap-2 group">
-              <span className="text-base leading-tight sm:text-2xl md:text-xl lg:text-xl xl:text-xl 2xl:text-2xl font-semibold hover:scale-115">↳ Grow your business</span>
-            </a>
-          </div>
-        </div>
-      </div>
+      
     </section>
   );
 };

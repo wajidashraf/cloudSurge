@@ -11,24 +11,15 @@ const HereToDo: React.FC = () => {
         paddingTop: "100px",
         boxSizing: "border-box",
         background:
-          "linear-gradient(360deg, #E1E1E1 0%, #FFFFFF 47.78%), #FFFFFF",
+          "linear-gradient(360deg, #ddd 0%, #FFFFFF 47.78%), #FFFFFF",
         borderBottom: "5px solid #E1E1E1",
       }}
     >
-      <div className=" px-4 lg:px-6 max-w-[1280px] mx-auto" style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-      }}>
+      <div className="px-4 lg:px-6 max-w-[1280px] mx-auto flex flex-col lg:flex-row items-center justify-between gap-10">
         {/* Left — text content */}
         <div
-          className="w-[65%]"
-          style={{
-            flex: "0 1 665px", // grows up to 665px, shrinks on smaller screens
-            display: "flex",
-            flexDirection: "column",
-            gap: "24px",
-          }}
+          className="w-full md:w-[65%] flex flex-col gap-6"
+          style={{ flex: "0 1 clamp(225px, 40vw, 665px)" }}
         >
           <h2
             style={{
@@ -65,21 +56,14 @@ const HereToDo: React.FC = () => {
 
         {/* Right — logo / decorative image */}
         <div
-          className="w-[35%]"
-          style={{
-            flex: "0 0 auto",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "start",
-            marginLeft: "40px", // breathing room between columns
-          }}
+          className="w-full md:w-[35%] flex items-center justify-center md:justify-start lg:ml-10"
           aria-hidden="true"
         >
           <img
             src={image}
             alt=""
             style={{
-              width: "clamp(200px, 24.7vw, 356px)", // fluid: 200px → 356px
+              width: "clamp(180px, 24.7vw, 356px)",
               height: "auto",
               objectFit: "contain",
             }}

@@ -94,9 +94,9 @@ const TeamMembers: React.FC = () => {
   const headerLines = ['Meet the minds,', 'Driving the Cloud Surge'];
 
   return (
-    <section className="relative lg:px-6 max-w-[1280px] mx-auto py-24 h-full">
-      <div className="container">
-        <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl leading-tight flex flex-col sm:flex-row flex-wrap">
+    <section className="relative  lg:px-6 max-w-[1280px] mx-auto py-24 h-full">
+      <div className="container ">
+        <h2 className="px-4 lg:px-0 text-3xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl leading-tight flex flex-col sm:flex-row flex-wrap">
           <div className="flex flex-col items-start mr-0 sm:mr-3">
             {headerLines.map((line, idx) => (
               <motion.div

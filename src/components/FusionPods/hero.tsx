@@ -1,48 +1,367 @@
-import { motion } from 'framer-motion';
-import icon from '@/assets/pod.png';
-import bg from '@/assets/header.png';
-import bgMobile from '@/assets/fusion-mobile.png';
+import { motion } from "framer-motion";
+import bg from "@/assets/Fusion-pod.png";
+import icon from "@/assets/fusion-pod-Icon.png";
+import bgMobile from "@/assets/Fusion-pod-mobile.png";
 
-const textVariant = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' } }
+// ─── Animation Variants ────────────────────────────────────────────────
+const containerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.15, delayChildren: 0.2 } },
 };
 
+const fadeUp = {
+  hidden: { opacity: 0, y: 32 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const fadeIn = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.6, ease: "easeOut" } },
+};
+
+// ─── Hero Component ────────────────────────────────────────────────────
 const Hero = () => {
   return (
-    <section className="relative h-screen w-full flex flex-col md:block">
-      {/* Background Image */}
-      <div className="h-[40%] md:h-auto md:absolute md:inset-0 md:mt-20 lg:mt-20 mt-15">
+    <section
+      className="relative w-full overflow-hidden"
+      style={{ minHeight: "100svh" }}
+    >
+      {/* ── Background ────────────────────────────────────────── */}
+      <motion.div
+        className="absolute inset-0"
+        variants={fadeIn}
+        initial="hidden"
+        animate="visible"
+      >
+        {/* Mobile image */}
         <img
           src={bgMobile}
-          alt="Background"
-          className="w-full h-auto md:hidden"
+          alt=""
+          aria-hidden="true"
+          className="md:hidden w-full h-full object-cover object-top"
         />
+        {/* Desktop image */}
         <img
           src={bg}
-          alt="Background"
-          className="hidden md:block w-full h-full object-cover object-[25%] md:object-center 2xl:object-fill"
+          alt=""
+          aria-hidden="true"
+          className="hidden md:block w-full h-full object-cover object-center"
         />
-      </div>
+        {/* Dark overlay matching Figma: rgba(0,0,0,0.2) */}
+        <div
+          className="absolute inset-0"
+          style={{ background: "rgba(0,0,0,0.2)" }}
+        />
+      </motion.div>
 
-      {/* Text Container */}
-      <div className="flex-1 flex items-start justify-center px-4 pt-5 bg-white md:bg-transparent relative z-10 md:absolute md:z-10 md:left-4 md:translate-x-0 lg:left-20 xl:left-32 md:bottom-25 lg:bottom-10 max-w-3xl md:px-0 md:items-start text-left">
+      {/* ── Mobile Layout (stacked) ────────────────────────────── */}
+      <div className="relative z-10 md:hidden flex flex-col min-h-screen px-6 pt-24 pb-10">
+        <div
+          className="absolute inset-0 h-[500px]"
+          style={{
+            background:
+              "linear-gradient(to right, rgba(236,63,36,1) 50%, rgba(190,30,120,1) 60%, rgba(115,0,191,1) 75%, rgba(10,10,144,1) 100%)",
+            maskImage: "linear-gradient(to bottom, black 20%, transparent 50%)",
+            WebkitMaskImage:
+              "linear-gradient(to bottom, black 5%, transparent 30%)",
+          }}
+        />
+        {/* Icon */}
         <motion.div
+          initial={{ opacity: 0, scale: 0.85 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+          className="mb-6"
+        ></motion.div>
+
+        {/* Spacer pushes content toward bottom */}
+        <div className="flex-1" > </div>
+
+        <motion.div
+          variants={containerVariants}
           initial="hidden"
           animate="visible"
-          variants={textVariant}
-          key={Math.random()} // triggers re-animation on mount
+          
         >
-          <h1 className="text-4xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-5xl font-bold text-[#ef4123] md:text-white leading-tight">
-            <img src={icon} className='w-30 mx-0 [filter:brightness(0)_saturate(100%)_invert(38%)_sepia(90%)_saturate(3000%)_hue-rotate(350deg)_brightness(95%)_contrast(95%)] md:filter-none' alt="" />
-            Introducing the <br/>Fusion Pod Model
-          </h1>
-          <h1 className="text-2xl md:text-xl lg:text-xl xl:text-xl 2xl:text-xl text-[#ef4123] md:text-white leading-tight mt-2 md:mt-8">
-            High-impact, agile IT teams
-          </h1>
-          <p className="text-xl md:text-lg lg:text-lg xl:text-lg 2xl:text-lg text-[#ef4123] md:text-white opacity-90 leading-relaxed">
-            ready when you are
-          </p>
+          {/* Main heading */}
+          <motion.h1
+            variants={fadeUp}
+            className="text-white leading-none mb-6"
+            style={{
+              fontFamily:
+                "'Bahnschrift', 'DIN Condensed', 'Arial Narrow', sans-serif",
+              fontWeight: 600,
+              fontSize: "clamp(2.5rem, 12vw, 4.5rem)",
+              letterSpacing: "-0.01em",
+            }}
+          >
+            Fusion Pod
+          </motion.h1>
+
+          {/* Subtitle */}
+          <motion.div variants={fadeUp} className="mb-8">
+            <p
+              className="text-white font-semibold"
+              style={{
+                fontFamily:
+                  "'Bahnschrift', 'DIN Condensed', 'Arial Narrow', sans-serif",
+                fontSize: "clamp(14px, 4.3vw, 1.4rem)",
+                lineHeight: 1.5,
+              }}
+            >
+              Meet our revolutionary model - High-impact, agile IT teams ready
+              when you are.
+            </p>
+            <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="absolut flex flex-row items-center"
+          style={{
+            marginTop: "16px",
+            gap: "16px",
+          }}
+        >
+          {/* Icon — Figma: 87×87 */}
+          <motion.div variants={fadeUp}>
+            <img
+              src={icon}
+              alt="Fusion Pod"
+              style={{
+                width: "clamp(3.5rem, 6vw, 87px)",
+                height: "clamp(3.5rem, 6vw, 87px)",
+                objectFit: "contain",
+                filter: "brightness(0) invert(1)",
+              }}
+            />
+          </motion.div>
+
+          {/* Sub-heading — Figma: 263px wide, 24px, Bahnschrift 600 */}
+          <motion.p
+            variants={fadeUp}
+            className="text-white font-semibold"
+            style={{
+              fontFamily:
+                "'Bahnschrift', 'DIN Condensed', 'Arial Narrow', sans-serif",
+              fontWeight: 400,
+              fontSize: "clamp(0.9rem, 1.67vw, 24px)",
+              lineHeight: "110%",
+              letterSpacing: "-0.01em",
+              maxWidth: "min(163px, 300px)",
+            }}
+          >
+            A ready-built delivery team in 48 hours.
+          </motion.p>
+        </motion.div>
+          </motion.div>
+
+          {/* CTAs */}
+          <motion.div variants={fadeUp} className="flex flex-row gap-3">
+            <button
+              className="flex items-center justify-center font-semibold rounded-md transition-all duration-200 hover:bg-white/90 hover:scale-105 active:scale-95"
+              style={{
+                fontFamily:
+                  "'Bahnschrift', 'DIN Condensed', 'Arial Narrow', sans-serif",
+                background: "#FFFFFF",
+                color: "#EC3F24",
+                border: "1px solid #FFFFFF",
+                padding: "6px 24px",
+                fontSize: "clamp(0.9rem, 1.25vw, 18px)",
+                lineHeight: "150%",
+                minWidth: "clamp(120px, 13.7vw, 197px)",
+                height: "39px",
+              }}
+            >
+              Get a Pod in 48 hours
+            </button>
+
+            {/* Secondary: outline white */}
+            <button
+              className="flex items-center justify-center font-semibold rounded-md transition-all duration-200 hover:bg-white/15 active:scale-95"
+              style={{
+                fontFamily:
+                  "'Bahnschrift', 'DIN Condensed', 'Arial Narrow', sans-serif",
+                background: "transparent",
+                color: "#FFFFFF",
+                border: "1px solid #FFFFFF",
+                padding: "6px 24px",
+                fontSize: "clamp(0.9rem, 1.25vw, 18px)",
+                lineHeight: "150%",
+                minWidth: "clamp(100px, 11.3vw, 163px)",
+                height: "39px",
+              }}
+            >
+              See how it works
+            </button>
+          </motion.div>
+        </motion.div>
+      </div>
+
+      {/* ── Desktop Layout (absolute positioned per Figma) ─────── */}
+      <div
+        className="relative z-10 hidden md:block"
+        style={{ minHeight: "100svh" }}
+      >
+        <div
+          style={{
+            width: "100%",
+            height: "450px",
+            background:
+              "linear-gradient(to right, rgba(236,63,36,1) 50%, rgba(190,30,120,1) 60%, rgba(115,0,191,1) 75%, rgba(10,10,144,1) 100%)",
+            maskImage: "linear-gradient(to bottom, black 30%, transparent 90%)",
+            WebkitMaskImage:
+              "linear-gradient(to bottom, black 40%, transparent 100%)",
+          }}
+        ></div>
+        {/* Left content block — Figma: left:128px, bottom area ~top:483px */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="absolute"
+          style={{
+            left: "clamp(2rem, 8.5vw, 128px)",
+            bottom: "clamp(2rem, 8vh, 120px)",
+            maxWidth: "min(600px, 45vw)",
+          }}
+        >
+          {/* Main heading — Figma: 90px, Bahnschrift 600 */}
+          <motion.h1
+            variants={fadeUp}
+            className="text-white leading-none"
+            style={{
+              fontFamily:
+                "'Bahnschrift', 'DIN Condensed', 'Arial Narrow', sans-serif",
+              fontWeight: 600,
+              fontSize: "clamp(3.5rem, 6.25vw, 90px)",
+              letterSpacing: "-0.01em",
+              lineHeight: "110%",
+              marginBottom: "clamp(1.5rem, 2.5vw, 40px)",
+            }}
+          >
+            Fusion Pod
+          </motion.h1>
+
+          {/* Content block — Figma: flex-col gap:40px */}
+          <motion.div
+            variants={fadeUp}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "clamp(1rem, 2vw, 40px)",
+            }}
+          >
+            {/* Subtitle text — Figma: 24px, Bahnschrift 600, 485px wide */}
+            <p
+              className="text-white"
+              style={{
+                fontFamily:
+                  "'Bahnschrift', 'DIN Condensed', 'Arial Narrow', sans-serif",
+                fontSize: "clamp(1rem, 1.67vw, 24px)",
+                lineHeight: "150%",
+                maxWidth: "min(485px, 34vw)",
+              }}
+            >
+              Meet our revolutionary model - High-impact, agile IT teams ready
+              when you are.
+            </p>
+
+            {/* Action buttons — Figma: flex-row gap:16px */}
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                gap: "16px",
+                flexWrap: "wrap",
+              }}
+            >
+              {/* Primary: white bg, red text */}
+              <button
+                className="flex items-center justify-center font-semibold rounded-md transition-all duration-200 hover:bg-white/90 hover:scale-105 active:scale-95"
+                style={{
+                  fontFamily:
+                    "'Bahnschrift', 'DIN Condensed', 'Arial Narrow', sans-serif",
+                  background: "#FFFFFF",
+                  color: "#EC3F24",
+                  border: "1px solid #FFFFFF",
+                  padding: "6px 24px",
+                  fontSize: "clamp(0.9rem, 1.25vw, 18px)",
+                  lineHeight: "150%",
+                  minWidth: "clamp(120px, 13.7vw, 197px)",
+                  height: "39px",
+                }}
+              >
+                Get a Pod in 48 hours
+              </button>
+
+              {/* Secondary: outline white */}
+              <button
+                className="flex items-center justify-center font-semibold rounded-md transition-all duration-200 hover:bg-white/15 active:scale-95"
+                style={{
+                  fontFamily:
+                    "'Bahnschrift', 'DIN Condensed', 'Arial Narrow', sans-serif",
+                  background: "transparent",
+                  color: "#FFFFFF",
+                  border: "1px solid #FFFFFF",
+                  padding: "6px 24px",
+                  fontSize: "clamp(0.9rem, 1.25vw, 18px)",
+                  lineHeight: "150%",
+                  minWidth: "clamp(100px, 11.3vw, 163px)",
+                  height: "39px",
+                }}
+              >
+                See how it works
+              </button>
+            </div>
+          </motion.div>
+        </motion.div>
+
+        {/* Right icon group — Figma: left:1001px, top:666px (bottom-right quadrant) */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="absolute flex flex-row items-center"
+          style={{
+            right: "clamp(2rem, 9.7vw, 140px)",
+            bottom: "clamp(2rem, 7.7vh, 110px)",
+            gap: "16px",
+          }}
+        >
+          {/* Icon — Figma: 87×87 */}
+          <motion.div variants={fadeUp}>
+            <img
+              src={icon}
+              alt="Fusion Pod"
+              style={{
+                width: "clamp(3.5rem, 6vw, 87px)",
+                height: "clamp(3.5rem, 6vw, 87px)",
+                objectFit: "contain",
+                filter: "brightness(0) invert(1)",
+              }}
+            />
+          </motion.div>
+
+          {/* Sub-heading — Figma: 263px wide, 24px, Bahnschrift 600 */}
+          <motion.p
+            variants={fadeUp}
+            className="text-white font-semibold"
+            style={{
+              fontFamily:
+                "'Bahnschrift', 'DIN Condensed', 'Arial Narrow', sans-serif",
+              fontWeight: 400,
+              fontSize: "clamp(0.9rem, 1.67vw, 24px)",
+              lineHeight: "110%",
+              letterSpacing: "-0.01em",
+              maxWidth: "min(263px, 18vw)",
+            }}
+          >
+            A ready-built delivery team in 48 hours.
+          </motion.p>
         </motion.div>
       </div>
     </section>

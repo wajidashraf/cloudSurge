@@ -1,5 +1,6 @@
 import React, { lazy, Suspense, useState, useEffect, useRef } from "react";
 import logo from '@/assets/redicon.svg';
+import { useLenis } from '@/hooks/useLenis';
 
 import Navbar from "@/components/common/colored-navbar";
 import Hero from "@/components/FusionPods/hero";
@@ -14,6 +15,9 @@ import fourArrowsImg from "@/assets/four_arrow.png";
 import dg from "@/assets/poddg.png";
 import dgMobile from "@/assets/pod-architecture-mobile.svg";
 import { setPageSEO } from "@/utils/seo";
+import PodModelWorks from "@/components/FusionPods/podModelWorks";
+import WhatisPod from "@/components/FusionPods/whatisPod";
+import PodWorkFlow from "@/components/FusionPods/podWorkflow";
 
 const ScrollToTop = lazy(() =>
   import("@/components/common/ScrollToTop").then((mod) => ({
@@ -27,6 +31,7 @@ const FooterSection = lazy(() =>
 );
 
 export const FusionPods: React.FC = () => {
+  useLenis();
   const loaderFallback =<Loader imageSrc={logo} altText="App logo loading" />;
   const [showRemainingContent, setShowRemainingContent] = useState(false);
   const [modelSectionInView, setModelSectionInView] = useState(false);
@@ -105,15 +110,22 @@ export const FusionPods: React.FC = () => {
         <PartnerSection />
       </Suspense>
       <div ref={modelSectionRef}>
-        <PodModel/>
+        {/* <PodModel/> */}
+        <PodModelWorks/>
+      </div>
+      <div ref={modelSectionRef}>
+        <WhatisPod/>
       </div>
       {showRemainingContent && (
         <>
-          <Suspense fallback={simpleFallback}>
+          {/* <Suspense fallback={simpleFallback}>
             <Diagram/>
-          </Suspense>
+          </Suspense> */}
           <Suspense fallback={simpleFallback}>
             <PodModelSection />
+          </Suspense>
+          <Suspense fallback={simpleFallback}>
+            <PodWorkFlow />
           </Suspense>
           <Suspense fallback={simpleFallback}>
             <FooterSection />

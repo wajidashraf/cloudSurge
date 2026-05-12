@@ -49,10 +49,10 @@ const ICONS = [
 const WhatWeDo: React.FC = () => {
   return (
     <section className="relative w-full bg-[#EC3F24] overflow-hidden pt-25 pb-10 px-8">
-      <div className="relative xl:px-6 max-w-[1280px] mx-auto flex flex-col lg:flex-row items-center gap-16 min-h-[600px]">
+      <div className="relative xl:px-6 max-w-[1280px] mx-auto flex flex-col xl:flex-row items-center gap-16 min-h-[600px]">
 
         {/* Left: Text */}
-        <div className="flex-1 flex flex-col gap-10 z-10 item-cnter ">
+        <div className="px-2 md:px-0 flex-1 min-w-[400px] flex flex-col gap-10 z-10 item-cnter">
           <h2
             className="text-white font-bold"
             style={{
@@ -96,8 +96,13 @@ const WhatWeDo: React.FC = () => {
         </div>
 
         {/* Right: Visual */}
+        {/* Wrapper collapses to scaled height so layout isn't broken on mobile */}
+        <div className="relative flex-shrink-0 mt-8 flex items-start justify-center
+          h-[303px] sm:h-[358px] md:h-[441px] lg:h-[496px] xl:h-[551px]
+          w-full xl:w-[547.6px]">
         <div
-          className="relative flex-shrink-0 mt-8"
+          className="absolute origin-top
+            scale-[0.55] sm:scale-[0.65] md:scale-[0.8] lg:scale-[0.9] xl:scale-100"
           style={{ width: "547.6px", height: "551px" }}
         >
           {/* Dashed orbit ellipse */}
@@ -130,6 +135,7 @@ const WhatWeDo: React.FC = () => {
               </div>
             );
           })}
+        </div>
         </div>
       </div>
     </section>
