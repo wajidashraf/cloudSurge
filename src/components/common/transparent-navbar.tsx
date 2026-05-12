@@ -17,6 +17,7 @@ const Navbar: React.FC<NavbarProps> = ({ delayAnimation = false }) => {
   const navLinks = [
     { to: "/about", text: "ABOUT" },
     { to: "/fusion-pods", text: "FUSION PODS" },
+    { to: "/surge-care", text: "SURGE CARE" },
     { to: "/success-stories", text: "SUCCESS STORIES" },
     { to: "/careers", text: "CAREERS" },
     { to: "/contact", text: "CONTACT US" },

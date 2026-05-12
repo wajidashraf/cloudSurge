@@ -18,6 +18,7 @@ import { Route as WebinarImport } from './routes/webinar'
 import { Route as TestImport } from './routes/test'
 import { Route as TermsOfServiceImport } from './routes/terms-of-service'
 import { Route as TechauditImport } from './routes/techaudit'
+import { Route as SurgeCareImport } from './routes/surge-care'
 import { Route as SuccessStoriesImport } from './routes/success-stories'
 import { Route as StressfreeImport } from './routes/stressfree'
 import { Route as PrivacyNoticeImport } from './routes/privacy-notice'
@@ -88,6 +89,12 @@ const TermsOfServiceRoute = TermsOfServiceImport.update({
 const TechauditRoute = TechauditImport.update({
   id: '/techaudit',
   path: '/techaudit',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const SurgeCareRoute = SurgeCareImport.update({
+  id: '/surge-care',
+  path: '/surge-care',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -459,6 +466,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SuccessStoriesImport
       parentRoute: typeof rootRoute
     }
+    '/surge-care': {
+      id: '/surge-care'
+      path: '/surge-care'
+      fullPath: '/surge-care'
+      preLoaderRoute: typeof SurgeCareImport
+      parentRoute: typeof rootRoute
+    }
     '/techaudit': {
       id: '/techaudit'
       path: '/techaudit'
@@ -542,6 +556,7 @@ export interface FileRoutesByFullPath {
   '/privacy-notice': typeof PrivacyNoticeRoute
   '/stressfree': typeof StressfreeRoute
   '/success-stories': typeof SuccessStoriesRoute
+  '/surge-care': typeof SurgeCareRoute
   '/techaudit': typeof TechauditRoute
   '/terms-of-service': typeof TermsOfServiceRoute
   '/test': typeof TestRoute
@@ -580,6 +595,7 @@ export interface FileRoutesByTo {
   '/privacy-notice': typeof PrivacyNoticeRoute
   '/stressfree': typeof StressfreeRoute
   '/success-stories': typeof SuccessStoriesRoute
+  '/surge-care': typeof SurgeCareRoute
   '/techaudit': typeof TechauditRoute
   '/terms-of-service': typeof TermsOfServiceRoute
   '/test': typeof TestRoute
@@ -619,6 +635,7 @@ export interface FileRoutesById {
   '/privacy-notice': typeof PrivacyNoticeRoute
   '/stressfree': typeof StressfreeRoute
   '/success-stories': typeof SuccessStoriesRoute
+  '/surge-care': typeof SurgeCareRoute
   '/techaudit': typeof TechauditRoute
   '/terms-of-service': typeof TermsOfServiceRoute
   '/test': typeof TestRoute
@@ -659,6 +676,7 @@ export interface FileRouteTypes {
     | '/privacy-notice'
     | '/stressfree'
     | '/success-stories'
+    | '/surge-care'
     | '/techaudit'
     | '/terms-of-service'
     | '/test'
@@ -696,6 +714,7 @@ export interface FileRouteTypes {
     | '/privacy-notice'
     | '/stressfree'
     | '/success-stories'
+    | '/surge-care'
     | '/techaudit'
     | '/terms-of-service'
     | '/test'
@@ -733,6 +752,7 @@ export interface FileRouteTypes {
     | '/privacy-notice'
     | '/stressfree'
     | '/success-stories'
+    | '/surge-care'
     | '/techaudit'
     | '/terms-of-service'
     | '/test'
@@ -772,6 +792,7 @@ export interface RootRouteChildren {
   PrivacyNoticeRoute: typeof PrivacyNoticeRoute
   StressfreeRoute: typeof StressfreeRoute
   SuccessStoriesRoute: typeof SuccessStoriesRoute
+  SurgeCareRoute: typeof SurgeCareRoute
   TechauditRoute: typeof TechauditRoute
   TermsOfServiceRoute: typeof TermsOfServiceRoute
   TestRoute: typeof TestRoute
@@ -810,6 +831,7 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyNoticeRoute: PrivacyNoticeRoute,
   StressfreeRoute: StressfreeRoute,
   SuccessStoriesRoute: SuccessStoriesRoute,
+  SurgeCareRoute: SurgeCareRoute,
   TechauditRoute: TechauditRoute,
   TermsOfServiceRoute: TermsOfServiceRoute,
   TestRoute: TestRoute,
@@ -857,6 +879,7 @@ export const routeTree = rootRoute
         "/privacy-notice",
         "/stressfree",
         "/success-stories",
+        "/surge-care",
         "/techaudit",
         "/terms-of-service",
         "/test",
@@ -949,6 +972,9 @@ export const routeTree = rootRoute
     },
     "/success-stories": {
       "filePath": "success-stories.tsx"
+    },
+    "/surge-care": {
+      "filePath": "surge-care.tsx"
     },
     "/techaudit": {
       "filePath": "techaudit.tsx"
