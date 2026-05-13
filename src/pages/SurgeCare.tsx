@@ -4,6 +4,9 @@ import Navbar from "@/components/common/colored-navbar";
 import { setPageSEO } from "@/utils/seo";
 import { useLenis } from "@/hooks/useLenis";
 import WhoItIsFor from "@/components/SurgeCare/HowItIsSoFor";
+import SurgeCareMatters from "@/components/SurgeCare/SurgeCareMatters";
+import WhatsIncluded from "@/components/SurgeCare/whatIncluded";
+import WhyOrganisationsChoose from "@/components/SurgeCare/chooseSurgeCare";
 
 const ScrollToTop = lazy(() =>
   import("@/components/common/ScrollToTop").then((mod) => ({
@@ -45,6 +48,15 @@ export const SurgeCare: React.FC = () => {
       </Suspense>
       <Suspense fallback={simpleFallback}>
         <WhoItIsFor />
+      </Suspense>
+      <Suspense fallback={simpleFallback}>
+        <SurgeCareMatters />
+      </Suspense>
+      <Suspense fallback={simpleFallback}>
+        <WhatsIncluded />
+      </Suspense>
+      <Suspense fallback={simpleFallback}>
+        <WhyOrganisationsChoose />
       </Suspense>
 
       <Suspense fallback={simpleFallback}>

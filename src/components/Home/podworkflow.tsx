@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "@tanstack/react-router";
 
-const FONT = "'Bahnschrift', 'DIN Alternate', sans-serif";
+const FONT = "'Bahnschrift', 'DIN Alternate', 'Arial Narrow', sans-serif";
 
 // ── SVG Icons (unchanged) ──────────────────────────────────────────────────
 

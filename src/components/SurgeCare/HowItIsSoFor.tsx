@@ -72,7 +72,7 @@ const WhoItIsFor = () => {
 
         /* ── Header ── */
         .wif-title {
-          font-family: 'Bahnschrift', 'DM Sans', sans-serif;
+          font-family: 'Bahnschrift', 'DIN Alternate', 'Arial Narrow', sans-serif;
           font-size: clamp(40px, 6vw, 60px);
           font-weight: 600;
           line-height: 1.1;
@@ -86,7 +86,7 @@ const WhoItIsFor = () => {
         }
 
         .wif-subtitle {
-          font-family: 'Bahnschrift', 'DM Sans', sans-serif;
+          font-family: 'Bahnschrift', 'DIN Alternate', 'Arial Narrow', sans-serif;
           font-size: clamp(16px, 2.2vw, 22px);
           font-weight: 350;
           line-height: 1.5;
@@ -172,7 +172,7 @@ const WhoItIsFor = () => {
         }
 
         .wif-card-num {
-          font-family: 'Bahnschrift', 'DM Sans', sans-serif;
+          font-family: 'Bahnschrift', 'DIN Alternate', 'Arial Narrow', sans-serif;
           font-size: 22px;
           font-weight: 400;
           line-height: 1.2;
@@ -186,7 +186,7 @@ const WhoItIsFor = () => {
         }
 
         .wif-card-title {
-          font-family: 'Bahnschrift', 'DM Sans', sans-serif;
+          font-family: 'Bahnschrift', 'DIN Alternate', 'Arial Narrow', sans-serif;
           font-size: clamp(17px, 1.7vw, 22px);
           font-weight: 500;
           line-height: 1.3;
@@ -194,7 +194,7 @@ const WhoItIsFor = () => {
         }
 
         .wif-card-desc {
-          font-family: 'Bahnschrift', 'DM Sans', sans-serif;
+          font-family: 'Bahnschrift', 'DIN Alternate', 'Arial Narrow', sans-serif;
           font-size: clamp(14px, 1.3vw, 17px);
           font-weight: 300;
           line-height: 1.55;
@@ -234,16 +234,20 @@ const WhoItIsFor = () => {
         @media (max-width: 480px) {
           .wif-section {
             padding: 48px 18px 64px;
+            
           }
 
           .wif-title {
             font-size: 36px;
             margin-bottom: 14px;
+            text-align: left;
+            width: 100%;
           }
 
           .wif-subtitle {
             font-size: 15px;
             margin-bottom: 40px;
+            text-align: left;
           }
 
           .wif-card {
