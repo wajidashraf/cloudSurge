@@ -10,6 +10,12 @@ export function useLenis() {
       touchMultiplier: 2,
     });
 
+    // Allow hero (or any section) to pause/resume smooth scroll via custom events
+    const onLock   = () => lenis.stop();
+    const onUnlock = () => lenis.start();
+    window.addEventListener('hero:lock',   onLock);
+    window.addEventListener('hero:unlock', onUnlock);
+
     let rafId: number;
     function raf(time: number) {
       lenis.raf(time);
@@ -20,6 +26,8 @@ export function useLenis() {
     return () => {
       cancelAnimationFrame(rafId);
       lenis.destroy();
+      window.removeEventListener('hero:lock',   onLock);
+      window.removeEventListener('hero:unlock', onUnlock);
     };
   }, []);
 }

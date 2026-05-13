@@ -1,16 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
   motion,
-  useViewportScroll,
+  useScroll,
   useTransform,
   type MotionValue,
 } from 'framer-motion';
 import clickIcon from '@/assets/click.svg';
 
-interface GojraProps {
-  imageSrc?: string;
-  altText?: string;
-}
+const TARGET_VALUES = [25, 50, 98, 100];
 
 // GradientText driven by scroll‐scrubbed MotionValue<string>
 const GradientText: React.FC<{
@@ -50,7 +47,7 @@ const cards = [
     title: '25%',
     content: (
       <>
-        increase in project capacity for our partners<br/><br/>
+        average increase in project capacity for partner organisations
       </>
     ),
   },
@@ -58,7 +55,7 @@ const cards = [
     title: '50%',
     content: (
       <>
-        reduction in<br/> time-to-productivity<br/><br/>
+        reduction in time to productivity compared to traditional hiring
       </>
     ),
   },
@@ -66,7 +63,7 @@ const cards = [
     title: '98%',
     content: (
       <>
-        client satisfaction rate <br/><br/><br/>
+        client satisfaction rate across all engagements <br/><br/>
       </>
     ),
   },
@@ -74,19 +71,19 @@ const cards = [
     title: '100+',
     content: (
       <>
-        successfully delivered projects across diverse industries
+        projects successfully delivered across diverse industries
       </>
     ),
   },
 ];
 
-const Cardssuccess: React.FC<GojraProps> = () => {
-  const { scrollYProgress } = useViewportScroll();
+const Cardssuccess: React.FC = () => {
+  const { scrollYProgress } = useScroll();
 
   const gradientShift = useTransform(
     scrollYProgress,
     [0, 1],
-    ['0% 50%', '100% 50%']
+    ['0% 30%', '100% 50%']
   );
 
   const lines = ['The Cloud Surge Impact'];
@@ -108,7 +105,7 @@ const Cardssuccess: React.FC<GojraProps> = () => {
                 <motion.div
                   key={idx}
                   style={{ backgroundPosition: gradientShift }}
-                  transition={{ duration: 0.6, ease: 'easeInOut' }}
+                  transition={{ duration: 0.4, ease: 'easeInOut' }}
                   className="flex items-center"
                 >
                   <GradientText
@@ -143,95 +140,75 @@ const Cardssuccess: React.FC<GojraProps> = () => {
 // Internal PowerPodsCards component
 const PowerPodsCards: React.FC = () => {
   const [scrollProgress, setScrollProgress] = useState<number>(0);
-  const [isInView, setIsInView] = useState<boolean>(false);
   const [counters, setCounters] = useState<number[]>([0, 0, 0, 0]);
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const initialMargins = [0, 500, 1000, 1500];
-  const targetValues = [25, 50, 98, 100]; // Target values for counters
+  const [isDesktop, setIsDesktop] = useState<boolean>(false);
+  const sectionRef   = useRef<HTMLDivElement>(null);
+  const counterFired = useRef<boolean>(false);   // fire counter animation only once
+  const initialMargins = [0, 700, 1000, 1500];
 
+  /* ── Track desktop breakpoint reactively ── */
+  useEffect(() => {
+    const check = () => setIsDesktop(window.innerWidth >= 1024);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  /* ── Scroll-driven margin progress + counter trigger ── */
   useEffect(() => {
     const handleScroll = () => {
       if (!sectionRef.current) return;
 
-      const sectionTop = sectionRef.current.offsetTop;
-      const sectionHeight = sectionRef.current.offsetHeight;
-      const scrollY = window.scrollY;
+      const rect         = sectionRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
 
-      const startOffset = sectionTop - windowHeight * 1.9;
-      const endOffset = sectionTop + sectionHeight * 0.5;
-
-      let progress = (scrollY - startOffset) / (endOffset - startOffset);
-      progress = Math.min(Math.max(progress, 0), 1);
-
+      // Progress: 0 when section top is 1.5× viewport below fold, 1 when section midpoint reaches centre
+      const startY   = windowHeight * 5;   // section top this far below viewport bottom → progress 0
+      const endY     = windowHeight * 0.1;   // section top this far from viewport top → progress 1
+      const rawProg  = 1 - (rect.top - endY) / (startY - endY);
+      const progress = Math.min(Math.max(rawProg, 0), 1);
       setScrollProgress(progress);
 
-      // Check if section is in view for counter animation
-      const sectionBottom = sectionTop + sectionHeight;
-      const viewportTop = scrollY;
-      const viewportBottom = scrollY + windowHeight;
-      
-      // More generous viewport detection - trigger when 20% of section is visible
-      const triggerPoint = sectionTop + (sectionHeight * 0.2);
-      const inView = triggerPoint < viewportBottom && sectionTop > viewportTop - windowHeight;
-      
-      if (inView && !isInView) {
-        setIsInView(true);
-        
-        // Animate each counter
-        targetValues.forEach((target, index) => {
-          let start = 0;
-          const duration = 2000; // 2 seconds
+      // Fire counters once when section is 20 % into view
+      if (!counterFired.current && rect.top < windowHeight * 0.4) {
+        counterFired.current = true;
+        TARGET_VALUES.forEach((target, index) => {
+          const duration  = 1000;
           const startTime = Date.now();
-          
-          const animate = () => {
-            const elapsed = Date.now() - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            
-            // Easing function for smooth animation
-            const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-            const current = Math.floor(start + (target - start) * easeOutQuart);
-            
+          const tick = () => {
+            const elapsed     = Date.now() - startTime;
+            const t           = Math.min(elapsed / duration, 1);
+            const eased       = 1 - Math.pow(1 - t, 4);
+            const current     = Math.floor(target * eased);
             setCounters(prev => {
-              const newCounters = [...prev];
-              newCounters[index] = current;
-              return newCounters;
+              const next = [...prev];
+              next[index] = current;
+              return next;
             });
-            
-            if (progress < 1) {
-              requestAnimationFrame(animate);
-            }
+            if (t < 1) requestAnimationFrame(tick);
           };
-          
-          // Stagger the animation start for each counter
-          setTimeout(() => {
-            requestAnimationFrame(animate);
-          }, index * 200);
+          setTimeout(() => requestAnimationFrame(tick), index * 100);
         });
-      } else if (!inView) {
-        setIsInView(false);
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    handleScroll();
-
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // run once on mount
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isInView, targetValues]);
+  }, []); // empty deps — handler only reads refs/closures, never re-registers mid-scroll
 
   return (
     <div ref={sectionRef} className="w-full relative py-0 mb-20 md:mb-55">
       <div className="overflow-hidden w-full px-4 sm:px-6 lg:px-8 flex justify-center">
         <div className="max-w-[85%] md:max-w-[90%] mx-auto w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-x-3 lg:gap-x-3 xl:gap-x-4 2xl:gap-x-0">
           {cards.map((card, i) => {
-            const currentMargin = window.innerWidth >= 1024 ? Math.max(0, initialMargins[i] * (0.7 - scrollProgress)) : 0;
+            // No CSS transition — margin is driven 1:1 by scroll for smooth motion
+            const currentMargin = isDesktop
+              ? Math.max(0, initialMargins[i] * (1 - scrollProgress))
+              : 0;
 
             return (
-              <div
-                key={i}
-                className="transition-all duration-50 ease-out"
-                style={{ marginTop: `${currentMargin}px` }}
-              >
+              <div key={i} style={{ marginTop: `${currentMargin}px` }}>
                 <div className="flex flex-col p-4 md:p-3 lg:p-3 xl:p-4 2xl:p-4 md:pl-6 lg:pl-7 xl:pl-7 2xl:pl-8 pt-6 md:pt-16 lg:pt-18 xl:pt-20 2xl:pt-25 bg-[#EFEFEF] min-h-[150px] sm:min-h-[250px] md:min-h-[240px] lg:min-h-[250px] xl:min-h-[260px] 2xl:min-h-[300px] w-full md:w-[200px] lg:w-[220px] xl:w-[240px] 2xl:w-90">
                   <h2 className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl text-left sm:text-5xl font-semibold text-[#EF4123] mb-2 sm:mb-4">
                     {i === 3 ? `${counters[i]}+` : `${counters[i]}%`}

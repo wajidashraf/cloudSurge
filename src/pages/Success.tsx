@@ -5,15 +5,20 @@ import { lazy, Suspense, useEffect } from 'react';
 import logo from '@/assets/redicon.svg';
 import { FooterSection } from '@/components/common/footer';
 import Hero from '@/components/success/hero';
-import GojraHeading from '@/components/success/cards';
 import Cardssuccess from '@/components/success/cards';
+import { useLenis } from '@/hooks/useLenis';
 import CaseStudy from '@/components/success/casestudy';
 import { setPageSEO } from '@/utils/seo';
+import ProjectsRibbon from '@/components/success/projectsRibbon';
+import SuccessProjectsCard from '@/components/success/SuccessProjectsCards';
+import CtaSection from '@/components/success/ctaSection';
 const ScrollToTop = lazy(
   () => import('@/components/common/ScrollToTop').then(module => ({ default: module.ScrollToTop }))
 );
 
 export const Success: React.FC = () => {
+  useLenis();
+
   // Fallback loader using our Loader component with pulse effect
   const loaderWithImage = <Loader imageSrc={logo} altText="App logo loading" />;
   const simpleFallback = <div className="text-center py-8"></div>;
@@ -38,11 +43,21 @@ export const Success: React.FC = () => {
             <Hero />
         </Suspense>
         <Suspense fallback={simpleFallback}>
+            <ProjectsRibbon />
+        </Suspense>
+        <Suspense fallback={simpleFallback}>
+            <SuccessProjectsCard />
+        </Suspense>
+        <Suspense fallback={simpleFallback}>
             <Cardssuccess />
         </Suspense>
         <Suspense fallback={simpleFallback}>
-            <CaseStudy />
+            <CtaSection />
         </Suspense>
+        {/* 
+        <Suspense fallback={simpleFallback}>
+            <CaseStudy />
+        </Suspense> */}
         <Suspense fallback={simpleFallback}>
             <FooterSection />
         </Suspense>
