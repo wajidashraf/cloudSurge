@@ -1,6 +1,6 @@
-import Navbar from '@/components/common/colored-navbar'
+import React, { lazy, Suspense, useEffect } from 'react';
+import Navbar from '@/components/common/colored-navbar';
 import Loader from '@/components/common/loading';
-import { lazy, Suspense, useEffect } from 'react';
 
 import logo from '@/assets/redicon.svg';
 import Hero from '@/components/Careers/hero';
@@ -9,11 +9,15 @@ import Gojra from '@/components/Careers/gojra';
 import OpeningsSection from '@/components/Careers/apply';
 import { FooterSection } from '@/components/common/footer';
 import { setPageSEO } from '@/utils/seo';
+import CareerPortal from '@/components/Careers/careerPortal';
+import CareerCta from '@/components/Careers/careerCTA';
+import { useLenis } from '@/hooks/useLenis';
 const ScrollToTop = lazy(
   () => import('@/components/common/ScrollToTop').then(module => ({ default: module.ScrollToTop }))
 );
 
 export const Careers: React.FC = () => {
+  useLenis();
   // Fallback loader using our Loader component with pulse effect
   const loaderWithImage = <Loader imageSrc={logo} altText="App logo loading" />;
   const simpleFallback = <div className="text-center py-8"></div>;
@@ -41,10 +45,16 @@ export const Careers: React.FC = () => {
             <CardsGrid />
         </Suspense>
         <Suspense fallback={simpleFallback}>
-            <Gojra />
+            <CareerPortal/>
         </Suspense>
         <Suspense fallback={simpleFallback}>
             <OpeningsSection />
+        </Suspense>
+        <Suspense fallback={simpleFallback}>
+            <Gojra />
+        </Suspense>
+        <Suspense fallback={simpleFallback}>
+            <CareerCta />
         </Suspense>
         <Suspense fallback={simpleFallback}>
             <FooterSection />

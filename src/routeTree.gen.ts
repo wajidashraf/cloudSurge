@@ -15,6 +15,7 @@ import { Route as ZapticaImport } from './routes/zaptica'
 import { Route as WhatsappgroupImport } from './routes/whatsappgroup'
 import { Route as WelcomebyilyasImport } from './routes/welcomebyilyas'
 import { Route as WebinarImport } from './routes/webinar'
+import { Route as VallourImport } from './routes/vallour'
 import { Route as TestImport } from './routes/test'
 import { Route as TermsOfServiceImport } from './routes/terms-of-service'
 import { Route as TechauditImport } from './routes/techaudit'
@@ -37,6 +38,7 @@ import { Route as HomeImport } from './routes/home'
 import { Route as GptriageImport } from './routes/gptriage'
 import { Route as FusionPodsImport } from './routes/fusion-pods'
 import { Route as FeedbackImport } from './routes/feedback'
+import { Route as FawriiImport } from './routes/fawrii'
 import { Route as EnvCheckImport } from './routes/env-check'
 import { Route as EnglishImport } from './routes/english'
 import { Route as CspodsImport } from './routes/cspods'
@@ -46,6 +48,7 @@ import { Route as CloudSurgeWhitepaperImport } from './routes/cloud-surge-whitep
 import { Route as CharitystrategyImport } from './routes/charitystrategy'
 import { Route as CareersImport } from './routes/careers'
 import { Route as AboutImport } from './routes/about'
+import { Route as GenaieraImport } from './routes/Genaiera'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
@@ -71,6 +74,12 @@ const WelcomebyilyasRoute = WelcomebyilyasImport.update({
 const WebinarRoute = WebinarImport.update({
   id: '/webinar',
   path: '/webinar',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const VallourRoute = VallourImport.update({
+  id: '/vallour',
+  path: '/vallour',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -206,6 +215,12 @@ const FeedbackRoute = FeedbackImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const FawriiRoute = FawriiImport.update({
+  id: '/fawrii',
+  path: '/fawrii',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const EnvCheckRoute = EnvCheckImport.update({
   id: '/env-check',
   path: '/env-check',
@@ -260,6 +275,12 @@ const AboutRoute = AboutImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const GenaieraRoute = GenaieraImport.update({
+  id: '/Genaiera',
+  path: '/Genaiera',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
@@ -275,6 +296,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/Genaiera': {
+      id: '/Genaiera'
+      path: '/Genaiera'
+      fullPath: '/Genaiera'
+      preLoaderRoute: typeof GenaieraImport
       parentRoute: typeof rootRoute
     }
     '/about': {
@@ -338,6 +366,13 @@ declare module '@tanstack/react-router' {
       path: '/env-check'
       fullPath: '/env-check'
       preLoaderRoute: typeof EnvCheckImport
+      parentRoute: typeof rootRoute
+    }
+    '/fawrii': {
+      id: '/fawrii'
+      path: '/fawrii'
+      fullPath: '/fawrii'
+      preLoaderRoute: typeof FawriiImport
       parentRoute: typeof rootRoute
     }
     '/feedback': {
@@ -494,6 +529,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TestImport
       parentRoute: typeof rootRoute
     }
+    '/vallour': {
+      id: '/vallour'
+      path: '/vallour'
+      fullPath: '/vallour'
+      preLoaderRoute: typeof VallourImport
+      parentRoute: typeof rootRoute
+    }
     '/webinar': {
       id: '/webinar'
       path: '/webinar'
@@ -529,6 +571,7 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/Genaiera': typeof GenaieraRoute
   '/about': typeof AboutRoute
   '/careers': typeof CareersRoute
   '/charitystrategy': typeof CharitystrategyRoute
@@ -538,6 +581,7 @@ export interface FileRoutesByFullPath {
   '/cspods': typeof CspodsRoute
   '/english': typeof EnglishRoute
   '/env-check': typeof EnvCheckRoute
+  '/fawrii': typeof FawriiRoute
   '/feedback': typeof FeedbackRoute
   '/fusion-pods': typeof FusionPodsRoute
   '/gptriage': typeof GptriageRoute
@@ -560,6 +604,7 @@ export interface FileRoutesByFullPath {
   '/techaudit': typeof TechauditRoute
   '/terms-of-service': typeof TermsOfServiceRoute
   '/test': typeof TestRoute
+  '/vallour': typeof VallourRoute
   '/webinar': typeof WebinarRoute
   '/welcomebyilyas': typeof WelcomebyilyasRoute
   '/whatsappgroup': typeof WhatsappgroupRoute
@@ -568,6 +613,7 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/Genaiera': typeof GenaieraRoute
   '/about': typeof AboutRoute
   '/careers': typeof CareersRoute
   '/charitystrategy': typeof CharitystrategyRoute
@@ -577,6 +623,7 @@ export interface FileRoutesByTo {
   '/cspods': typeof CspodsRoute
   '/english': typeof EnglishRoute
   '/env-check': typeof EnvCheckRoute
+  '/fawrii': typeof FawriiRoute
   '/feedback': typeof FeedbackRoute
   '/fusion-pods': typeof FusionPodsRoute
   '/gptriage': typeof GptriageRoute
@@ -599,6 +646,7 @@ export interface FileRoutesByTo {
   '/techaudit': typeof TechauditRoute
   '/terms-of-service': typeof TermsOfServiceRoute
   '/test': typeof TestRoute
+  '/vallour': typeof VallourRoute
   '/webinar': typeof WebinarRoute
   '/welcomebyilyas': typeof WelcomebyilyasRoute
   '/whatsappgroup': typeof WhatsappgroupRoute
@@ -608,6 +656,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/Genaiera': typeof GenaieraRoute
   '/about': typeof AboutRoute
   '/careers': typeof CareersRoute
   '/charitystrategy': typeof CharitystrategyRoute
@@ -617,6 +666,7 @@ export interface FileRoutesById {
   '/cspods': typeof CspodsRoute
   '/english': typeof EnglishRoute
   '/env-check': typeof EnvCheckRoute
+  '/fawrii': typeof FawriiRoute
   '/feedback': typeof FeedbackRoute
   '/fusion-pods': typeof FusionPodsRoute
   '/gptriage': typeof GptriageRoute
@@ -639,6 +689,7 @@ export interface FileRoutesById {
   '/techaudit': typeof TechauditRoute
   '/terms-of-service': typeof TermsOfServiceRoute
   '/test': typeof TestRoute
+  '/vallour': typeof VallourRoute
   '/webinar': typeof WebinarRoute
   '/welcomebyilyas': typeof WelcomebyilyasRoute
   '/whatsappgroup': typeof WhatsappgroupRoute
@@ -649,6 +700,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/Genaiera'
     | '/about'
     | '/careers'
     | '/charitystrategy'
@@ -658,6 +710,7 @@ export interface FileRouteTypes {
     | '/cspods'
     | '/english'
     | '/env-check'
+    | '/fawrii'
     | '/feedback'
     | '/fusion-pods'
     | '/gptriage'
@@ -680,6 +733,7 @@ export interface FileRouteTypes {
     | '/techaudit'
     | '/terms-of-service'
     | '/test'
+    | '/vallour'
     | '/webinar'
     | '/welcomebyilyas'
     | '/whatsappgroup'
@@ -687,6 +741,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/Genaiera'
     | '/about'
     | '/careers'
     | '/charitystrategy'
@@ -696,6 +751,7 @@ export interface FileRouteTypes {
     | '/cspods'
     | '/english'
     | '/env-check'
+    | '/fawrii'
     | '/feedback'
     | '/fusion-pods'
     | '/gptriage'
@@ -718,6 +774,7 @@ export interface FileRouteTypes {
     | '/techaudit'
     | '/terms-of-service'
     | '/test'
+    | '/vallour'
     | '/webinar'
     | '/welcomebyilyas'
     | '/whatsappgroup'
@@ -725,6 +782,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/Genaiera'
     | '/about'
     | '/careers'
     | '/charitystrategy'
@@ -734,6 +792,7 @@ export interface FileRouteTypes {
     | '/cspods'
     | '/english'
     | '/env-check'
+    | '/fawrii'
     | '/feedback'
     | '/fusion-pods'
     | '/gptriage'
@@ -756,6 +815,7 @@ export interface FileRouteTypes {
     | '/techaudit'
     | '/terms-of-service'
     | '/test'
+    | '/vallour'
     | '/webinar'
     | '/welcomebyilyas'
     | '/whatsappgroup'
@@ -765,6 +825,7 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  GenaieraRoute: typeof GenaieraRoute
   AboutRoute: typeof AboutRoute
   CareersRoute: typeof CareersRoute
   CharitystrategyRoute: typeof CharitystrategyRoute
@@ -774,6 +835,7 @@ export interface RootRouteChildren {
   CspodsRoute: typeof CspodsRoute
   EnglishRoute: typeof EnglishRoute
   EnvCheckRoute: typeof EnvCheckRoute
+  FawriiRoute: typeof FawriiRoute
   FeedbackRoute: typeof FeedbackRoute
   FusionPodsRoute: typeof FusionPodsRoute
   GptriageRoute: typeof GptriageRoute
@@ -796,6 +858,7 @@ export interface RootRouteChildren {
   TechauditRoute: typeof TechauditRoute
   TermsOfServiceRoute: typeof TermsOfServiceRoute
   TestRoute: typeof TestRoute
+  VallourRoute: typeof VallourRoute
   WebinarRoute: typeof WebinarRoute
   WelcomebyilyasRoute: typeof WelcomebyilyasRoute
   WhatsappgroupRoute: typeof WhatsappgroupRoute
@@ -804,6 +867,7 @@ export interface RootRouteChildren {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  GenaieraRoute: GenaieraRoute,
   AboutRoute: AboutRoute,
   CareersRoute: CareersRoute,
   CharitystrategyRoute: CharitystrategyRoute,
@@ -813,6 +877,7 @@ const rootRouteChildren: RootRouteChildren = {
   CspodsRoute: CspodsRoute,
   EnglishRoute: EnglishRoute,
   EnvCheckRoute: EnvCheckRoute,
+  FawriiRoute: FawriiRoute,
   FeedbackRoute: FeedbackRoute,
   FusionPodsRoute: FusionPodsRoute,
   GptriageRoute: GptriageRoute,
@@ -835,6 +900,7 @@ const rootRouteChildren: RootRouteChildren = {
   TechauditRoute: TechauditRoute,
   TermsOfServiceRoute: TermsOfServiceRoute,
   TestRoute: TestRoute,
+  VallourRoute: VallourRoute,
   WebinarRoute: WebinarRoute,
   WelcomebyilyasRoute: WelcomebyilyasRoute,
   WhatsappgroupRoute: WhatsappgroupRoute,
@@ -852,6 +918,7 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/Genaiera",
         "/about",
         "/careers",
         "/charitystrategy",
@@ -861,6 +928,7 @@ export const routeTree = rootRoute
         "/cspods",
         "/english",
         "/env-check",
+        "/fawrii",
         "/feedback",
         "/fusion-pods",
         "/gptriage",
@@ -883,6 +951,7 @@ export const routeTree = rootRoute
         "/techaudit",
         "/terms-of-service",
         "/test",
+        "/vallour",
         "/webinar",
         "/welcomebyilyas",
         "/whatsappgroup",
@@ -891,6 +960,9 @@ export const routeTree = rootRoute
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/Genaiera": {
+      "filePath": "Genaiera.tsx"
     },
     "/about": {
       "filePath": "about.tsx"
@@ -918,6 +990,9 @@ export const routeTree = rootRoute
     },
     "/env-check": {
       "filePath": "env-check.tsx"
+    },
+    "/fawrii": {
+      "filePath": "fawrii.tsx"
     },
     "/feedback": {
       "filePath": "feedback.tsx"
@@ -984,6 +1059,9 @@ export const routeTree = rootRoute
     },
     "/test": {
       "filePath": "test.tsx"
+    },
+    "/vallour": {
+      "filePath": "vallour.tsx"
     },
     "/webinar": {
       "filePath": "webinar.tsx"

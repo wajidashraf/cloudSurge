@@ -129,27 +129,7 @@ const OpeningsSection: React.FC = () => {
         )}
       </div>
 
-      {/* Bottom Call-to-Action */}
-      <div className="border-[4px] sm:border-[6px] md:border-[8px] lg:border-[8px] xl:border-[8px] 2xl:border-[10px] border-[#ef4123] bg-transparent text-[#ef4123] p-6 sm:p-8 md:p-6 lg:p-6 xl:p-6 2xl:p-8 w-full sm:w-[80vw] md:w-[60vw] lg:w-[80vw] mx-auto mb-10 mt-35 md:mt-24 lg:mt-24 xl:mt-24 2xl:mt-35">
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end space-y-4 lg:space-y-0">
-          {/* Left Text */}
-          <div className="text-left">
-              <h2 className="text-lg leading-tight sm:text-4xl md:text-3xl lg:text-3xl xl:text-3xl 2xl:text-4xl font-bold">
-                Be Part of<br className="hidden sm:block" /> Something Bigger
-              </h2>
-            </div>
-
-          {/* Right Links */}
-          <div className="space-y-4">
-            <a href="/careers" className="flex items-center gap-2 group">
-              <span className="text-base leading-tight sm:text-2xl md:text-xl lg:text-xl xl:text-xl 2xl:text-2xl font-semibold hover:scale-115">↳ Explore Careers</span>
-            </a>
-            <a href="/contact" className="flex items-center gap-2 group">
-              <span className="text-base leading-tight sm:text-2xl md:text-xl lg:text-xl xl:text-xl 2xl:text-2xl font-semibold hover:scale-115">↳ Questions or Just Curious</span>
-            </a>
-          </div>
-        </div>
-      </div>
+      
     </section>
   );
 };

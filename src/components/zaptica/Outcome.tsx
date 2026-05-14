@@ -1,4 +1,4 @@
-// src/components/Outcome.jsx
+
 import {
   motion,
   useViewportScroll,

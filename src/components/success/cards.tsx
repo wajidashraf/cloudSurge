@@ -198,7 +198,7 @@ const PowerPodsCards: React.FC = () => {
   }, []); // empty deps — handler only reads refs/closures, never re-registers mid-scroll
 
   return (
-    <div ref={sectionRef} className="w-full relative py-0 mb-20 md:mb-55">
+    <div ref={sectionRef} className="w-full relative py-0 mb-20 md:mb-30">
       <div className="overflow-hidden w-full px-4 sm:px-6 lg:px-8 flex justify-center">
         <div className="max-w-[85%] md:max-w-[90%] mx-auto w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-x-3 lg:gap-x-3 xl:gap-x-4 2xl:gap-x-0">
           {cards.map((card, i) => {
@@ -209,12 +209,12 @@ const PowerPodsCards: React.FC = () => {
 
             return (
               <div key={i} style={{ marginTop: `${currentMargin}px` }}>
-                <div className="flex flex-col p-4 md:p-3 lg:p-3 xl:p-4 2xl:p-4 md:pl-6 lg:pl-7 xl:pl-7 2xl:pl-8 pt-6 md:pt-16 lg:pt-18 xl:pt-20 2xl:pt-25 bg-[#EFEFEF] min-h-[150px] sm:min-h-[250px] md:min-h-[240px] lg:min-h-[250px] xl:min-h-[260px] 2xl:min-h-[300px] w-full md:w-[200px] lg:w-[220px] xl:w-[240px] 2xl:w-90">
+                <div className="flex flex-col p-4 md:p-3 lg:p-3 xl:p-4 2xl:p-4 md:pl-6 lg:pl-7 xl:pl-7 2xl:pl-8 pt-6 md:pt-16 lg:pt-18 xl:pt-20 2xl:pt-25 bg-[#EFEFEF] min-h-[150px] sm:min-h-[250px] md:min-h-[240px] lg:min-h-[250px] xl:min-h-[260px] 2xl:min-h-[300px] w-full  2xl:w-90">
                   <h2 className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl text-left sm:text-5xl font-semibold text-[#EF4123] mb-2 sm:mb-4">
                     {i === 3 ? `${counters[i]}+` : `${counters[i]}%`}
                   </h2>
                   <div className="w-full h-1 bg-[#EF4123] mb-4 sm:mb-6" />
-                  <p className="text-[#EF4123] text-left text-sm sm:text-base md:text-base lg:text-lg xl:text-xl 2xl:text-2xl max-w-[95%] md:max-w-[90%] leading-tight">
+                  <p className="text-[#EF4123] text-left text-sm sm:text-base md:text-base lg:text-lg xl:text-xl 2xl:text-2xl max-w-[95%] leading-tight">
                     {card.content}
                   </p>
                 </div>

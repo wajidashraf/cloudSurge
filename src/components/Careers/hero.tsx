@@ -21,7 +21,7 @@ const Hero = () => {
         <img
           src={bg}
           alt="Background"
-          className="hidden md:block w-full h-full object-cover md:object-center xl:object-fill"
+          className="hidden md:block w-full h-full object-cover"
         />
       </div>
 
@@ -31,7 +31,6 @@ const Hero = () => {
           initial="hidden"
           animate="visible"
           variants={textVariant}
-          key={Math.random()} // triggers re-animation on mount
         >
           <h1 className="text-4xl sm:text-4xl md:text-5xl lg:text-7xl text-[#ef4123] md:text-white leading-tight flex flex-col items-center justify-center">
             {/* Mobile: Careers on first line, @ Cloud Surge + arrow on second line */}

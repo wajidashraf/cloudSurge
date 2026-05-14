@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import { Link } from "@tanstack/react-router";
 import { motion, useInView } from "framer-motion";
 
 // ─── Animation variants ───────────────────────────────────────────────────────
@@ -14,7 +13,7 @@ const fadeUp = {
 };
 
 // ─── CtaSection ───────────────────────────────────────────────────────────────
-const CtaSection: React.FC = () => {
+const CareerCta: React.FC = () => {
   const ref     = useRef<HTMLElement>(null);
   // trigger once when 30 % of the section enters viewport
   const inView  = useInView(ref, { once: true, amount: 0.3 });
@@ -125,25 +124,10 @@ const CtaSection: React.FC = () => {
                   margin:      0,
                 }}
               >
-                Want results like these?
+                Be a Part of Something Bigger
               </motion.h2>
 
-              {/* Body — Figma: Inter 400 20px line-height 150% #5D5D5D */}
-              <motion.p
-                variants={fadeUp}
-                style={{
-                    fontFamily: "'Bahnschrift', 'DIN Alternate', sans-serif",
-                  fontWeight:  400,
-                  fontSize:    "clamp(15px, 1.39vw, 20px)",
-                  lineHeight:  "150%",
-                  textAlign:   "center",
-                  color:       "#5D5D5D",
-                  margin:      0,
-                  maxWidth:    768,
-                }}
-              >
-               Tell us what you are working on. We will assess whether a Fusion Pod or Surge Care is the right fit and come back within one business day.
-              </motion.p>
+              
             </div>
 
             {/* ── Actions — Figma: row, gap 16px ── */}
@@ -158,8 +142,7 @@ const CtaSection: React.FC = () => {
                 justifyContent: "center",
               }}
             >
-              {/* Primary CTA — Figma: 188×39, gradient bg */}
-              <Link to="/contact" className="cta-btn-primary">
+              <button className="cta-btn-primary">
                 <span
                   style={{
                     fontFamily: "'Bahnschrift', 'DIN Alternate', sans-serif",
@@ -170,9 +153,23 @@ const CtaSection: React.FC = () => {
                     whiteSpace: "nowrap",
                   }}
                 >
-                  Start a Conversation
+                  Grow your business
                 </span>
-              </Link>
+              </button>
+              <button className="cta-btn-primary">
+                <span
+                  style={{
+                    fontFamily: "'Bahnschrift', 'DIN Alternate', sans-serif",
+                    fontWeight: 400,
+                    fontSize:   18,
+                    lineHeight: "150%",
+                    color:      "#FFFFFF",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  Explore Careers
+                </span>
+              </button>
 
              
             </motion.div>
@@ -183,4 +180,4 @@ const CtaSection: React.FC = () => {
   );
 };
 
-export default CtaSection;
+export default CareerCta;
