@@ -173,7 +173,7 @@ const ArrowRightIcon = () => (
 );
 
 const KickoffIcon = () => (
- <svg
+  <svg
     width="32"
     height="32"
     viewBox="0 0 32 32"
@@ -200,7 +200,7 @@ const STEPS = [
     number: 2,
     title: "Pod Match & Kick-off",
     duration: "48 hours",
-    icon: <KickoffIcon/> ,
+    icon: <KickoffIcon />,
   },
   {
     number: 3,
@@ -422,7 +422,7 @@ const PodWorkflowSection: React.FC = () => {
           padding: 0 28px;
           height: 41px;
           font-family: ${FONT};
-          font-weight: 600;
+          // font-weight: 600;
           font-size: 18px;
           line-height: 22px;
           color: #fff;
@@ -523,55 +523,55 @@ const PodWorkflowSection: React.FC = () => {
         }
       `}</style>
 
-  <div className="lg:px-6 max-w-[1280px]">
-      {/* Heading */}
-      <motion.h2
-        className="pod-workflow-title"
-        initial={{ opacity: 0, y: 20 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-      >
-        How Pods Works as a Flow
-      </motion.h2>
+      <div className="lg:px-6 max-w-[1280px]">
+        {/* Heading */}
+        <motion.h2
+          className="pod-workflow-title"
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+        >
+          How Pods Works as a Flow
+        </motion.h2>
 
-      <motion.p
-        className="pod-workflow-subtitle"
-        initial={{ opacity: 0, y: 16 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.5, delay: 0.08, ease: "easeOut" }}
-      >
-        From Brief to Delivery - In Days
-      </motion.p>
+        <motion.p
+          className="pod-workflow-subtitle"
+          initial={{ opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.08, ease: "easeOut" }}
+        >
+          From Brief to Delivery - In Days
+        </motion.p>
 
-      {/* Steps */}
-      <div className="pod-steps-row">
-        {STEPS.map((step, i) => (
-          <StepCard key={step.number} step={step} index={i} inView={inView} />
-        ))}
-      </div>
+        {/* Steps */}
+        <div className="pod-steps-row">
+          {STEPS.map((step, i) => (
+            <StepCard key={step.number} step={step} index={i} inView={inView} />
+          ))}
+        </div>
 
-      {/* Tagline */}
-      <motion.p
-        className="pod-workflow-tagline"
-        initial={{ opacity: 0, y: 16 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.5, delay: 0.55, ease: "easeOut" }}
-      >
-        A simple, reliable delivery system that keeps work moving and
-        stakeholders confident - without the chaos.
-      </motion.p>
+        {/* Tagline */}
+        <motion.p
+          className="pod-workflow-tagline"
+          initial={{ opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.55, ease: "easeOut" }}
+        >
+          A simple, reliable delivery system that keeps work moving and
+          stakeholders confident - without the chaos.
+        </motion.p>
 
-      {/* CTA */}
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.5, delay: 0.65, ease: "easeOut" }}
-      >
-        <Link to="/" className="pod-workflow-cta">
-          <ArrowRightIcon />
-          Explore the Fusion Pods model
-        </Link>
-      </motion.div>
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.65, ease: "easeOut" }}
+        >
+          <Link to="/fusion-pods" className="pod-workflow-cta">
+            <ArrowRightIcon />
+            Explore the Fusion Pods model
+          </Link>
+        </motion.div>
       </div>
     </section>
   );

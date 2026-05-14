@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import bg from "@/assets/Fusion-pod.png";
 import icon from "@/assets/fusion-pod-Icon.png";
 import bgMobile from "@/assets/Fusion-pod-mobile.png";
+import { Link } from "@tanstack/react-router";
 
 // ─── Animation Variants ────────────────────────────────────────────────
 const containerVariants = {
@@ -280,7 +281,8 @@ const Hero = () => {
               }}
             >
               {/* Primary: white bg, red text */}
-              <button
+              <Link
+                to="/contact"
                 className="flex items-center justify-center font-semibold rounded-md transition-all duration-200 hover:bg-white/90 hover:scale-105 active:scale-95"
                 style={{
                   fontFamily:
@@ -296,10 +298,11 @@ const Hero = () => {
                 }}
               >
                 Get a Pod in 48 hours
-              </button>
+              </Link>
 
               {/* Secondary: outline white */}
-              <button
+              <Link
+                to="/success-stories"
                 className="flex items-center justify-center font-semibold rounded-md transition-all duration-200 hover:bg-white/15 active:scale-95"
                 style={{
                   fontFamily:
@@ -315,7 +318,7 @@ const Hero = () => {
                 }}
               >
                 See how it works
-              </button>
+              </Link>
             </div>
           </motion.div>
         </motion.div>

@@ -194,8 +194,8 @@ const PodModelWorks: React.FC = () => {
                   <h3
                     style={{
                       fontFamily: bahnschrift,
-                      fontWeight: 600,
-                      fontSize: 'clamp(1.2rem, 2.54vw, 36.57px)',
+                      fontWeight: 'semibold',
+                      fontSize: 'clamp(1rem, 2.14vw, 32.57px)',
                       lineHeight: '130%',
                       letterSpacing: '-0.01em',
                       color: '#5D5D5D',

@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { Link } from "@tanstack/react-router";
 
 interface DeliveryCard {
   title: string;
@@ -236,10 +237,10 @@ function useMediaQuery(query: string): boolean {
 /* ── CTA Links — no animation, just static ── */
 const CTALinks: React.FC = () => (
   <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-    {["Book a consultation today", "Explore Fusion Pods"].map((label) => (
-      <a
-        key={label}
-        href="#"
+    {[{label:"Book a consultation today", link: "/contact"} , {label:"Explore Fusion Pods",link: "/fusion-pods"}].map((item, i) => (
+      <Link
+        key={i}
+        to={item.link}
         style={{
           display: "inline-flex",
           alignItems: "center",
@@ -253,8 +254,8 @@ const CTALinks: React.FC = () => (
         }}
       >
         <ArrowIcon />
-        {label}
-      </a>
+        {item.label}
+      </Link>
     ))}
   </div>
 );

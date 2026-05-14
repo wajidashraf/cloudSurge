@@ -143,7 +143,7 @@ const Gojra: React.FC<GojraProps> = ({
             <motion.img
               src={clickIcon}
               alt="Click icon"
-              className="hidden sm:block sm:w-16 sm:h-16 md:w-12 md:h-12 lg:w-14 lg:h-14 xl:w-16 xl:h-16 2xl:w-20 2xl:h-20 sm:mt-27"
+              className="hidden sm:block sm:w-16 sm:h-16 md:w-12 md:h-12 lg:w-14 lg:h-14 xl:w-16 xl:h-16 2xl:w-20 2xl:h-20 sm:mt-27 -ml-20"
               style={{ opacity: isMobile ? 1 : iconOpacity }}
             />
           </h2>

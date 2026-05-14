@@ -39,7 +39,7 @@ const TimelineItemContent: React.FC<{ item: TimelineItem; visible: boolean; dela
     animate={visible ? { opacity: 1, y: 0, scale: 1 } : {}}
     transition={{ duration: isIntermediate ? 0.4 : 0.8, delay: delay }}
   >
-    <h3 className="text-lg md:text-lg lg:text-xl xl:text-xl 2xl:text-2xl text-[#EF4123] font-semibold mb-1">
+    <h3 className="text-lg md:text-lg lg:text-xl xl:text-xl 2xl:text-2xl text-[#5d5d5d] font-semibold mb-1">
       {item.title}
     </h3>
     <p className="text-sm md:text-sm lg:text-base xl:text-base 2xl:text-lg text-[#9E9E9E]">
@@ -100,7 +100,7 @@ const ScrollTimeline: React.FC = () => {
   const dynamicHeight = `${scrollProgress * 85}%`;
 
   return (
-    <div ref={containerRef} className="relative w-full flex flex-col items-center -mt-10 pb-16 md:pb-46">
+    <div ref={containerRef} className="relative w-full flex flex-col items-center -mt-10 2xl:-mt-14 pb-16 md:pb-46">
       {/* heading */}
       {/* <div className="text-center mb-16 md:mb-20 lg:mb-24 xl:mb-28 2xl:mb-32 px-4">
         <h1 className="text-3xl md:text-5xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-extrabold text-[#EF4123]">

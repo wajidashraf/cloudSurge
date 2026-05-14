@@ -204,7 +204,7 @@ const Hero: React.FC = () => {
 
         <div className="flex flex-col sm:flex-row items-center gap-3 mt-8 w-full sm:w-auto">
           <Link
-            to="/"
+            to="/fusion-pods"
             className="hero-btn text-[#EC3F24] bg-white hover:bg-transparent hover:text-white"
             style={{ fontFamily: "'Bahnschrift', 'DIN Alternate', sans-serif" }}
           >

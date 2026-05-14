@@ -147,10 +147,11 @@ const WhatsIncluded = () => {
 
         /* ── LEFT COLUMN ── */
         .wi-left {
-          flex: 0 0 380px;
+          flex: 0 0 450px;
           display: flex;
           flex-direction: column;
           gap: 24px;
+          
         }
 
         .wi-heading {
@@ -363,7 +364,7 @@ const WhatsIncluded = () => {
           </motion.div>
 
           {/* RIGHT */}
-          <div ref={rightRef} className="wi-right" role="list">
+          <div ref={rightRef} className="wi-right " role="list">
             {items.map((item, i) => (
               <AccordionItem
                 key={i}

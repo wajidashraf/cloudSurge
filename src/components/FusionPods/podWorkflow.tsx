@@ -7,6 +7,7 @@ import csLogo from "@/assets/csLOGO.png";
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { easeInOut, motion, useAnimation } from "framer-motion";
 import { ArrowIcon } from "../common/svgIcons";
+import { Link } from "@tanstack/react-router";
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 50 },
@@ -147,16 +148,15 @@ const PodWorkFlow: React.FC = () => {
             {steps.map((step, i) => {
               const isActive = i === activeIndex;
               const isHovered = hoveredIndex === i;
+              const showActive = hoveredIndex !== null ? isHovered : isActive;
               return (
                 <React.Fragment key={step.id}>
                   <div style={i === 0 ? {} : styles.divider} />
                   <button
-                    className={
-                      isActive || isHovered ? "pod-step-btn-active" : ""
-                    }
+                    className={showActive ? "pod-step-btn-active" : ""}
                     style={{
                       ...styles.stepBtn,
-                      ...(isActive || isHovered ? styles.stepBtnActive : {}),
+                      ...(showActive ? styles.stepBtnActive : {}),
                     }}
                     onClick={() => goTo(i)}
                     onMouseEnter={() => setHoveredIndex(i)}
@@ -165,9 +165,7 @@ const PodWorkFlow: React.FC = () => {
                     <span
                       style={{
                         ...styles.stepLabel,
-                        ...(isActive || isHovered
-                          ? styles.stepLabelActive
-                          : {}),
+                        ...(showActive ? styles.stepLabelActive : {}),
                       }}
                     >
                       {step.label}
@@ -175,9 +173,7 @@ const PodWorkFlow: React.FC = () => {
                     <span
                       style={{
                         ...styles.stepArrow,
-                        ...(isActive || isHovered
-                          ? styles.stepArrowActive
-                          : {}),
+                        ...(showActive ? styles.stepArrowActive : {}),
                       }}
                     >
                       →
@@ -190,12 +186,12 @@ const PodWorkFlow: React.FC = () => {
           </div>
 
           {/* CTA */}
-          <button style={styles.ctaBtn}>
+          <a href="#" style={styles.ctaBtn}>
             <span style={styles.ctaIcon}>
               <ArrowIcon />
             </span>
             <span style={styles.ctaText}>price overview</span>
-          </button>
+          </a>
         </div>
       </div>
 
@@ -215,6 +211,7 @@ const PodWorkFlow: React.FC = () => {
               fontSize: "clamp(28px, 4vw, 45px)",
               lineHeight: "54px",
               letterSpacing: "-0.01em",
+              color: "#5D5D5D",
             }}
           >
             Ready to add delivery capacity?
@@ -230,8 +227,8 @@ const PodWorkFlow: React.FC = () => {
 
           {/* Actions */}
           <div className="flex flex-row items-center gap-4">
-            <a
-              href="/careers"
+            <Link
+              to="/contact"
               className="flex items-center justify-center px-3 py-1.5 rounded-md  transition-opacity"
               style={{
                 minWidth: "184px",
@@ -250,7 +247,7 @@ const PodWorkFlow: React.FC = () => {
               >
                 Get a Pod in 48 hours
               </span>
-            </a>
+            </Link>
           </div>
         </motion.div>
       </section>
@@ -321,7 +318,7 @@ const styles: Record<string, React.CSSProperties> = {
   marqueeWrapper: {
     width: "100%",
     overflow: "hidden",
-    paddingTop: "20px",
+    paddingTop: "36px",
     paddingBottom: "14px",
   },
   marqueeTrack: {
@@ -430,14 +427,15 @@ const styles: Record<string, React.CSSProperties> = {
     flexDirection: "column",
     gap: "0px",
   },
-  divider: {
-    height: "4px",
-    backgroundColor: "#EB4124",
-    width: "100%",
-  },
+  // divider: {
+  //   height: "4px",
+  //   backgroundColor: "#EB4124",
+  //   width: "100%",
+  // },
   stepBtn: {
     background: "transparent",
-    border: "none",
+    // border: "none",
+    borderBottom: "4px solid #EB4124",
     cursor: "pointer",
     display: "flex",
     justifyContent: "space-between",
@@ -451,6 +449,7 @@ const styles: Record<string, React.CSSProperties> = {
   stepBtnActive: {
     backgroundColor: "rgba(235, 65, 36, 1)",
     transform: "translateX(-20px)",
+    borderBottom: "4px solid #EB4124",
   },
   stepLabel: {
     fontSize: "clamp(22px, 4vw, 50px)",

@@ -244,7 +244,7 @@ const WhyOrganisationsChoose: React.FC = () => {
 
         .cta-btn-primary-label {
           font-family: 'Bahnschrift', 'DIN Alternate', 'Arial Narrow', sans-serif;
-          font-weight: 600;
+          // font-weight: 600;
           font-size: 18px;
           line-height: 1.5;
           color: #FFFFFF;

@@ -1,6 +1,8 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import logo from '@/assets/redicon.svg';
+import { ArrowIcon } from '../common/svgIcons';
+import { Link } from '@tanstack/react-router';
 
 interface PlanDetail {
   label: string;
@@ -94,7 +96,8 @@ const plans: Plan[] = [
 ];
 
 const TailoredPodSubscriptions: React.FC = () => (
-  <section id="pricing" className="container mx-auto w-full px-4 sm:px-8 md:px-5 2xl:px-[150px] -mt-16 pb-20 bg-white">
+
+  <section id="pricing" className="container mx-auto w-full px-4 sm:px-8 md:px-5 2xl:px-[150px] -mt-16 pb-30 bg-white">
     <h2 className="text-5xl md:text-6xl lg:text-6xl xl:text-6xl 2xl:text-7xl font-extrabold text-center text-[#ef4123] mb-16 md:mb-32">
       Tailored Pod <br /> Subscriptions
     </h2>
@@ -105,19 +108,7 @@ const TailoredPodSubscriptions: React.FC = () => (
       ))}
     </div>
 
-    <div className="mt-10 text-left lg:text-right mr-0 ">
-      <a
-        href="https://outlook.office.com/book/FreeScaleUp@cloudsurge.uk/s/Abz0MDpi3kuyMsftsPEmMQ2?ismsaljsauthenabled=true"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-[#EB4124] text-xl md:text-2xl lg:text-2xl xl:text-2xl 2xl:text-3xl"
-      >
-        ↳{' '}
-        <span className="text-gray-500 hover:underline text-sm md:text-base lg:text-base xl:text-base 2xl:text-lg">
-          Schedule a consultation
-        </span>
-      </a>
-    </div>
+    
   </section>
 );
 
@@ -154,9 +145,7 @@ const PlanCard: React.FC<PlanCardProps> = ({ plan, index }) => {
         transition={{ duration: 0.6, delay: 0.2 + index * 0.1, ease: 'easeOut' }}
         whileHover={{
           y: -8,
-          boxShadow: plan.isServices
-            ? '0 20px 40px rgba(0,0,0,0.12)'
-            : '0 20px 40px rgba(239,65,35,0.25)',
+          boxShadow: plan.isServices ? '0 20px 40px rgba(0,0,0,0.12)' : '0 20px 40px rgba(239,65,35,0.25)',
           transition: { duration: 0.3, ease: 'easeOut' },
         }}
         className={`w-full bg-gradient-to-br ${plan.gradient} text-left mt-12 p-6 2xl:p-8 pt-5 flex flex-col h-full cursor-default`}
@@ -200,7 +189,31 @@ const PlanCard: React.FC<PlanCardProps> = ({ plan, index }) => {
             </motion.li>
           ))}
         </ul>
+
       </motion.div>
+      <style>
+        {`
+         .subs-button{
+          font-size: 18px;
+          
+          
+        }
+        }
+        `}
+      </style>
+      {index === 3 && (
+        <Link
+        to="/contact"
+        target="_blank"
+        rel="noopener noreferrer"
+        className='flex absolute -bottom-16 subs-button'
+      >
+         <ArrowIcon />
+        <span className="ml-2 lg:ml-4 text-gray-500">
+          Schedule Consultation
+        </span>
+      </Link>
+      )}
     </div>
   );
 };

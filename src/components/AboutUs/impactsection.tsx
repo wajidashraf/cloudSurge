@@ -131,6 +131,7 @@ const ImpactSection: React.FC = () => {
               fontSize: "clamp(28px, 4vw, 45px)",
               lineHeight: "54px",
               letterSpacing: "-0.01em",
+              color: "#5D5D5D",
             }}
           >
             Be a Part of Something Bigger

@@ -12,133 +12,164 @@ import {
   PowerBIIcon,
 } from "@/components/common/svgIcons";
 
-// Container dimensions (from Figma): 547.6 × 551
-// Ellipse: 476.17 × 476.17, left 21.39, top = 50% - 238.085 - 16.03 = 21.39
-// Circle center within container: (259.5, 259.5)
-// Radius: 238px
-const CX = 259.5;
-const CY = 259.5;
-const R = 238;
-const W = 547.6;
-const H = 551;
+// Square container so rotate+translateY(-R) always lands exactly on the circle
+const R   = 238;   // orbit radius
+const SZ  = 551;   // container side length (square)
 
-const toRad = (deg: number) => (deg * Math.PI) / 180;
-
-// Returns { left, top } as percentage strings, icon centered via translate(-50%,-50%)
-const circlePos = (angleDeg: number) => {
-  const rad = toRad(angleDeg);
-  const left = ((CX + R * Math.sin(rad)) / W) * 100;
-  const top = ((CY - R * Math.cos(rad)) / H) * 100;
-  return { left: `${left.toFixed(2)}%`, top: `${top.toFixed(2)}%` };
-};
-
-// 10 icons evenly spaced at 36° each, starting from 12 o'clock
 const ICONS = [
-  { id: "microsoft",     angle: 0,   Icon: MicrosoftIcon,    size: 71 },
-  { id: "azure",         angle: 36,  Icon: AzureIcon,        size: 56 },
-  { id: "cloud",         angle: 72,  Icon: CloudIcon,        size: 71 },
-  { id: "vscode",        angle: 108, Icon: VSCodeIcon,       size: 58 },
-  { id: "automate",      angle: 144, Icon: PowerAutomateIcon,size: 61 },
-  { id: "github",        angle: 180, Icon: GitHubIcon,       size: 71 },
-  { id: "powerbi",       angle: 216, Icon: PowerBIIcon,      size: 61 },
-  { id: "aws",           angle: 252, Icon: AWSIcon,          size: 71 },
-  { id: "salesforce",    angle: 288, Icon: SalesForceIcon,   size: 71 },
-  { id: "figma",         angle: 324, Icon: FigmaIcon,        size: 68 },
+  { id: "microsoft", angle: 0,   Icon: MicrosoftIcon,     size: 71 },
+  { id: "azure",     angle: 36,  Icon: AzureIcon,         size: 56 },
+  { id: "cloud",     angle: 72,  Icon: CloudIcon,         size: 71 },
+  { id: "vscode",    angle: 108, Icon: VSCodeIcon,        size: 58 },
+  { id: "automate",  angle: 144, Icon: PowerAutomateIcon, size: 61 },
+  { id: "github",    angle: 180, Icon: GitHubIcon,        size: 71 },
+  { id: "powerbi",   angle: 216, Icon: PowerBIIcon,       size: 61 },
+  { id: "aws",       angle: 252, Icon: AWSIcon,           size: 71 },
+  { id: "salesforce",angle: 288, Icon: SalesForceIcon,    size: 71 },
+  { id: "figma",     angle: 324, Icon: FigmaIcon,         size: 68 },
 ];
+
+const DURATION = "22s";
 
 const WhatWeDo: React.FC = () => {
   return (
-    <section className="relative w-full bg-[#EC3F24] overflow-hidden pt-25 pb-10 px-8">
-      <div className="relative xl:px-6 max-w-[1280px] mx-auto flex flex-col xl:flex-row items-center gap-16 min-h-[600px]">
+    <>
+      <style>{`
+        @keyframes whatwedo-orbit {
+          from { transform: rotate(0deg); }
+          to   { transform: rotate(360deg); }
+        }
+        @keyframes whatwedo-counter {
+          from { transform: rotate(0deg); }
+          to   { transform: rotate(-360deg); }
+        }
+        .wwd-orbit-ring {
+          animation: whatwedo-orbit ${DURATION} linear infinite;
+        }
+        .wwd-icon-upright {
+          animation: whatwedo-counter ${DURATION} linear infinite;
+        }
+      `}</style>
 
-        {/* Left: Text */}
-        <div className="px-2 md:px-0 flex-1 min-w-[400px] flex flex-col gap-10 z-10 item-cnter">
-          <h2
-            className="text-white font-bold"
-            style={{
-              fontFamily: "Bahnschrift, sans-serif",
-              fontSize: "clamp(40px, 5vw, 60px)",
-              lineHeight: "113%",
-              letterSpacing: "-0.01em",
-            }}
-          >
-            What we Do
-          </h2>
-          <p
-            className="text-white max-w-[630px]"
-            style={{
-              fontFamily: "Bahnschrift, sans-serif",
-              
-              fontSize: "clamp(16px, 1.8vw, 28px)",
-              lineHeight: "120%",
-              letterSpacing: "-0.01em",
-            }}
-          >
-            We strengthen delivery capability for organisations that need to
-            move faster than their current team allows. 
-          </p>
-          <p
-            className="text-white max-w-[630px]"
-            style={{
-              fontFamily: "Bahnschrift, sans-serif",
-              fontSize: "clamp(15px, 1.8vw, 24px)",
-              lineHeight: "120%",
-              letterSpacing: "-0.01em",
-            }}
-          >
-           Our Fusion Pods are
-            pre-formed teams of three IT professionals, each with a Pod Lead,
-            built-in project management, and QA from the start. They work across
-            application development, modern web, cloud solutions, Azure, Power
-            Platform, AWS, and Salesforce. Teams can be running in 48 hours, not
-            the weeks or months a traditional hire or subcontract takes.
-          </p>
-        </div>
+      <section className="relative w-full bg-[#EC3F24] overflow-hidden py-25 px-8">
+        <div className="relative xl:px-6 max-w-[1280px] mx-auto flex flex-col lg:flex-row items-center  gap-16 min-h-[600px]">
 
-        {/* Right: Visual */}
-        {/* Wrapper collapses to scaled height so layout isn't broken on mobile */}
-        <div className="relative flex-shrink-0 mt-8 flex items-start justify-center
-          h-[303px] sm:h-[358px] md:h-[441px] lg:h-[496px] xl:h-[551px]
-          w-full xl:w-[547.6px]">
-        <div
-          className="absolute origin-top
-            scale-[0.55] sm:scale-[0.65] md:scale-[0.8] lg:scale-[0.9] xl:scale-100"
-          style={{ width: "547.6px", height: "551px" }}
-        >
-          {/* Dashed orbit ellipse */}
+          {/* ── Left: Text ── */}
+          <div className="px-2 md:px-0 flex-1 min-w-[400px] flex flex-col gap-10 z-10">
+            <h2
+              className="text-white font-bold"
+              style={{
+                fontFamily: "Bahnschrift, sans-serif",
+                fontSize: "clamp(40px, 5vw, 60px)",
+                lineHeight: "113%",
+                letterSpacing: "-0.01em",
+              }}
+            >
+              What we Do
+            </h2>
+            <p
+              className="text-white max-w-[630px]"
+              style={{
+                fontFamily: "Bahnschrift, sans-serif",
+                fontSize: "clamp(16px, 1.8vw, 28px)",
+                lineHeight: "120%",
+                letterSpacing: "-0.01em",
+              }}
+            >
+              We strengthen delivery capability for organisations that need to
+              move faster than their current team allows.
+            </p>
+            <p
+              className="text-white max-w-[630px]"
+              style={{
+                fontFamily: "Bahnschrift, sans-serif",
+                fontSize: "clamp(15px, 1.8vw, 24px)",
+                lineHeight: "120%",
+                letterSpacing: "-0.01em",
+              }}
+            >
+              Our Fusion Pods are pre-formed teams of three IT professionals,
+              each with a Pod Lead, built-in project management, and QA from
+              the start. They work across application development, modern web,
+              cloud solutions, Azure, Power Platform, AWS, and Salesforce.
+              Teams can be running in 48 hours, not the weeks or months a
+              traditional hire or subcontract takes.
+            </p>
+          </div>
+
+          {/* ── Right: Orbit Visual ──
+              Outer wrapper shrinks/grows the whole graphic via scale().
+              The inner graphic is always SZ × SZ so the maths stay exact. */}
           <div
-            className="absolute rounded-full"
-            style={{
-              width: "476.17px",
-              height: "476.17px",
-              left: "21.39px",
-              top: "21.39px",
-              border: "1.7px dashed rgba(255,255,255,0.75)",
-              transform: "rotate(-4deg)",
-            }}
-          />
+            className="relative flex-shrink-0 mt-8 flex items-start justify-center lg:justify-start
+              h-[303px] sm:h-[358px] md:h-[441px] lg:h-[496px] xl:h-[551px]
+              w-full xl:w-[551px]"
+          >
+            <div
+              className="absolute origin-top
+                scale-[0.55] sm:scale-[0.65] md:scale-[0.8] lg:scale-[0.9] xl:scale-100"
+              style={{ width: `${SZ}px`, height: `${SZ}px` }}
+            >
 
-          {/* Tech icons — centered on the circle via translate(-50%,-50%) */}
-          {ICONS.map(({ id, angle, Icon, size }) => {
-            const pos = circlePos(angle);
-            return (
+              {/* Static dashed orbit ring */}
               <div
-                key={id}
-                className="absolute"
+                className="absolute rounded-full pointer-events-none"
                 style={{
-                  left: pos.left,
-                  top: pos.top,
-                  transform: "translate(-50%, -50%)",
+                  width:  `${R * 2}px`,
+                  height: `${R * 2}px`,
+                  left:   `${SZ / 2 - R}px`,
+                  top:    `${SZ / 2 - R}px`,
+                  border: "1.7px dashed rgba(255,255,255,0.75)",
                 }}
+              />
+
+              {/* Rotating wrapper — spins the icon positions around the circle */}
+              <div
+                className="wwd-orbit-ring absolute"
+                style={{ width: `${SZ}px`, height: `${SZ}px`, left: 0, top: 0 }}
               >
-                <Icon width={size} height={size} />
+                {ICONS.map(({ id, angle, Icon, size }) => (
+                  /*
+                   * Layer 1 — anchored to the circle center
+                   * Layer 2 — rotated to angle, pushed out by R
+                   * Layer 3 — centered on the icon
+                   * Layer 4 — counter-spins so the icon face stays upright
+                   */
+                  <div
+                    key={id}
+                    className="absolute"
+                    style={{ left: "50%", top: "50%", width: 0, height: 0 }}
+                  >
+                    {/* push icon out to the circle at its starting angle */}
+                    <div
+                      style={{
+                        position: "absolute",
+                        transform: `rotate(${angle}deg) translateY(-${R}px)`,
+                      }}
+                    >
+                      {/* cancel the starting-angle tilt so icon faces up at rest */}
+                      <div
+                        style={{
+                          position: "absolute",
+                          transform: `translate(-50%, -50%) rotate(-${angle}deg)`,
+                        }}
+                      >
+                        {/* cancel the ongoing orbit rotation so icon stays upright */}
+                        <div className="wwd-icon-upright">
+                          <Icon width={size} height={size} />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
-            );
-          })}
+
+            </div>
+          </div>
+
         </div>
-        </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 

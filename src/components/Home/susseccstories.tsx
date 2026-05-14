@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { StarIcon } from '@heroicons/react/24/solid';
-import redIcon from '@/assets/redicon.svg';
-import ceoFawriiImg from '@/assets/man.png';
-import triageLogo from '@/assets/triage.svg';
-import zapticaLogo from '@/assets/zaptica.webp';
-import { Link } from '@tanstack/react-router';
+import React, { useState, useEffect, useRef } from "react";
+import { StarIcon } from "@heroicons/react/24/solid";
+import redIcon from "@/assets/redicon.svg";
+import ceoFawriiImg from "@/assets/man.png";
+import triageLogo from "@/assets/triage.svg";
+import zapticaLogo from "@/assets/zaptica.webp";
+import { Link } from "@tanstack/react-router";
 
 const FONT = "'Bahnschrift', 'DIN Alternate', sans-serif";
 
@@ -15,7 +15,11 @@ interface StatCounterProps {
   duration?: number;
 }
 
-const StatCounter: React.FC<StatCounterProps> = ({ target, label, duration = 2000 }) => {
+const StatCounter: React.FC<StatCounterProps> = ({
+  target,
+  label,
+  duration = 2000,
+}) => {
   const [count, setCount] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -24,7 +28,7 @@ const StatCounter: React.FC<StatCounterProps> = ({ target, label, duration = 200
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => setIsVisible(entry.isIntersecting),
-      { threshold: 0.5 }
+      { threshold: 0.5 },
     );
     if (ref.current) observer.observe(ref.current);
     return () => {
@@ -41,7 +45,8 @@ const StatCounter: React.FC<StatCounterProps> = ({ target, label, duration = 200
       timerRef.current = window.setInterval(() => {
         current += 1;
         setCount(current);
-        if (current >= target && timerRef.current !== null) clearInterval(timerRef.current);
+        if (current >= target && timerRef.current !== null)
+          clearInterval(timerRef.current);
       }, step);
     } else {
       setCount(0);
@@ -52,29 +57,33 @@ const StatCounter: React.FC<StatCounterProps> = ({ target, label, duration = 200
   }, [isVisible, target, duration]);
 
   return (
-    <div ref={ref} style={{ textAlign: 'left', flex: 1 }}>
-      <p style={{
-        fontFamily: FONT,
-        fontSize: 'clamp(28px, 2.8vw, 40px)',
-        fontWeight: 400,
-        color: '#EF4123',
-        textDecoration: 'underline',
-        textUnderlineOffset: 4,
-        margin: 0,
-        lineHeight: 1,
-        textAlign: 'left',
-      }}>
+    <div ref={ref} style={{ textAlign: "left", flex: 1 }}>
+      <p
+        style={{
+          fontFamily: FONT,
+          fontSize: "clamp(28px, 2.8vw, 40px)",
+          fontWeight: 400,
+          color: "#EF4123",
+          textDecoration: "underline",
+          textUnderlineOffset: 4,
+          margin: 0,
+          lineHeight: 1,
+          textAlign: "left",
+        }}
+      >
         {count}%
       </p>
-      <p style={{
-        fontFamily: FONT,
-        fontWeight: 700,
-        fontSize: 'clamp(11px, 1vw, 14px)',
-        color: '#EF4123',
-        marginTop: 8,
-        lineHeight: 1.3,
-        margin: '8px 0 0',
-      }}>
+      <p
+        style={{
+          fontFamily: FONT,
+          fontWeight: 700,
+          fontSize: "clamp(11px, 1vw, 14px)",
+          color: "#EF4123",
+          marginTop: 8,
+          lineHeight: 1.3,
+          margin: "8px 0 0",
+        }}
+      >
         {label}
       </p>
     </div>
@@ -83,10 +92,10 @@ const StatCounter: React.FC<StatCounterProps> = ({ target, label, duration = 200
 
 // ── Stars row ────────────────────────────────────────────────────────────────
 const Stars: React.FC<{ color?: string; size?: number }> = ({
-  color = '#EF4123',
+  color = "#EF4123",
   size = 18,
 }) => (
-  <div style={{ display: 'flex', gap: 4 }}>
+  <div style={{ display: "flex", gap: 4 }}>
     {[...Array(5)].map((_, i) => (
       <StarIcon key={i} style={{ width: size, height: size, color }} />
     ))}
@@ -123,26 +132,66 @@ const CardFooter: React.FC<{
   barColor: string;
   textColor: string;
   href?: string;
-}> = ({ author, role, barColor, textColor, href = '/success-stories' }) => (
-  <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '0 20px 14px' }}>
+}> = ({ author, role, barColor, textColor, href = "/gptriage" }) => (
+  <div
+    style={{
+      position: "absolute",
+      bottom: 0,
+      left: 0,
+      right: 0,
+      padding: "0 20px 14px",
+    }}
+  >
     <div style={{ height: 2, background: barColor, marginBottom: 10 }} />
-    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "flex-end",
+      }}
+    >
       <div>
-        <p style={{ fontFamily: FONT, textAlign: 'left',fontWeight: 400, fontSize: 10, color: textColor, margin: 0, lineHeight: 1.3 }}>
+        <p
+          style={{
+            fontFamily: FONT,
+            textAlign: "left",
+            fontWeight: 400,
+            fontSize: 12,
+            color: textColor,
+            margin: 0,
+            lineHeight: 1.3,
+          }}
+        >
           {author},
         </p>
-        <p style={{ fontFamily: FONT, textAlign: 'left', fontWeight: 400, fontSize: 10, color: textColor, margin: 0, lineHeight: 1.3 }}>
+        <p
+          style={{
+            fontFamily: FONT,
+            textAlign: "left",
+            fontWeight: 400,
+            fontSize: 12,
+            color: textColor,
+            margin: 0,
+            lineHeight: 1.3,
+          }}
+        >
           {role}
         </p>
       </div>
-      <a
-        href={href}
+      <Link
+        to={href}
         target="_blank"
         rel="noopener noreferrer"
-        style={{ fontFamily: FONT, fontSize: 12, color: textColor, textDecoration: 'none', opacity: 0.85 }}
+        style={{
+          fontFamily: FONT,
+          fontSize: 12,
+          color: textColor,
+          textDecoration: "none",
+          opacity: 1,
+        }}
       >
         more info...
-      </a>
+      </Link>
     </div>
   </div>
 );
@@ -150,130 +199,204 @@ const CardFooter: React.FC<{
 // ── Individual cards ─────────────────────────────────────────────────────────
 
 const IntroCard: React.FC<{ mobile?: boolean }> = ({ mobile }) => (
-  <div style={{
-    border: '1.5px solid #C8C8C8',
-    padding: '28px 28px 28px',
-    height: mobile ? 400 : '100%',
-    minHeight: mobile ? undefined : 421,
-    display: 'flex',
-    flexDirection: 'column',
-    // justifyContent: 'space-between',
-    boxSizing: 'border-box',
-    background: '#fff',
-  }}>
+  <div
+    style={{
+      border: "1.5px solid #C8C8C8",
+      padding: "28px 28px 28px",
+      height: mobile ? 400 : "100%",
+      minHeight: mobile ? undefined : 421,
+      display: "flex",
+      flexDirection: "column",
+      // justifyContent: 'space-between',
+      boxSizing: "border-box",
+      background: "#fff",
+    }}
+  >
     <div>
-      <img src={redIcon} alt="Cloud Surge" style={{ width: 52, height: 52, objectFit: 'contain' }} />
-      <h3 style={{
-        fontFamily: FONT,
-        fontWeight: 700,
-        fontSize: 'clamp(36px, 4vw, 52px)',
-        lineHeight: '100%',
-        letterSpacing: '-0.04em',
-        color: '#5D5D5D',
-        margin: '28px 0 0',
-        textAlign: 'left',
-      }}>
-        Success<br />Stories
+      <img
+        src={redIcon}
+        alt="Cloud Surge"
+        style={{ width: 52, height: 52, objectFit: "contain" }}
+      />
+      <h3
+        style={{
+          fontFamily: FONT,
+          fontWeight: 700,
+          fontSize: "clamp(36px, 4vw, 52px)",
+          lineHeight: "100%",
+          letterSpacing: "-0.04em",
+          color: "#5D5D5D",
+          margin: "28px 0 0",
+          textAlign: "left",
+        }}
+      >
+        Success
+        <br />
+        Stories
       </h3>
     </div>
-    <p style={{
-      fontFamily: FONT,
-      fontWeight: 400,
-      fontSize: 16,
-      lineHeight: 1.4,
-      letterSpacing: '-0.02em',
-      color: '#818181',
-      marginTop: '20%',
-      textAlign: 'left',
-    }}>
+    <p
+      style={{
+        fontFamily: FONT,
+        fontWeight: 400,
+        fontSize: 16,
+        lineHeight: 1.4,
+        letterSpacing: "-0.02em",
+        color: "#818181",
+        marginTop: "20%",
+        textAlign: "left",
+      }}
+    >
       Our work speaks for itself, but our clients say it even better.
     </p>
   </div>
 );
 
 const PhotoCard: React.FC<{ mobile?: boolean }> = ({ mobile }) => (
-  <div style={{
-    position: 'relative',
-    height: mobile ? 400 : '100%',
-    minHeight: mobile ? undefined : 421,
-    overflow: 'hidden',
-    background: '#222',
-  }}>
+  <div
+    style={{
+      position: "relative",
+      height: mobile ? 400 : "100%",
+      minHeight: mobile ? undefined : 421,
+      overflow: "hidden",
+      background: "#222",
+    }}
+  >
     <img
       src={ceoFawriiImg}
       alt="Tanvir Walele, CEO at Fawrii"
-      style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', display: 'block' }}
+      style={{
+        width: "100%",
+        height: "100%",
+        objectFit: "cover",
+        objectPosition: "center top",
+        display: "block",
+      }}
     />
     {/* Full gradient overlay */}
-    <div style={{
-      position: 'absolute',
-      inset: 0,
-      background: 'linear-gradient(to bottom, rgba(0,0,0,0) 30%, rgba(10,10,144,0.85) 60%, rgba(115,0,191,0.9) 80%, rgba(236,63,36,0.95) 100%)',
-      pointerEvents: 'none',
-    }} />
+    <div
+      style={{
+        position: "absolute",
+        inset: 0,
+        background:
+          "linear-gradient(to bottom, rgba(0,0,0,0) 30%, rgba(10,10,144,0.85) 60%, rgba(115,0,191,0.9) 80%, rgba(236,63,36,0.95) 100%)",
+        pointerEvents: "none",
+      }}
+    />
     {/* Quote text */}
-    <div style={{ position: 'absolute', bottom: 58, left: 16, right: 16 }}>
-      <p style={{
-        fontFamily: FONT,
-        fontWeight: 500,
-        fontSize: 'clamp(12px, 1.4vw, 15px)',
-        lineHeight: 1.45,
-        color: '#fff',
-        margin: '0 0 10%',
-        padding: '12px',
-        textAlign: 'left',
-      }}>
-        "Cloud Surge is really a values-based business and they really want you to succeed and that's what makes them stand out."
+    <div style={{ position: "absolute", bottom: 58, left: 16, right: 16 }}>
+      <p
+        style={{
+          fontFamily: FONT,
+          fontWeight: 500,
+          fontSize: "clamp(12px, 1.4vw, 15px)",
+          lineHeight: 1.45,
+          color: "#fff",
+          margin: "0 0 10%",
+          padding: "12px",
+          textAlign: "left",
+        }}
+      >
+        "Cloud Surge is really a values-based business and they really want you
+        to succeed and that's what makes them stand out."
       </p>
     </div>
     {/* Footer */}
-    <div style={{ position: 'absolute', bottom: 0, left: 8, right: 8, padding: '0 12px 12px' }}>
-      <div style={{ height: 2, background: '#fff', marginBottom: 8 }} />
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+    <div
+      style={{
+        position: "absolute",
+        bottom: 0,
+        left: 8,
+        right: 8,
+        padding: "0 12px 12px",
+      }}
+    >
+      <div style={{ height: 2, background: "#fff", marginBottom: 8 }} />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "flex-end",
+        }}
+      >
         <div>
-          <p style={{ fontFamily: FONT, fontWeight: 400, fontSize: 10, color: '#fff', margin: 0 }}>Tanvir Walele,</p>
-          <p style={{ fontFamily: FONT, fontWeight: 400, fontSize: 10, color: '#fff', margin: 0 }}>CEO at Fawrii</p>
+          <p
+            style={{
+              fontFamily: FONT,
+              fontWeight: 400,
+              fontSize: 10,
+              color: "#fff",
+              margin: 0,
+            }}
+          >
+            Tanvir Walele,
+          </p>
+          <p
+            style={{
+              fontFamily: FONT,
+              fontWeight: 400,
+              fontSize: 10,
+              color: "#fff",
+              margin: 0,
+            }}
+          >
+            CEO at Fawrii
+          </p>
         </div>
-        <a
-          href="/fawrii"
+        <Link
+          to="/fawrii"
           target="_blank"
           rel="noopener noreferrer"
-          style={{ fontFamily: FONT, fontSize: 10, color: '#fff', textDecoration: 'none' }}
+          style={{
+            fontFamily: FONT,
+            fontSize: 12,
+            color: "#fff",
+            textDecoration: "none",
+          }}
         >
           more info...
-        </a>
+        </Link>
       </div>
     </div>
   </div>
 );
 
 const PinkCard: React.FC<{ mobile?: boolean }> = ({ mobile }) => (
-  <div style={{
-    background: '#FFCDCC',
-    padding: '22px 22px 0',
-    height: mobile ? 400 : '100%',
-    minHeight: mobile ? undefined : 421,
-    position: 'relative',
-    display: 'flex',
-    flexDirection: 'column',
-    boxSizing: 'border-box',
-  }}>
+  <div
+    style={{
+      background: "#FFCDCC",
+      padding: "22px 22px 0",
+      height: mobile ? 400 : "100%",
+      minHeight: mobile ? undefined : 421,
+      position: "relative",
+      display: "flex",
+      flexDirection: "column",
+      boxSizing: "border-box",
+    }}
+  >
     <Stars />
-    <div style={{ marginTop: '30%', marginLeft: 4 }}>
-      <img src={triageLogo} alt="GP Triage" style={{ height: 60, width: 'auto', maxWidth: '80%' }} />
+    <div style={{ marginTop: "30%", marginLeft: 4 }}>
+      <img
+        src={triageLogo}
+        alt="GP Triage"
+        style={{ height: 60, width: "auto", maxWidth: "80%" }}
+      />
     </div>
-    <p style={{
-    fontFamily: FONT,
+    <p
+      style={{
+        fontFamily: FONT,
         fontWeight: 400,
-        fontSize: 'clamp(12px, 1.4vw, 16px)',
+        fontSize: "clamp(12px, 1.4vw, 16px)",
         lineHeight: 1.45,
-        color: '#EF4123',
-        margin: '15% 0',
-        padding: '10px',
-        paddingRight: '18%',
-        textAlign: 'left',
-    }}>
-      "They weren't just contractors; they became a true extension of our team when we needed it most"
+        color: "#EF4123",
+        margin: "15% 0",
+        padding: "10px",
+        paddingRight: "18%",
+        textAlign: "left",
+      }}
+    >
+      "They weren't just contractors; they became a true extension of our team
+      when we needed it most"
     </p>
     <CardFooter
       author="Hannan Chaudery,"
@@ -285,35 +408,39 @@ const PinkCard: React.FC<{ mobile?: boolean }> = ({ mobile }) => (
 );
 
 const GreyCard: React.FC<{ mobile?: boolean }> = ({ mobile }) => (
-  <div style={{
-    background: '#EBEBEB',
-    padding: '22px 22px 0',
-    height: mobile ? 400 : '100%',
-    minHeight: mobile ? undefined : 421,
-    position: 'relative',
-    display: 'flex',
-    flexDirection: 'column',
-    boxSizing: 'border-box',
-  }}>
+  <div
+    style={{
+      background: "#EBEBEB",
+      padding: "22px 22px 0",
+      height: mobile ? 400 : "100%",
+      minHeight: mobile ? undefined : 421,
+      position: "relative",
+      display: "flex",
+      flexDirection: "column",
+      boxSizing: "border-box",
+    }}
+  >
     <Stars />
-    <div style={{ marginTop: '13%', marginLeft: 4 }}>
+    <div style={{ marginTop: "13%", marginLeft: 4 }}>
       <img
         src={zapticaLogo}
         alt="Zaptica"
-        style={{ height: 100, width: 'auto', maxWidth: '80%' }}
+        style={{ height: 100, width: "auto", maxWidth: "80%" }}
       />
     </div>
     {/* Stat counters */}
-    <div style={{
-      position: 'absolute',
-      bottom: '25%',
-      left: 22,
-      right: 22,
-      display: 'flex',
-      flexDirection: 'row',
-      gap: 24,
-      alignItems: 'flex-start',
-    }}>
+    <div
+      style={{
+        position: "absolute",
+        bottom: "25%",
+        left: 22,
+        right: 22,
+        display: "flex",
+        flexDirection: "row",
+        gap: 24,
+        alignItems: "flex-start",
+      }}
+    >
       <StatCounter target={150} label="Increased project capacity" />
       <StatCounter target={50} label="Reduced project delivery cost" />
     </div>
@@ -346,16 +473,19 @@ const SuccessStories: React.FC = () => {
         const { offsetTop, offsetHeight } = sectionRef.current;
         const start = offsetTop - window.innerHeight * 0.96;
         const end = offsetTop + offsetHeight * 0.5;
-        const p = Math.min(Math.max((window.scrollY - start) / (end - start), 0), 1);
+        const p = Math.min(
+          Math.max((window.scrollY - start) / (end - start), 0),
+          1,
+        );
         if (Math.abs(p - progressRef.current) > 0.001) {
           progressRef.current = p;
           setScrollProgress(p);
         }
       });
     };
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const CARDS = [
@@ -369,11 +499,11 @@ const SuccessStories: React.FC = () => {
     <section
       ref={sectionRef}
       style={{
-        width: '100%',
-        background: '#fff',
-        overflow: 'hidden',
+        width: "100%",
+        background: "#fff",
+        overflow: "hidden",
         fontFamily: FONT,
-        marginBottom: '150px',
+        marginBottom: "150px",
       }}
     >
       <style>{`
@@ -383,12 +513,13 @@ const SuccessStories: React.FC = () => {
           padding: 80px 6px 60px;
           box-sizing: border-box;
         }
-        .ss-desktop {
+        .ss-desktop, .ss-button {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
           gap: 28px;
           align-items: end;
         }
+        
         .ss-card-wrap {
           will-change: transform;
         }
@@ -407,17 +538,29 @@ const SuccessStories: React.FC = () => {
         }
         @media (max-width: 480px) {
           .ss-inner { padding: 28px 16px 20px; }
+          .ss-button{
+          display: grid;
+          grid-template-columns: repeat(1, 1fr);  
+          padding-top:0;
+          
+        }
         }
       `}</style>
 
       <div className="ss-inner">
-
         {/* ── Desktop grid ── */}
         <div className="ss-desktop">
           {CARDS.map(({ component: Card }, i) => {
-            const offset = Math.max(INITIAL_OFFSETS[i] * (0.7 - scrollProgress), 0);
+            const offset = Math.max(
+              INITIAL_OFFSETS[i] * (0.7 - scrollProgress),
+              0,
+            );
             return (
-              <div key={i} className="ss-card-wrap" style={{ transform: `translateY(${offset}px)`, height: 421 }}>
+              <div
+                key={i}
+                className="ss-card-wrap"
+                style={{ transform: `translateY(${offset}px)`, height: 421 }}
+              >
                 <Card mobile={false} />
               </div>
             );
@@ -426,7 +569,7 @@ const SuccessStories: React.FC = () => {
 
         {/* ── Mobile column ── */}
         <div className="ss-mobile">
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             {CARDS.map(({ component: Card }, i) => (
               <div key={i}>
                 <Card mobile={true} />
@@ -436,35 +579,39 @@ const SuccessStories: React.FC = () => {
         </div>
 
         {/* Explore More link */}
-        <div className="ss-explore-row">
+        <div className="ss-button  pt-8">
+          <div className="hidden sm:block"></div>
+          <div className="hidden sm:block"></div>
+          <div></div>
           <Link
             to="/success-stories"
             style={{
-              display: 'inline-flex',
-              alignItems: 'center',
+              display: "inline-flex",
+              alignItems: "center",
               gap: 10,
               fontFamily: FONT,
               fontWeight: 400,
-              fontSize: 22,
-              color: '#5D5D5D',
-              textDecoration: 'none',
-              letterSpacing: '-0.02em',
+              fontSize: 18,
+              color: "#5D5D5D",
+              textDecoration: "none",
+              letterSpacing: "-0.02em",
             }}
           >
-            <span style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: 32,
-              height: 32,
-              flexShrink: 0,
-            }}>
-              <ArrowIcon/>
+            <span
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 32,
+                height: 32,
+                flexShrink: 0,
+              }}
+            >
+              <ArrowIcon />
             </span>
             Explore More
           </Link>
         </div>
-
       </div>
     </section>
   );

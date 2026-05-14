@@ -145,8 +145,8 @@ const WhatWeOffer: React.FC = () => {
           margin-top: 56px;
           text-decoration: none;
           font-family: ${FONT};
-          font-weight: 600;
-          font-size: 16px;
+          font-weight: 400;
+          font-size: 18px;
           line-height: 19px;
           letter-spacing: -0.04em;
           color: #E94227;

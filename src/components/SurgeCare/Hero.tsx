@@ -1,5 +1,6 @@
 import React from "react";
 import img from "@/assets/hand right.png";
+import { Link } from "@tanstack/react-router";
 
 const Hero: React.FC = () => {
   return (
@@ -38,9 +39,9 @@ const Hero: React.FC = () => {
           </span>
 
           {/* CTA Button */}
-          <button style={styles.ctaButton} className="hero-cta-btn">
+          <Link to="/fusion-pods" style={styles.ctaButton} className="hero-cta-btn">
             <span style={styles.ctaText}>Find out if Surge Care is right for you</span>
-          </button>
+          </Link>
         </div>
       </div>
 
