@@ -28,6 +28,7 @@ import { Route as NextwebinarImport } from './routes/nextwebinar'
 import { Route as NewsletterImport } from './routes/newsletter'
 import { Route as Mtf2025Import } from './routes/mtf2025'
 import { Route as MastermindImport } from './routes/mastermind'
+import { Route as LinktreeImport } from './routes/linktree'
 import { Route as LinkedingroupImport } from './routes/linkedingroup'
 import { Route as LinkedinZhagumImport } from './routes/linkedin-zhagum'
 import { Route as LinkedinZayyanImport } from './routes/linkedin-zayyan'
@@ -152,6 +153,12 @@ const Mtf2025Route = Mtf2025Import.update({
 const MastermindRoute = MastermindImport.update({
   id: '/mastermind',
   path: '/mastermind',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const LinktreeRoute = LinktreeImport.update({
+  id: '/linktree',
+  path: '/linktree',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -445,6 +452,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LinkedingroupImport
       parentRoute: typeof rootRoute
     }
+    '/linktree': {
+      id: '/linktree'
+      path: '/linktree'
+      fullPath: '/linktree'
+      preLoaderRoute: typeof LinktreeImport
+      parentRoute: typeof rootRoute
+    }
     '/mastermind': {
       id: '/mastermind'
       path: '/mastermind'
@@ -592,6 +606,7 @@ export interface FileRoutesByFullPath {
   '/linkedin-zayyan': typeof LinkedinZayyanRoute
   '/linkedin-zhagum': typeof LinkedinZhagumRoute
   '/linkedingroup': typeof LinkedingroupRoute
+  '/linktree': typeof LinktreeRoute
   '/mastermind': typeof MastermindRoute
   '/mtf2025': typeof Mtf2025Route
   '/newsletter': typeof NewsletterRoute
@@ -634,6 +649,7 @@ export interface FileRoutesByTo {
   '/linkedin-zayyan': typeof LinkedinZayyanRoute
   '/linkedin-zhagum': typeof LinkedinZhagumRoute
   '/linkedingroup': typeof LinkedingroupRoute
+  '/linktree': typeof LinktreeRoute
   '/mastermind': typeof MastermindRoute
   '/mtf2025': typeof Mtf2025Route
   '/newsletter': typeof NewsletterRoute
@@ -677,6 +693,7 @@ export interface FileRoutesById {
   '/linkedin-zayyan': typeof LinkedinZayyanRoute
   '/linkedin-zhagum': typeof LinkedinZhagumRoute
   '/linkedingroup': typeof LinkedingroupRoute
+  '/linktree': typeof LinktreeRoute
   '/mastermind': typeof MastermindRoute
   '/mtf2025': typeof Mtf2025Route
   '/newsletter': typeof NewsletterRoute
@@ -721,6 +738,7 @@ export interface FileRouteTypes {
     | '/linkedin-zayyan'
     | '/linkedin-zhagum'
     | '/linkedingroup'
+    | '/linktree'
     | '/mastermind'
     | '/mtf2025'
     | '/newsletter'
@@ -762,6 +780,7 @@ export interface FileRouteTypes {
     | '/linkedin-zayyan'
     | '/linkedin-zhagum'
     | '/linkedingroup'
+    | '/linktree'
     | '/mastermind'
     | '/mtf2025'
     | '/newsletter'
@@ -803,6 +822,7 @@ export interface FileRouteTypes {
     | '/linkedin-zayyan'
     | '/linkedin-zhagum'
     | '/linkedingroup'
+    | '/linktree'
     | '/mastermind'
     | '/mtf2025'
     | '/newsletter'
@@ -846,6 +866,7 @@ export interface RootRouteChildren {
   LinkedinZayyanRoute: typeof LinkedinZayyanRoute
   LinkedinZhagumRoute: typeof LinkedinZhagumRoute
   LinkedingroupRoute: typeof LinkedingroupRoute
+  LinktreeRoute: typeof LinktreeRoute
   MastermindRoute: typeof MastermindRoute
   Mtf2025Route: typeof Mtf2025Route
   NewsletterRoute: typeof NewsletterRoute
@@ -888,6 +909,7 @@ const rootRouteChildren: RootRouteChildren = {
   LinkedinZayyanRoute: LinkedinZayyanRoute,
   LinkedinZhagumRoute: LinkedinZhagumRoute,
   LinkedingroupRoute: LinkedingroupRoute,
+  LinktreeRoute: LinktreeRoute,
   MastermindRoute: MastermindRoute,
   Mtf2025Route: Mtf2025Route,
   NewsletterRoute: NewsletterRoute,
@@ -939,6 +961,7 @@ export const routeTree = rootRoute
         "/linkedin-zayyan",
         "/linkedin-zhagum",
         "/linkedingroup",
+        "/linktree",
         "/mastermind",
         "/mtf2025",
         "/newsletter",
@@ -1023,6 +1046,9 @@ export const routeTree = rootRoute
     },
     "/linkedingroup": {
       "filePath": "linkedingroup.tsx"
+    },
+    "/linktree": {
+      "filePath": "linktree.tsx"
     },
     "/mastermind": {
       "filePath": "mastermind.tsx"
