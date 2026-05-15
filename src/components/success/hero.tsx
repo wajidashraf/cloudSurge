@@ -226,9 +226,16 @@ const Hero: React.FC = () => {
                 top:
                   dimensions.width < 768
                     ? "auto"
+                    : dimensions.width > 1250
+                    ? "auto"
                     : `clamp(400px, 50.17%, 301px)`,
                 bottom:
-                  dimensions.width < 768 ? "clamp(28px, 6vh, 60px)" : "auto",
+                  dimensions.width < 768
+                    ? "clamp(28px, 6vh, 60px)"
+                    : dimensions.width > 1250
+                    ? "10vh"
+                    : "auto",
+                  
                 opacity: contentOpacity,
                 clipPath: textClipPath,
               }}

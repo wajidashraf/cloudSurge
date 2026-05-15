@@ -91,10 +91,8 @@ const Hero = () => {
           {/* Main heading */}
           <motion.h1
             variants={fadeUp}
-            className="text-white leading-none mb-6"
+            className="text-white leading-none mb-4"
             style={{
-              fontFamily:
-                "'Bahnschrift', 'DIN Condensed', 'Arial Narrow', sans-serif",
               fontWeight: 600,
               fontSize: "clamp(2.5rem, 12vw, 4.5rem)",
               letterSpacing: "-0.01em",
@@ -108,8 +106,6 @@ const Hero = () => {
             <p
               className="text-white font-semibold"
               style={{
-                fontFamily:
-                  "'Bahnschrift', 'DIN Condensed', 'Arial Narrow', sans-serif",
                 fontSize: "clamp(14px, 4.3vw, 1.4rem)",
                 lineHeight: 1.5,
               }}
@@ -146,8 +142,6 @@ const Hero = () => {
             variants={fadeUp}
             className="text-white font-semibold"
             style={{
-              fontFamily:
-                "'Bahnschrift', 'DIN Condensed', 'Arial Narrow', sans-serif",
               fontWeight: 400,
               fontSize: "clamp(0.9rem, 1.67vw, 24px)",
               lineHeight: "110%",
@@ -165,8 +159,6 @@ const Hero = () => {
             <button
               className="flex items-center justify-center font-semibold rounded-md transition-all duration-200 hover:bg-white/90 hover:scale-105 active:scale-95"
               style={{
-                fontFamily:
-                  "'Bahnschrift', 'DIN Condensed', 'Arial Narrow', sans-serif",
                 background: "#FFFFFF",
                 color: "#EC3F24",
                 border: "1px solid #FFFFFF",
@@ -226,7 +218,7 @@ const Hero = () => {
           className="absolute"
           style={{
             left: "clamp(2rem, 8.5vw, 128px)",
-            bottom: "clamp(2rem, 8vh, 120px)",
+            bottom: "clamp(3rem, 15vh, 150px)",
             maxWidth: "min(600px, 45vw)",
           }}
         >
@@ -330,8 +322,8 @@ const Hero = () => {
           animate="visible"
           className="absolute flex flex-row items-center"
           style={{
-            right: "clamp(2rem, 9.7vw, 140px)",
-            bottom: "clamp(2rem, 7.7vh, 110px)",
+            right: "clamp(2rem, 6vw, 100px)",
+            bottom: "clamp(3rem, 13vh, 160px)",
             gap: "16px",
           }}
         >

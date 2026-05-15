@@ -56,7 +56,7 @@ const TimelineIcon: React.FC<{ image: string; visible: boolean; delay: number; i
     animate={visible ? { opacity: 1, y: 0 } : {}}
     transition={{ duration: isIntermediate ? 0.3 : 0.6, delay }}
   >
-    <img src={image} alt="Timeline icon" className="w-14 h-14 md:w-14 md:h-14 lg:w-16 lg:h-16 xl:w-18 xl:h-18 2xl:w-25 2xl:h-25 object-contain" />
+    <img src={image} alt="Timeline icon" className={`${image === users ? 'w-14 h-14' : 'w-15 h-15'} object-contain`} />
   </motion.div>
 );
 

@@ -50,7 +50,6 @@ const SurgeCareMatters = () => {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;600&display=swap');
 
         .scm-section {
           background: #F9F9F9;
@@ -73,7 +72,6 @@ const SurgeCareMatters = () => {
         }
 
         .scm-heading {
-          font-family: 'Bahnschrift', 'DIN Alternate', 'Arial Narrow', sans-serif;
           font-weight: 600;
           font-size: 60px;
           line-height: 1.2;
@@ -138,9 +136,8 @@ const SurgeCareMatters = () => {
         }
 
         .scm-card-heading {
-          font-family: 'Bahnschrift', 'DIN Alternate', 'Arial Narrow', sans-serif;
-          font-weight: 600;
-          font-size: 32px;
+          font-weight: 500;
+          font-size: 28px;
           line-height: 1.3;
           letter-spacing: -0.01em;
           color: #EC3F24;
@@ -149,8 +146,7 @@ const SurgeCareMatters = () => {
         }
 
         .scm-card-text {
-          font-family: 'Bahnschrift', 'DIN Alternate', 'Arial Narrow', sans-serif;
-          font-weight: 400;
+          font-weight: 350;
           font-size: 18px;
           line-height: 1.5;
           color: #EC3F24;

@@ -156,14 +156,13 @@ const CareerCta: React.FC = () => {
                   Grow your business
                 </span>
               </button>
-              <button className="cta-btn-primary">
+              <button className="cta-btn-secondary">
                 <span
                   style={{
-                    fontFamily: "'Bahnschrift', 'DIN Alternate', sans-serif",
                     fontWeight: 400,
                     fontSize:   18,
                     lineHeight: "150%",
-                    color:      "#FFFFFF",
+                    // color:      "#FFFFFF",
                     whiteSpace: "nowrap",
                   }}
                 >

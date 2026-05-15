@@ -195,7 +195,7 @@ const PodWorkFlow: React.FC = () => {
         </div>
       </div>
 
-      <section className="w-full bg-white py-32 px-4">
+      <section className="w-full bg-white flex items-center px-4 h-[381px]">
         <motion.div
           variants={sectionVariants}
           initial="hidden"
@@ -219,7 +219,7 @@ const PodWorkFlow: React.FC = () => {
 
           <motion.p
             variants={sectionVariants}
-            className=" pl-4 lg:pl-0 text-lg sm:text-2xl md:text-base lg:text-lg xl:text-xl 2xl:text-2xl text-[#5D5D5D] max-w-full sm:max-w-[35%] md:max-w-[65%] lg:max-w-[65%] xl:max-w-[85%] 2xl:max-w-[60%] text-center"
+            className=" pl-4 lg:pl-0 text-md sm:text-xl md:text-md lg:text-md xl:text-xl 2xl:text-2xl text-[#5D5D5D] max-w-full sm:max-w-[45%] md:max-w-[85%] lg:max-w-[80%] xl:max-w-[85%] 2xl:max-w-[70%] text-center"
           >
             Tell us what you are building or delivering. We will assess whether
             a Pod is the right fit and come back to you within one business day.
@@ -448,7 +448,7 @@ const styles: Record<string, React.CSSProperties> = {
   },
   stepBtnActive: {
     backgroundColor: "rgba(235, 65, 36, 1)",
-    transform: "translateX(-20px)",
+    // transform: "translateX(-20px)",
     borderBottom: "4px solid #EB4124",
   },
   stepLabel: {

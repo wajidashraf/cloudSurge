@@ -11,6 +11,8 @@ import {
   PowerAutomateIcon,
   PowerBIIcon,
 } from "@/components/common/svgIcons";
+import logoWhite from "@/assets/logo-white.png";
+
 
 // Square container so rotate+translateY(-R) always lands exactly on the circle
 const R   = 238;   // orbit radius
@@ -59,7 +61,7 @@ const WhatWeDo: React.FC = () => {
             <h2
               className="text-white font-bold"
               style={{
-                fontFamily: "Bahnschrift, sans-serif",
+                fontFamily: "Bahnschrift, Inter, sans-serif",
                 fontSize: "clamp(40px, 5vw, 60px)",
                 lineHeight: "113%",
                 letterSpacing: "-0.01em",
@@ -70,7 +72,8 @@ const WhatWeDo: React.FC = () => {
             <p
               className="text-white max-w-[630px]"
               style={{
-                fontFamily: "Bahnschrift, sans-serif",
+                fontFamily: "Bahnschrift, Inter, sans-serif",
+                fontWeight: 400,
                 fontSize: "clamp(16px, 1.8vw, 28px)",
                 lineHeight: "120%",
                 letterSpacing: "-0.01em",
@@ -82,8 +85,9 @@ const WhatWeDo: React.FC = () => {
             <p
               className="text-white max-w-[630px]"
               style={{
-                fontFamily: "Bahnschrift, sans-serif",
-                fontSize: "clamp(15px, 1.8vw, 24px)",
+                fontFamily: "Bahnschrift, Inter, sans-serif",
+                fontWeight: 300,
+                fontSize: "clamp(14px, 1.8vw, 22px)",
                 lineHeight: "120%",
                 letterSpacing: "-0.01em",
               }}
@@ -122,6 +126,18 @@ const WhatWeDo: React.FC = () => {
                   border: "1.7px dashed rgba(255,255,255,0.75)",
                 }}
               />
+
+              {/* Center logo */}
+              <div
+                className="absolute"
+                style={{
+                  left: `${SZ / 2}px`,
+                  top:  `${SZ / 2}px`,
+                  transform: "translate(-50%, -50%)",
+                }}
+              >
+                <img src={logoWhite} alt="Cloud Surge" width={120} height={120} style={{ objectFit: "contain" }} />
+              </div>
 
               {/* Rotating wrapper — spins the icon positions around the circle */}
               <div

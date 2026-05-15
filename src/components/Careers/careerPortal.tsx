@@ -78,6 +78,7 @@ const CareerPortal: React.FC = () => {
         background: 'rgba(237, 237, 237, 0.8)',
         width: '100%',
         overflow: 'hidden',
+        marginTop: '50px',
       }}
     >
       {/* Outer wrapper: full-bleed section */}
@@ -178,7 +179,7 @@ const CareerPortal: React.FC = () => {
                 <span
                   style={{
                     fontFamily: "'Bahnschrift', 'DIN Alternate', 'Arial Narrow', sans-serif",
-                    fontSize: 'clamp(18px, 1.8vw, 22px)',
+                    fontSize: 'clamp(16px, 1.5vw, 20px)',
                     lineHeight: '26px',
                     letterSpacing: '-0.04em',
                     color: '#E94227',
@@ -208,7 +209,7 @@ const CareerPortal: React.FC = () => {
                 <span
                   style={{
                     fontFamily: "'Bahnschrift', 'DIN Alternate', 'Arial Narrow', sans-serif",
-                    fontSize: 'clamp(18px, 1.8vw, 22px)',
+                    fontSize: 'clamp(16px, 1.5vw, 20px)',
                     lineHeight: '26px',
                     letterSpacing: '-0.04em',
                     color: '#E94227',
@@ -232,9 +233,8 @@ const CareerPortal: React.FC = () => {
               <InfoIcon />
               <p
                 style={{
-                  fontFamily: "'Bahnschrift', 'DIN Alternate', 'Arial Narrow', sans-serif",
-                  fontWeight: 350,
-                  fontSize: 'clamp(14px, 1.4vw, 18px)',
+                  fontWeight: 300,
+                  fontSize: 'clamp(12px, 1.2vw, 16px)',
                   lineHeight: '22px',
                   color: '#727272',
                   margin: 0,

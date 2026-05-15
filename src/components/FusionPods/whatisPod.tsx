@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import img from '@/assets/usersWithCSLogo.png';
+import img from '@/assets/Pod Diagram.svg';
 
 // ─── Font shorthand ────────────────────────────────────────────────────
 const bahnschrift = "'Bahnschrift', 'DIN Condensed', 'Arial Narrow', sans-serif";

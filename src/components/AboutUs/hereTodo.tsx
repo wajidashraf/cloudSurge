@@ -25,7 +25,7 @@ const HereToDo: React.FC = () => {
             style={{
               fontFamily: "'Bahnschrift', 'DIN Alternate', sans-serif",
               fontWeight: 600,
-              fontSize: "clamp(36px, 4.2vw, 60px)", // fluid: 36px → 60px
+              fontSize: "clamp(36px, 4.2vw, 55px)", // fluid: 36px → 60px
               lineHeight: "95%",
               color: "#EF4123",
               margin: 0,
@@ -36,9 +36,8 @@ const HereToDo: React.FC = () => {
 
           <p
             style={{
-              fontFamily: "'Bahnschrift', 'DIN Alternate', sans-serif",
               fontWeight: 350,
-              fontSize: "clamp(16px, 1.67vw, 24px)", // fluid: 16px → 24px
+              fontSize: "clamp(15px, 1.67vw, 22px)", // fluid: 16px → 24px
               lineHeight: "120%",
               color: "#EF4123",
               margin: 0,

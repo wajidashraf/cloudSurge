@@ -58,7 +58,7 @@ const TESTIMONIALS: Testimonial[] = [
   {
     imageSrc: profilePic3,
     name: 'Tayyaba Naseer',
-    role: 'Associate Consultant',
+    role: 'Graphic Designer',
     text: 'At Cloud Surge, I focus on graphic design and UI/UX designing, creating visually compelling and user-friendly interfaces. The creative freedom and collaborative environment have allowed me to grow as a designer.',
   },
   {

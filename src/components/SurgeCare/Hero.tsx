@@ -1,6 +1,7 @@
 import React from "react";
 import img from "@/assets/hand right.png";
 import { Link } from "@tanstack/react-router";
+import { clamp } from "framer-motion";
 
 const Hero: React.FC = () => {
   return (
@@ -17,8 +18,8 @@ const Hero: React.FC = () => {
         <h1 style={styles.headline}>Surge Care</h1>
 
         {/* Subheadline */}
-        <p style={styles.subheadline}>
-          Your platform, looked after all year. 
+        <p style={{fontSize:'clamp(14px, 2.2vw, 23px)', color:'#FFF', fontWeight:'bold', maxWidth:'700px', width:'100%', textAlign:'center'}} >
+          Your platform, looked after all year.
         </p>
         <p style={styles.subheadline}>
         
@@ -114,8 +115,6 @@ const styles: Record<string, React.CSSProperties> = {
     alignItems: "center",
     justifyContent: "center",
     overflow: "hidden",
-    fontFamily:
-      "'Bahnschrift', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif",
    
   },
 
@@ -151,7 +150,7 @@ const styles: Record<string, React.CSSProperties> = {
 
   headline: {
     margin: 0,
-    fontSize: "clamp(40px, 6.5vw, 76px)",
+    fontSize: "clamp(46px, 7vw, 76px)",
     fontWeight: 700,
     lineHeight: "110%",
     letterSpacing: "-0.01em",
@@ -163,12 +162,14 @@ const styles: Record<string, React.CSSProperties> = {
   subheadline: {
     margin: 0,
     fontSize: "clamp(14px, 2vw, 16px)",
-    fontWeight: 400,
+    fontWeight: 500,
     lineHeight: "130%",
     color: "#FFFFFF",
     maxWidth: "500px",
-    opacity: 0.93,
-    textShadow: "0 1px 8px rgba(0,0,0,0.15)",
+  },
+  mainSubtext: {
+    color:'#fff',
+    fontWeight:'600'
   },
 
   /* Actions row */
@@ -206,8 +207,6 @@ const styles: Record<string, React.CSSProperties> = {
   },
 
   ctaText: {
-    fontFamily:
-      "'Bahnschrift', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif",
     fontSize: "clamp(14px, 1.4vw, 18px)",
     fontWeight: 600,
     lineHeight: "150%",

@@ -82,7 +82,7 @@ const PodModelSection: React.FC = () => {
             >
               <img src={imageSrc} alt={title} className="w-12 md:w-16 lg:w-16 xl:w-18 2xl:w-20 mb-3 md:mb-3 lg:mb-3 xl:mb-3 2xl:mb-4 object-contain" />
               <h3 className={`text-xl md:text-3xl lg:text-3xl xl:text-3xl 2xl:text-4xl mb-2 ${text}`}>{title}</h3>
-              <p className={`text-sm md:text-sm lg:text-sm xl:text-sm 2xl:text-base leading-relaxed ${text} max-w-[85%] md:max-w-[60%]`}>
+              <p className={` leading-relaxed ${text} max-w-[85%] md:max-w-[80%]`}>
                 {description}
               </p>
             </motion.div>

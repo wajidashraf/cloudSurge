@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useRef, useCallback } from "react";
+﻿import React, { useState, useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Link } from "@tanstack/react-router";
 import gpTriage from "@/assets/GP-Logo 3.png";
@@ -78,7 +78,7 @@ const TOTAL = CARDS.length;
 const CLONED = [...CARDS, ...CARDS, ...CARDS, ...CARDS, ...CARDS];
 const CLONE_OFFSET = TOTAL * 2; // track starts here (2nd copy = real start)
 const CARD_GAP = 16;
-const AUTO_MS = 2000;
+const AUTO_MS = 1667;
 const CS_LOGO_W = 40;
 const CS_LOGO_H = 40;
 const BASE_W = 441;
@@ -227,8 +227,7 @@ const ProjectCard: React.FC<CardProps> = ({
               objectFit: "contain",
               display: "inline-block",
             }}
-          />
-          {" "}read more...
+          />read more...
         </span>
       </Link>
     </div>
@@ -311,7 +310,7 @@ const SuccessProjectsCard: React.FC = () => {
   const [paused, setPaused] = useState(false);
   const [trackIndex, setTrackIndex] = useState(CLONE_OFFSET); // points into CLONED
   const [isAnimated, setIsAnimated] = useState(true);
-  const [viewportW, setViewportW] = useState(0);
+const [viewportW, setViewportW] = useState(0);
   const [winW, setWinW] = useState(() =>
     typeof window !== "undefined" ? window.innerWidth : 1280,
   );
@@ -345,13 +344,6 @@ const SuccessProjectsCard: React.FC = () => {
   // Logical index in real CARDS (0-based)
   const current = (((trackIndex - CLONE_OFFSET) % TOTAL) + TOTAL) % TOTAL;
 
-  // Move to a new trackIndex with animation
-  const moveTo = useCallback((newTrack: number) => {
-    if (transitioning.current) return;
-    setIsAnimated(true);
-    setTrackIndex(newTrack);
-  }, []);
-
   // After animation completes, silently snap back to the middle copy if needed
   useEffect(() => {
     if (!isAnimated) return;
@@ -369,7 +361,7 @@ const SuccessProjectsCard: React.FC = () => {
         }
         return prev;
       });
-    }, 560);
+    }, 920); // must be < AUTO_MS so snap completes before next tick
     return () => clearTimeout(t);
   }, [trackIndex, isAnimated]);
 
@@ -379,16 +371,6 @@ const SuccessProjectsCard: React.FC = () => {
     const id = requestAnimationFrame(() => setIsAnimated(true));
     return () => cancelAnimationFrame(id);
   }, [isAnimated]);
-
-  const next = useCallback(() => moveTo(trackIndex + 1), [moveTo, trackIndex]);
-  const prev = useCallback(() => moveTo(trackIndex - 1), [moveTo, trackIndex]);
-  const goTo = useCallback(
-    (logicalIdx: number) => {
-      const n = ((logicalIdx % TOTAL) + TOTAL) % TOTAL;
-      moveTo(CLONE_OFFSET + n);
-    },
-    [moveTo],
-  );
 
   // Auto-advance
   useEffect(() => {
@@ -401,17 +383,6 @@ const SuccessProjectsCard: React.FC = () => {
     }, AUTO_MS);
     return () => clearInterval(intervalRef.current);
   }, [paused]);
-
-  const handleNav = (fn: () => void) => {
-    clearInterval(intervalRef.current);
-    fn();
-    intervalRef.current = setInterval(() => {
-      setTrackIndex((prev) => {
-        setIsAnimated(true);
-        return prev + 1;
-      });
-    }, AUTO_MS);
-  };
 
   const offset = -(trackIndex * (cardWidth + CARD_GAP));
 
@@ -495,21 +466,7 @@ const SuccessProjectsCard: React.FC = () => {
             }}
             style={{ display: "flex", alignItems: "center", gap: 16 }}
           >
-            <button
-              className="nav-btn"
-              onClick={() => handleNav(prev)}
-              aria-label="Previous"
-            >
-              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                <path
-                  d="M11 14L6 9L11 4"
-                  stroke="#5D5D5D"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </button>
+           
             <div ref={viewportRef} style={{ flex: 1, overflow: "hidden" }}>
               <div
                 style={{
@@ -538,21 +495,7 @@ const SuccessProjectsCard: React.FC = () => {
                 ))}
               </div>
             </div>
-            <button
-              className="nav-btn"
-              onClick={() => handleNav(next)}
-              aria-label="Next"
-            >
-              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                <path
-                  d="M7 4L12 9L7 14"
-                  stroke="#5D5D5D"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </button>
+           
           </motion.div>
 
           <motion.div
@@ -563,7 +506,7 @@ const SuccessProjectsCard: React.FC = () => {
             <CarouselProgress
               current={current}
               total={TOTAL}
-              onDotClick={(i) => handleNav(() => goTo(i))}
+              onDotClick={() => {}}
             />
           </motion.div>
         </div>

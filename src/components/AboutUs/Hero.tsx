@@ -117,7 +117,7 @@ const HeroSection: React.FC = () => {
               viewport={{ once: true, margin: "-100px" }}
             >
               <p className=" text-3xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-[85px] font-extrabold text-[#ef4123] leading-[0.9]">
-                Built to Deliver.
+                Built to <br/>Deliver.
               </p>
               <motion.p
                 className="text-[#ef4123] mt-2 sm:mt-3 text-xl sm:text-2xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-4xl font-extrabold"
