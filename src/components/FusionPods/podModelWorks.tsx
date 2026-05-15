@@ -54,8 +54,8 @@ const bahnschrift = "'Bahnschrift', 'DIN Condensed', 'Arial Narrow', sans-serif"
 const PodModelWorks: React.FC = () => {
   return (
     <section
-      className="relative w-full bg-white overflow-hidden"
-      style={{ minHeight: 'clamp(600px, 60vw, 864px)', background: 'rgba(235, 229, 255, 0.8)' }}
+      className="relative w-full overflow-hidden"
+      style={{ minHeight: 'clamp(600px, 60vw, 864px)', background: '#FFFFFF' }}
     >
       {/* ── Desktop Two-Panel Layout ──────────────────────────── */}
       <div className="hidden md:flex flex-row w-full h-full absolute inset-0">
@@ -63,8 +63,8 @@ const PodModelWorks: React.FC = () => {
         <div
           className="relative flex-shrink-0"
           style={{
-            width: '42%',
-            background: 'rgba(235, 229, 255, 0.8)',
+            width: '40.6%',
+            background: '#EBE5FF',
           }}
         />
 
@@ -73,49 +73,50 @@ const PodModelWorks: React.FC = () => {
       </div>
 
       
-      {[14.7, 39.2, 63.8].map((topPct, i) => (
-        <motion.div
-          key={i}
-          className="hidden md:flex items-center justify-center absolute z-20"
-          style={{
-            left: '39.5%',
-            top: `${topPct}%`,
-            transform: 'translateX(-50%)',
-            width: 'clamp(56px, 5.7vw, 82px)',
-            height: 'clamp(56px, 5.7vw, 82px)',
-            background: 'rgba(115, 0, 191, 0.8)',
-            border: 'clamp(4px, 0.48vw, 6.86px) solid #FFFFFF',
-            borderRadius: '9999px',
-            boxShadow: '0 4px 24px rgba(115,0,191,0.25)',
-          }}
-          variants={circlePop}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ delay: i * 0.15 }}
-        >
-          <span
-            style={{
-              fontFamily: bahnschrift,
-              fontWeight: 600,
-              fontSize: 'clamp(1.25rem, 2.54vw, 36.57px)',
-              lineHeight: 1.3,
-              letterSpacing: '-0.01em',
-              color: '#FFFFFF',
-            }}
-          >
-            {i + 1}
-          </span>
-        </motion.div>
-      ))}
-
       {/* ── Main Content Row ──────────────────────────────────── */}
       <div className="relative z-10 flex flex-col md:flex-row max-w-[1280px] mx-auto" style={{ minHeight: 'clamp(600px, 60vw, 864px)' }}>
+
+        {/* ── Number circles — positioned inside container so they track the panel boundary ── */}
+        {[14.7, 39.2, 63.8].map((topPct, i) => (
+          <motion.div
+            key={i}
+            className="hidden md:flex items-center justify-center absolute z-20"
+            style={{
+              left: '37.6%',
+              top: `${topPct}%`,
+              transform: 'translateX(-50%)',
+              width: 'clamp(56px, 5.7vw, 82px)',
+              height: 'clamp(56px, 5.7vw, 82px)',
+              background: 'rgba(115, 0, 191, 0.8)',
+              border: 'clamp(4px, 0.48vw, 6.86px) solid #FFFFFF',
+              borderRadius: '9999px',
+              boxShadow: '0 4px 24px rgba(115,0,191,0.25)',
+            }}
+            variants={circlePop}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ delay: i * 0.15 }}
+          >
+            <span
+              style={{
+                fontFamily: bahnschrift,
+                fontWeight: 600,
+                fontSize: 'clamp(1.25rem, 2.54vw, 36.57px)',
+                lineHeight: 1.3,
+                letterSpacing: '-0.01em',
+                color: '#FFFFFF',
+              }}
+            >
+              {i + 1}
+            </span>
+          </motion.div>
+        ))}
 
         {/* ── Left Panel: Title ─────────────────────────────── */}
         <motion.div
           className="w-full md:w-[40.6%] flex-shrink-0 flex items-center justify-center px-6 py-12 md:py-0"
-          style={{ background: 'rgba(235, 229, 255, 0.8)' }}
+          style={{ background: '#EBE5FF' }}
           variants={fadeLeft}
           initial="hidden"
           whileInView="visible"
@@ -171,6 +172,7 @@ const PodModelWorks: React.FC = () => {
                     background: 'rgba(115, 0, 191, 0.8)',
                     border: '3px solid #FFFFFF',
                     boxShadow: '0 2px 12px rgba(115,0,191,0.2)',
+                    
                   }}
                 >
                   <span
@@ -209,8 +211,7 @@ const PodModelWorks: React.FC = () => {
                   <p
                     style={{
                       fontFamily: bahnschrift,
-                      fontWeight: 350,
-                      fontSize: 'clamp(0.9rem, 1.43vw, 20.57px)',
+                      fontSize: 'clamp(0.9rem, 1.40vw, 20px)',
                       lineHeight: '150%',
                       color: '#5D5D5D',
                       margin: 0,

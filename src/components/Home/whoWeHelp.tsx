@@ -83,7 +83,8 @@ const WhoWeHelp: React.FC = () => {
           /* flex: 1 0 0 means all 3 share space equally when not expanded */
           flex: 1 0 0;
           min-width: 0;
-          height: 295px;
+          height: 300px;
+          width:280px;
           position: relative;
           overflow: hidden;
           cursor: pointer;
@@ -97,7 +98,7 @@ const WhoWeHelp: React.FC = () => {
 
         /* Expanded card gets extra flex-grow to claim the text panel width */
         .wwh-card.expanded {
-          flex-grow: 2.2;
+          flex-grow: 2;
         }
 
         /* ── Left pane: fills whatever width the card has ── */
@@ -131,10 +132,10 @@ const WhoWeHelp: React.FC = () => {
           position: absolute;
           left: 50%;
           transform: translateX(-50%);
-          bottom: 10px;
+          bottom: 5px;
           width: 95%;
           max-width: 95%;
-          height: 180px;
+          height: 190px;
           object-fit: cover;
           object-position: center top;
           transition: width 0.45s cubic-bezier(0.4, 0, 0.2, 1),
@@ -145,7 +146,7 @@ const WhoWeHelp: React.FC = () => {
 
         /* Shrink image when card is expanded to give text panel visual breathing room */
         .wwh-card.expanded .wwh-card-img {
-          height: 180px;
+          height: 190px;
           bottom: 12px;
           width: calc(100% - 16px);
           max-width: calc(100% - 16px);
@@ -173,7 +174,7 @@ const WhoWeHelp: React.FC = () => {
         }
 
         .wwh-card-content {
-          font-size: clamp(14px, 1.1vw, 17px);
+          font-size: clamp(16px, 1.2vw, 18px);
           color: #5D5D5D;
           line-height: 1.6;
           font-family: ${FONT};
