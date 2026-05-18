@@ -191,9 +191,10 @@ const Hero: React.FC = () => {
                   dimensions.width < 768
                     ? "50%"
                     : `clamp(40px, ${(137 / 1440) * 100}vw, 137px)`,
-                top:
+                top: dimensions.width < 450
+                    ? "100px":
                   dimensions.width < 768
-                    ? "0px"
+                    ? "40px"
                     : `clamp(-16px, ${(-31 / 600) * 100}%, -10px)`,
                 width:
                   dimensions.width < 768
@@ -215,11 +216,12 @@ const Hero: React.FC = () => {
             <motion.div
               className="absolute z-20"
               style={{
-                left:dimensions.width < 560
-                    ? "35px" :
-                  dimensions.width < 768
-                    ? "20px"
-                    : `clamp(260px, 52.08%, 750px)`,
+                left:
+                  dimensions.width < 560
+                    ? "35px"
+                    : dimensions.width < 768
+                      ? "20px"
+                      : `clamp(260px, 52.08%, 750px)`,
                 right:
                   dimensions.width < 768
                     ? "20px"
@@ -228,16 +230,19 @@ const Hero: React.FC = () => {
                   dimensions.width < 768
                     ? "auto"
                     : dimensions.width > 1250
-                    ? "auto"
-                    : `clamp(300px, 50.17%, 301px)`,
-                bottom: dimensions.width < 560
-                    ? "clamp(15vh, 6vh, 60px)":
-                  dimensions.width < 768
-                    ? "clamp(68px, 6vh, 60px)"
-                    : dimensions.width > 1250
-                    ? "10vh"
-                    : "auto",
-                  
+                      ? "auto"
+                      : `clamp(300px, 50.17%, 301px)`,
+                bottom:
+                  dimensions.width < 450
+                    ? "clamp(20vh, 6vh, 60px)"
+                    : dimensions.width < 560
+                      ? "clamp(15vh, 6vh, 60px)"
+                      : dimensions.width < 768
+                        ? "clamp(68px, 6vh, 60px)"
+                        : dimensions.width > 1250
+                          ? "10vh"
+                          : "auto",
+
                 opacity: contentOpacity,
                 clipPath: textClipPath,
               }}
@@ -260,8 +265,6 @@ const Hero: React.FC = () => {
                 teams, and enterprise environments.
               </p>
             </motion.div>
-
-            
           </div>
         </div>
       </section>
