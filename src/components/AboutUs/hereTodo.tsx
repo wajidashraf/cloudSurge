@@ -7,15 +7,16 @@ const HereToDo: React.FC = () => {
       className=""
       style={{
         width: "100%",
-        minHeight: "800px",
+        minHeight: "600px",
         paddingTop: "100px",
+        paddingBottom: "100px",
         boxSizing: "border-box",
         background:
           "linear-gradient(360deg, #ddd 0%, #FFFFFF 47.78%), #FFFFFF",
         borderBottom: "5px solid #E1E1E1",
       }}
     >
-      <div className="px-4 lg:px-6 max-w-[1280px] mx-auto flex flex-col lg:flex-row items-center justify-between gap-10">
+      <div className="px-7 md:px-4 lg:px-10 max-w-[1280px] mx-auto flex flex-col lg:flex-row items-center justify-between gap-10">
         {/* Left — text content */}
         <div
           className="w-full md:w-[65%] flex flex-col gap-6"
@@ -25,7 +26,7 @@ const HereToDo: React.FC = () => {
             style={{
               fontFamily: "'Bahnschrift', 'DIN Alternate', sans-serif",
               fontWeight: 600,
-              fontSize: "clamp(36px, 4.2vw, 58px)", // fluid: 36px → 60px
+              fontSize: "clamp(30px, 3.5vw, 58px)", // fluid: 36px → 60px
               lineHeight: "95%",
               color: "#EF4123",
               margin: 0,
@@ -60,6 +61,7 @@ const HereToDo: React.FC = () => {
         >
           <img
             src={image}
+            className="md:pb-0 md:-mt-20 lg:mt-0 lg:-ml-14 xl:ml-0"
             alt=""
             style={{
               width: "clamp(180px, 24.7vw, 356px)",

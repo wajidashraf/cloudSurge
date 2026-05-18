@@ -282,7 +282,7 @@ const WhoWeHelp: React.FC = () => {
           >
             Who we <strong>help</strong>
           </span>
-          <div style={{ width: 0, height: 61, borderLeft: "1.5px solid #EF4123", flexShrink: 0 }} />
+          <div className="hidden md:inline-block" style={{ width: 0, height: 61, borderLeft: "1.5px solid #EF4123", flexShrink: 0 }} />
           <span
             className="wwh-subtitle"
             style={{

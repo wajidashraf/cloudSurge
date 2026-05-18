@@ -57,7 +57,7 @@ const WhatWeDo: React.FC = () => {
         <div className="relative xl:px-6 max-w-[1280px] mx-auto flex flex-col lg:flex-row items-center  gap-16 min-h-[600px]">
 
           {/* ── Left: Text ── */}
-          <div className="px-2 md:px-0 flex-1 min-w-[400px] flex flex-col gap-10 z-10">
+          <div className="px-2 md:px-0 flex-1 lg:min-w-[400px] flex flex-col gap-10 z-10">
             <h2
               className="text-white font-bold"
               style={{
