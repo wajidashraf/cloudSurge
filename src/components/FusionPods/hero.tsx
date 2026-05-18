@@ -218,7 +218,7 @@ const Hero = () => {
           className="absolute"
           style={{
             left: "clamp(2rem, 8.5vw, 128px)",
-            bottom: "clamp(3rem, 15vh, 150px)",
+            bottom: "clamp(6rem, 15vh, 150px)",
             maxWidth: "min(600px, 45vw)",
           }}
         >
@@ -264,7 +264,7 @@ const Hero = () => {
             </p>
 
             {/* Action buttons — Figma: flex-row gap:16px */}
-            <div className="flex flex-col sm:flex-row gap-4 flex-wrap">
+            <div className="flex flex-col sm:flex-row gap-4 flex-wrap ">
               {/* Primary: white bg, red text */}
               <Link
                 to="/contact"
