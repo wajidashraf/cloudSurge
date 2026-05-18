@@ -99,7 +99,7 @@ const Cardssuccess: React.FC = () => {
       {/* Animated Heading */}
       <section className="py-10 md:py-30 h-full">
         <div className="container px-4 md:px-30">
-          <h2 className="text-2xl sm:text-3xl md:text-6xl lg:text-7xl leading-tight flex flex-row flex-wrap items-center">
+          <h2 className="text-xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl leading-tight flex flex-row flex-wrap items-center justify-center">
             <div className="flex flex-row items-center mr-0 sm:mr-3">
               {lines.map((line, idx) => (
                 <motion.div
