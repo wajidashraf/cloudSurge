@@ -60,7 +60,7 @@ const Hero = () => {
       </motion.div>
 
       {/* ── Mobile Layout (stacked) ────────────────────────────── */}
-      <div className="relative z-10 md:hidden flex flex-col min-h-screen px-6 pt-24 pb-10">
+      <div className="relative z-10 md:hidden flex flex-col min-h-screen px-6 pt-24 pb-24">
         <div
           className="absolute inset-0 h-[500px]"
           style={{
@@ -155,7 +155,7 @@ const Hero = () => {
           </motion.div>
 
           {/* CTAs */}
-          <motion.div variants={fadeUp} className="flex flex-row gap-3">
+          <motion.div variants={fadeUp} className="flex flex-col md:flex-row gap-3">
             <button
               className="flex items-center justify-center font-semibold rounded-md transition-all duration-200 hover:bg-white/90 hover:scale-105 active:scale-95"
               style={{
@@ -218,7 +218,7 @@ const Hero = () => {
           className="absolute"
           style={{
             left: "clamp(2rem, 8.5vw, 128px)",
-            bottom: "clamp(6rem, 15vh, 150px)",
+            bottom: "clamp(5rem, 15vh, 150px)",
             maxWidth: "min(600px, 45vw)",
           }}
         >
@@ -264,7 +264,7 @@ const Hero = () => {
             </p>
 
             {/* Action buttons — Figma: flex-row gap:16px */}
-            <div className="flex flex-col sm:flex-row gap-4 flex-wrap ">
+            <div className="flex flex-row gap-4 flex-wrap ">
               {/* Primary: white bg, red text */}
               <Link
                 to="/contact"
