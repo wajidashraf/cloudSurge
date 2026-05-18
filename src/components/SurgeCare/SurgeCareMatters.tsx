@@ -104,7 +104,7 @@ const SurgeCareMatters = () => {
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 32px;
+          gap: 20px;
           opacity: 0;
           transform: translateY(32px);
           transition: opacity 0.65s ease, transform 0.65s ease;

@@ -155,13 +155,13 @@ const WhoItIsFor = () => {
         
         .wif-card-bar {
           position: absolute;
-          top: -2px;
+          top: -3px;
           left: 0;
           width: 100%;
-          height: 2px;
+          height: 4px;
           background: #E94325;
           transform-origin: right top;
-          transform: rotate(-0.5deg);
+          transform: rotate(-0.4deg);
           opacity: 0;
           transition: opacity 0.3s ease;
           pointer-events: none;

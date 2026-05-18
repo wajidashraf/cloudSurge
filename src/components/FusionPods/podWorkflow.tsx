@@ -210,7 +210,7 @@ const PodWorkFlow: React.FC = () => {
             className="text-center text-black font-bold"
             style={{
               fontFamily: "Bahnschrift, sans-serif",
-              fontSize: "clamp(28px, 4vw, 45px)",
+              fontSize: "clamp(22px, 4vw, 45px)",
               lineHeight: "54px",
               letterSpacing: "-0.01em",
               color: "#5D5D5D",
@@ -240,10 +240,9 @@ const PodWorkFlow: React.FC = () => {
               }}
             >
               <span
-                className="text-white"
+                className="text-white text-[15px] lg:text-[17px]"
                 style={{
                   fontFamily: "Bahnschrift, sans-serif",
-                  fontSize: "18px",
                   lineHeight: "150%",
                 }}
               >
