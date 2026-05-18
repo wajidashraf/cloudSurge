@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { Link } from "@tanstack/react-router";
 
 // ─── Animation variants ───────────────────────────────────────────────────────
 const containerVariants = {
@@ -69,7 +70,7 @@ const CareerCta: React.FC = () => {
           width:      "100%",
           background: "#FFFFFF",
           /* Figma: 384px tall; let padding create that on mobile too */
-          minHeight:  384,
+          minHeight:  380,
           display:    "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -115,9 +116,8 @@ const CareerCta: React.FC = () => {
               <motion.h2
                 variants={fadeUp}
                 style={{
-                  fontFamily:  "'Bahnschrift', 'DIN Alternate', 'Arial Narrow', sans-serif",
-                  fontWeight:  700,
-                  fontSize:    "clamp(28px, 3.13vw, 45px)",
+                  fontWeight:  600,
+                  fontSize:    "clamp(22px, 3vw, 45px)",
                   lineHeight:  "54px",
                   textAlign:   "center",
                   color:       "#5D5D5D",
@@ -142,12 +142,12 @@ const CareerCta: React.FC = () => {
                 justifyContent: "center",
               }}
             >
-              <button className="cta-btn-primary">
+              <Link to="/contact" className="cta-btn-primary" >
                 <span
                   style={{
                     fontFamily: "'Bahnschrift', 'DIN Alternate', sans-serif",
                     fontWeight: 400,
-                    fontSize:   18,
+                    fontSize:   17,
                     lineHeight: "150%",
                     color:      "#FFFFFF",
                     whiteSpace: "nowrap",
@@ -155,12 +155,12 @@ const CareerCta: React.FC = () => {
                 >
                   Grow your business
                 </span>
-              </button>
-              <button className="cta-btn-secondary">
+              </Link>
+              <Link to="/careers" className="cta-btn-secondary">
                 <span
                   style={{
                     fontWeight: 400,
-                    fontSize:   18,
+                    fontSize:   17,
                     lineHeight: "150%",
                     // color:      "#FFFFFF",
                     whiteSpace: "nowrap",
@@ -168,7 +168,7 @@ const CareerCta: React.FC = () => {
                 >
                   Explore Careers
                 </span>
-              </button>
+              </Link>
 
              
             </motion.div>
