@@ -63,7 +63,7 @@ const cards = [
     title: '98%',
     content: (
       <>
-        client satisfaction rate across all engagements <br/><br/>
+        client satisfaction rate across all engagements <br/> <br/>
       </>
     ),
   },
@@ -209,7 +209,7 @@ const PowerPodsCards: React.FC = () => {
 
             return (
               <div key={i} style={{ marginTop: `${currentMargin}px` }}>
-                <div className="flex flex-col p-4 md:p-3 lg:p-3 xl:p-4 2xl:p-4 md:pl-6 lg:pl-7 xl:pl-7 2xl:pl-8 pt-6 md:pt-16 lg:pt-18 xl:pt-20 2xl:pt-25 bg-[#EFEFEF] min-h-[150px] sm:min-h-[250px] md:min-h-[240px] lg:min-h-[250px] xl:min-h-[260px] 2xl:min-h-[300px] w-full  2xl:w-90">
+                <div className="flex flex-col p-4 md:p-3 lg:p-3 xl:p-4 2xl:p-4 md:pl-6 lg:pl-7 xl:pl-4 2xl:pl-8 pt-6 md:pt-16 lg:pt-18 xl:pt-20 2xl:pt-25 bg-[#EFEFEF] min-h-[150px] sm:min-h-[250px] md:min-h-[240px] lg:min-h-[250px] xl:min-h-[260px] 2xl:min-h-[300px] w-full  2xl:w-90">
                   <h2 className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl text-left sm:text-5xl font-semibold text-[#EF4123] mb-2 sm:mb-4">
                     {i === 3 ? `${counters[i]}+` : `${counters[i]}%`}
                   </h2>

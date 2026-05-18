@@ -1,5 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 import Navbar from '@/components/common/colored-navbar';
+import { useLenis } from '@/hooks/useLenis';
 
 const FooterSection = lazy(() =>
   import('@/components/common/footer').then((mod) => ({
@@ -8,6 +9,7 @@ const FooterSection = lazy(() =>
 );
 
 const PrivacyNotes: React.FC = () => {
+  useLenis();
   const simpleFallback = <div className="text-center py-8"></div>;
 
   return (

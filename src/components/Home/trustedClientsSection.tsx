@@ -80,7 +80,7 @@ const TrustedClientsSection: React.FC = () => {
   }, []);
 
   return (
-    <section className="trusted-section relative z-20 w-full flex justify-center px-4 sm:px-6">
+    <section className="trusted-section relative z-20 w-full flex justify-center px-6 sm:px-6">
       <style>{`
 
         .trusted-section {

@@ -1,14 +1,10 @@
 import React, { lazy, Suspense, useState, useEffect, useRef } from "react";
-import logo from '@/assets/redicon.svg';
 import { useLenis } from '@/hooks/useLenis';
 
 import Navbar from "@/components/common/colored-navbar";
 import Hero from "@/components/FusionPods/hero";
 import PartnerSection from "@/components/FusionPods/partner";
-import PodModel from "@/components/FusionPods/model";
-import Diagram from "@/components/FusionPods/dg";
 import PodModelSection from "@/components/FusionPods/selection";
-import Loader from "@/components/common/loading";
 import magnifierImg from "@/assets/magnifier_fusion.png";
 import userImg from "@/assets/user.png";
 import fourArrowsImg from "@/assets/four_arrow.png";
@@ -32,10 +28,10 @@ const FooterSection = lazy(() =>
 
 export const FusionPods: React.FC = () => {
   useLenis();
-  const loaderFallback =<Loader imageSrc={logo} altText="App logo loading" />;
   const [showRemainingContent, setShowRemainingContent] = useState(false);
   const [modelSectionInView, setModelSectionInView] = useState(false);
   const modelSectionRef = useRef<HTMLDivElement>(null);
+  const whatisPodRef = useRef<HTMLDivElement>(null);
 
   const simpleFallback = <div className="text-center py-8"></div>;
 
@@ -110,17 +106,13 @@ export const FusionPods: React.FC = () => {
         <PartnerSection />
       </Suspense>
       <div ref={modelSectionRef}>
-        {/* <PodModel/> */}
         <PodModelWorks/>
       </div>
-      <div ref={modelSectionRef}>
+      <div ref={whatisPodRef}>
         <WhatisPod/>
       </div>
       {showRemainingContent && (
         <>
-          {/* <Suspense fallback={simpleFallback}>
-            <Diagram/>
-          </Suspense> */}
           <Suspense fallback={simpleFallback}>
             <PodModelSection />
           </Suspense>

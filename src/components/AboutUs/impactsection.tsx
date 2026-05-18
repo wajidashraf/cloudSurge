@@ -98,7 +98,7 @@ const ImpactSection: React.FC = () => {
         </motion.p> */}
           <motion.p
             variants={sectionVariants}
-            className=" pl-8 lg:pl-0 text-lg sm:text-2xl md:text-base lg:text-lg xl:text-xl 2xl:text-2xl text-[#ef4123] max-w-full sm:max-w-[35%] md:max-w-[65%] lg:max-w-[65%] xl:max-w-[65%] 2xl:max-w-[40%] text-left"
+            className=" px-8 lg:pl-0 text-lg sm:text-2xl md:text-base lg:text-lg xl:text-xl 2xl:text-2xl text-[#ef4123] max-w-full sm:max-w-[35%] md:max-w-[65%] lg:max-w-[65%] xl:max-w-[65%] 2xl:max-w-[40%] text-left"
           >
             We are working towards creating one million skilled IT jobs in
             emerging economies, beginning with training academies and offices in
@@ -107,7 +107,7 @@ const ImpactSection: React.FC = () => {
           <br />
           <motion.p
             variants={sectionVariants}
-            className="pl-8 lg:pl-0 text-lg sm:text-2xl md:text-base lg:text-lg xl:text-xl 2xl:text-2xl text-[#ef4123] max-w-full sm:max-w-[35%] md:max-w-[65%] lg:max-w-[65%] xl:max-w-[65%] 2xl:max-w-[40%] text-left"
+            className="px-8 lg:pl-0 text-lg sm:text-2xl md:text-base lg:text-lg xl:text-xl 2xl:text-2xl text-[#ef4123] max-w-full sm:max-w-[35%] md:max-w-[65%] lg:max-w-[65%] xl:max-w-[65%] 2xl:max-w-[40%] text-left"
           >
             When you work with Cloud Surge, you are part of that.
           </motion.p>
@@ -115,7 +115,7 @@ const ImpactSection: React.FC = () => {
           {/* Full-width Card */}
         </div>
       </motion.section>
-      <section className="w-full bg-white py-32 px-20">
+      <section className="w-full bg-white py-22 px-6 md:20">
         <motion.div
           variants={sectionVariants}
           initial="hidden"
@@ -128,7 +128,7 @@ const ImpactSection: React.FC = () => {
             className="text-center text-black font-bold"
             style={{
               fontFamily: "Bahnschrift, sans-serif",
-              fontSize: "clamp(28px, 4vw, 45px)",
+              fontSize: "clamp(24px, 4vw, 45px)",
               lineHeight: "54px",
               letterSpacing: "-0.01em",
               color: "#5D5D5D",
@@ -138,7 +138,7 @@ const ImpactSection: React.FC = () => {
           </h2>
 
           {/* Actions */}
-          <div className="flex flex-row items-center gap-4">
+          <div className="flex flex-col md:flex-row items-center gap-4">
             <a
               href="/careers"
               className="flex items-center justify-center px-3 py-1.5 rounded-md  transition-opacity"

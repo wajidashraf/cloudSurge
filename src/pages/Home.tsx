@@ -28,12 +28,6 @@ const Hero = lazy(() => import('@/components/Home/hero'));
 const ScrollingImages = lazy(
   () => import('@/components/Home/scrollingimages')
 );
-const PowerPodsCards = lazy(
-  () => import('@/components/Home/scrollcards')
-);
-const ScrollTimeline = lazy(
-  () => import('@/components/AboutUs/scrolltimeline')
-);
 const PodWorkflowSection = lazy(
   () => import('@/components/Home/podworkflow')
 );
@@ -42,10 +36,6 @@ const SuccessStories = lazy(
 );
 const TailoredPodSubscriptions = lazy(
   () => import('@/components/Home/podsubscriptions')
-);
-const HeroSection = lazy(
-  () =>
-    import('@/components/Home/lowerhero').then(module => ({ default: module.HeroSection }))
 );
 const FooterSection = lazy(
   () =>
@@ -110,12 +100,8 @@ export const Home: React.FC = () => {
       <Suspense fallback={simpleFallback}>
         <WhatWeOffer />
       </Suspense>
-      {/* <Suspense fallback={simpleFallback}>
-        <PowerPodsCards />
-      </Suspense>
-      */}
 
-      
+
 
 
       <Suspense fallback={simpleFallback}>

@@ -510,7 +510,7 @@ const SuccessStories: React.FC = () => {
         .ss-inner {
           max-width: 1280px;
           margin: 0 auto;
-          padding: 80px 6px 60px;
+          padding: 80px 23px 60px;
           box-sizing: border-box;
         }
         .ss-desktop, .ss-button {
@@ -533,11 +533,11 @@ const SuccessStories: React.FC = () => {
         @media (max-width: 900px) {
           .ss-desktop { display: none; }
           .ss-mobile  { display: block; }
-          .ss-inner   { padding: 40px 16px 32px; }
+          .ss-inner   { padding: 40px 24px 32px; }
           .ss-explore-row { padding: 0 16px; justify-content: flex-end; margin-top: 20px; }
         }
         @media (max-width: 480px) {
-          .ss-inner { padding: 28px 16px 20px; }
+          .ss-inner { padding: 28px 24px 20px; }
           .ss-button{
           display: grid;
           grid-template-columns: repeat(1, 1fr);  

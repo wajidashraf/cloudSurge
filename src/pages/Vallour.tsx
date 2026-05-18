@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLenis } from '@/hooks/useLenis';
 import SparkIcon from '@/assets/Asset19.svg';
 import { FooterSection } from '@/components/common/footer';
 import Outcome from '@/components/vallour/Outcome';
@@ -6,7 +7,8 @@ import Testimonial from '@/components/vallour/Testimonial';
 import { VallourOverview } from '@/components/vallour/VallourOverview';
 import { VallourSolution } from '@/components/vallour/VallourSolution';
 
-const Genera: React.FC = () => {
+const Vallour: React.FC = () => {
+  useLenis();
 
   return (
     <div className="relative bg-white font-bahnschrift">
@@ -31,4 +33,4 @@ const Genera: React.FC = () => {
   );
 };
 
-export default Genera;
+export default Vallour;

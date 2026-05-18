@@ -1,6 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
 import '../App.css'
-import Navbar from '@/components/common/colored-navbar'
 import { Home } from '@/pages/Home'
 
 export const Route = createFileRoute('/')({

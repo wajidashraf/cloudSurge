@@ -37,6 +37,7 @@ import { Route as KpibookImport } from './routes/kpibook'
 import { Route as IqImport } from './routes/iq'
 import { Route as HomeImport } from './routes/home'
 import { Route as GptriageImport } from './routes/gptriage'
+import { Route as GenaieraImport } from './routes/genaiera'
 import { Route as FusionPodsImport } from './routes/fusion-pods'
 import { Route as FeedbackImport } from './routes/feedback'
 import { Route as FawriiImport } from './routes/fawrii'
@@ -49,7 +50,6 @@ import { Route as CloudSurgeWhitepaperImport } from './routes/cloud-surge-whitep
 import { Route as CharitystrategyImport } from './routes/charitystrategy'
 import { Route as CareersImport } from './routes/careers'
 import { Route as AboutImport } from './routes/about'
-import { Route as GenaieraImport } from './routes/Genaiera'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
@@ -210,6 +210,12 @@ const GptriageRoute = GptriageImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const GenaieraRoute = GenaieraImport.update({
+  id: '/genaiera',
+  path: '/genaiera',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const FusionPodsRoute = FusionPodsImport.update({
   id: '/fusion-pods',
   path: '/fusion-pods',
@@ -282,12 +288,6 @@ const AboutRoute = AboutImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const GenaieraRoute = GenaieraImport.update({
-  id: '/Genaiera',
-  path: '/Genaiera',
-  getParentRoute: () => rootRoute,
-} as any)
-
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
@@ -303,13 +303,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/Genaiera': {
-      id: '/Genaiera'
-      path: '/Genaiera'
-      fullPath: '/Genaiera'
-      preLoaderRoute: typeof GenaieraImport
       parentRoute: typeof rootRoute
     }
     '/about': {
@@ -394,6 +387,13 @@ declare module '@tanstack/react-router' {
       path: '/fusion-pods'
       fullPath: '/fusion-pods'
       preLoaderRoute: typeof FusionPodsImport
+      parentRoute: typeof rootRoute
+    }
+    '/genaiera': {
+      id: '/genaiera'
+      path: '/genaiera'
+      fullPath: '/genaiera'
+      preLoaderRoute: typeof GenaieraImport
       parentRoute: typeof rootRoute
     }
     '/gptriage': {
@@ -585,7 +585,6 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/Genaiera': typeof GenaieraRoute
   '/about': typeof AboutRoute
   '/careers': typeof CareersRoute
   '/charitystrategy': typeof CharitystrategyRoute
@@ -598,6 +597,7 @@ export interface FileRoutesByFullPath {
   '/fawrii': typeof FawriiRoute
   '/feedback': typeof FeedbackRoute
   '/fusion-pods': typeof FusionPodsRoute
+  '/genaiera': typeof GenaieraRoute
   '/gptriage': typeof GptriageRoute
   '/home': typeof HomeRoute
   '/iq': typeof IqRoute
@@ -628,7 +628,6 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/Genaiera': typeof GenaieraRoute
   '/about': typeof AboutRoute
   '/careers': typeof CareersRoute
   '/charitystrategy': typeof CharitystrategyRoute
@@ -641,6 +640,7 @@ export interface FileRoutesByTo {
   '/fawrii': typeof FawriiRoute
   '/feedback': typeof FeedbackRoute
   '/fusion-pods': typeof FusionPodsRoute
+  '/genaiera': typeof GenaieraRoute
   '/gptriage': typeof GptriageRoute
   '/home': typeof HomeRoute
   '/iq': typeof IqRoute
@@ -672,7 +672,6 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/Genaiera': typeof GenaieraRoute
   '/about': typeof AboutRoute
   '/careers': typeof CareersRoute
   '/charitystrategy': typeof CharitystrategyRoute
@@ -685,6 +684,7 @@ export interface FileRoutesById {
   '/fawrii': typeof FawriiRoute
   '/feedback': typeof FeedbackRoute
   '/fusion-pods': typeof FusionPodsRoute
+  '/genaiera': typeof GenaieraRoute
   '/gptriage': typeof GptriageRoute
   '/home': typeof HomeRoute
   '/iq': typeof IqRoute
@@ -717,7 +717,6 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/Genaiera'
     | '/about'
     | '/careers'
     | '/charitystrategy'
@@ -730,6 +729,7 @@ export interface FileRouteTypes {
     | '/fawrii'
     | '/feedback'
     | '/fusion-pods'
+    | '/genaiera'
     | '/gptriage'
     | '/home'
     | '/iq'
@@ -759,7 +759,6 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/Genaiera'
     | '/about'
     | '/careers'
     | '/charitystrategy'
@@ -772,6 +771,7 @@ export interface FileRouteTypes {
     | '/fawrii'
     | '/feedback'
     | '/fusion-pods'
+    | '/genaiera'
     | '/gptriage'
     | '/home'
     | '/iq'
@@ -801,7 +801,6 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/Genaiera'
     | '/about'
     | '/careers'
     | '/charitystrategy'
@@ -814,6 +813,7 @@ export interface FileRouteTypes {
     | '/fawrii'
     | '/feedback'
     | '/fusion-pods'
+    | '/genaiera'
     | '/gptriage'
     | '/home'
     | '/iq'
@@ -845,7 +845,6 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  GenaieraRoute: typeof GenaieraRoute
   AboutRoute: typeof AboutRoute
   CareersRoute: typeof CareersRoute
   CharitystrategyRoute: typeof CharitystrategyRoute
@@ -858,6 +857,7 @@ export interface RootRouteChildren {
   FawriiRoute: typeof FawriiRoute
   FeedbackRoute: typeof FeedbackRoute
   FusionPodsRoute: typeof FusionPodsRoute
+  GenaieraRoute: typeof GenaieraRoute
   GptriageRoute: typeof GptriageRoute
   HomeRoute: typeof HomeRoute
   IqRoute: typeof IqRoute
@@ -888,7 +888,6 @@ export interface RootRouteChildren {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  GenaieraRoute: GenaieraRoute,
   AboutRoute: AboutRoute,
   CareersRoute: CareersRoute,
   CharitystrategyRoute: CharitystrategyRoute,
@@ -901,6 +900,7 @@ const rootRouteChildren: RootRouteChildren = {
   FawriiRoute: FawriiRoute,
   FeedbackRoute: FeedbackRoute,
   FusionPodsRoute: FusionPodsRoute,
+  GenaieraRoute: GenaieraRoute,
   GptriageRoute: GptriageRoute,
   HomeRoute: HomeRoute,
   IqRoute: IqRoute,
@@ -940,7 +940,6 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/Genaiera",
         "/about",
         "/careers",
         "/charitystrategy",
@@ -953,6 +952,7 @@ export const routeTree = rootRoute
         "/fawrii",
         "/feedback",
         "/fusion-pods",
+        "/genaiera",
         "/gptriage",
         "/home",
         "/iq",
@@ -983,9 +983,6 @@ export const routeTree = rootRoute
     },
     "/": {
       "filePath": "index.tsx"
-    },
-    "/Genaiera": {
-      "filePath": "Genaiera.tsx"
     },
     "/about": {
       "filePath": "about.tsx"
@@ -1022,6 +1019,9 @@ export const routeTree = rootRoute
     },
     "/fusion-pods": {
       "filePath": "fusion-pods.tsx"
+    },
+    "/genaiera": {
+      "filePath": "genaiera.tsx"
     },
     "/gptriage": {
       "filePath": "gptriage.tsx"

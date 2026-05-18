@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from '@tanstack/react-router';
 import { FooterSection } from '@/components/common/footer';
 import Navbar from '@/components/common/transparent-navbar';
 import ContactHero from '@/components/Contact/Hero';
 import ContactMap from '@/components/Contact/Map';
 import { setPageSEO } from '@/utils/seo';
+import { useLenis } from '@/hooks/useLenis';
 
 const Contact: React.FC = () => {
-  const navigate = useNavigate();
+  useLenis();
 
   // Set page metadata for SEO
   useEffect(() => {

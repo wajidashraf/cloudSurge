@@ -197,21 +197,15 @@ const WhoWeHelp: React.FC = () => {
             height: auto !important;
             flex-direction: column !important;
           }
-          /* Card left: tall enough for title + full image */
+          /* Left pane becomes a natural-flow column */
           .wwh-card-left {
             width: 100% !important;
             height: auto !important;
-            min-height: 260px;
-            padding-bottom: 0 !important;
+            min-height: unset !important;
+            display: flex !important;
+            flex-direction: column !important;
           }
-          /* Title: single line, smaller so it never wraps */
-          .wwh-card-title {
-            font-size: 18px !important;
-            white-space: nowrap !important;
-            top: 16px !important;
-            left: 16px !important;
-          }
-          /* Image: relative flow so card expands to contain it */
+          /* Image: first in DOM, full width, on top */
           .wwh-card-img {
             position: relative !important;
             left: unset !important;
@@ -221,11 +215,20 @@ const WhoWeHelp: React.FC = () => {
             max-width: 100% !important;
             height: 200px !important;
             display: block;
-            margin-top: 52px;
+            margin-top: 0 !important;
             object-fit: cover;
             object-position: center top;
           }
-          /* Text panel: always visible, full width */
+          /* Title: below image */
+          .wwh-card-title {
+            position: relative !important;
+            left: unset !important;
+            top: unset !important;
+            font-size: 18px !important;
+            white-space: pre-line !important;
+            padding: 12px 16px 6px !important;
+          }
+          /* Text panel: always visible, full width, below title */
           .wwh-card-right {
             width: 100% !important;
             height: auto !important;
@@ -234,7 +237,7 @@ const WhoWeHelp: React.FC = () => {
           }
           .wwh-card-content {
             width: 100% !important;
-            padding: 16px 20px 20px !important;
+            padding: 4px 16px 20px !important;
           }
           .wwh-header-wrap {
             flex-wrap: wrap !important;
@@ -323,10 +326,10 @@ const WhoWeHelp: React.FC = () => {
               onMouseEnter={() => setExpandedIdx(i)}
               onMouseLeave={() => setExpandedIdx(null)}
             >
-              {/* Left pane — fills card width, title + image always visible */}
+              {/* Left pane — img first in DOM so mobile stacks: img → title → content */}
               <div className="wwh-card-left">
-                <div className="wwh-card-title">{card.title}</div>
                 <img className="wwh-card-img" src={card.image} alt={card.alt} />
+                <div className="wwh-card-title">{card.title}</div>
               </div>
 
               {/* Right pane — text panel, width animates 0 → 292px on hover */}

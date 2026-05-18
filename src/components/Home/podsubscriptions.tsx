@@ -97,7 +97,7 @@ const plans: Plan[] = [
 
 const TailoredPodSubscriptions: React.FC = () => (
 
-  <section id="pricing" className="container mx-auto w-full px-4 sm:px-8 md:px-5 2xl:px-[150px] -mt-16 pb-30 bg-white">
+  <section id="pricing" className="container mx-auto w-full px-6 sm:px-10 md:px-5 2xl:px-[150px] -mt-16 pb-30 bg-white">
     <h2 className="text-5xl md:text-6xl lg:text-6xl xl:text-6xl 2xl:text-7xl font-extrabold text-center text-[#ef4123] mb-16 md:mb-32">
       Tailored Pod <br /> Subscriptions
     </h2>

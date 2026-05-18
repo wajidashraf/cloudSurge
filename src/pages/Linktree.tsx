@@ -59,18 +59,19 @@ export const Linktree: React.FC = () => {
 
         {/* Footer Links */}
         <div style={styles.footerLinks}>
-          {["Privacy Policy", "Terms of Service", "Cookies Settings"].map(
-            (item) => (
-              <a key={item} href="#" style={styles.footerLink}>
-                {item}
-              </a>
-            )
-          )}
+          {[
+            { label: "Privacy Policy", href: "/privacy-notice" },
+            { label: "Terms of Service", href: "/terms-of-service" },
+            { label: "Cookies Settings", href: "/privacy-notice#cookies" },
+          ].map((item) => (
+            <a key={item.label} href={item.href} style={styles.footerLink}>
+              {item.label}
+            </a>
+          ))}
         </div>
       </div>
 
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Bahnschrift&display=swap');
 
         * {
           box-sizing: border-box;
@@ -151,7 +152,7 @@ const styles: Record<string, React.CSSProperties> = {
     gap: "16px",
     width: "100%",
     maxWidth: "384px",
-    marginBottom: "48px",
+    margin: "65px 0px 80px",
   },
 
   linkButton: {

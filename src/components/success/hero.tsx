@@ -215,7 +215,8 @@ const Hero: React.FC = () => {
             <motion.div
               className="absolute z-20"
               style={{
-                left:
+                left:dimensions.width < 560
+                    ? "35px" :
                   dimensions.width < 768
                     ? "20px"
                     : `clamp(260px, 52.08%, 750px)`,
@@ -228,10 +229,11 @@ const Hero: React.FC = () => {
                     ? "auto"
                     : dimensions.width > 1250
                     ? "auto"
-                    : `clamp(400px, 50.17%, 301px)`,
-                bottom:
+                    : `clamp(300px, 50.17%, 301px)`,
+                bottom: dimensions.width < 560
+                    ? "clamp(15vh, 6vh, 60px)":
                   dimensions.width < 768
-                    ? "clamp(28px, 6vh, 60px)"
+                    ? "clamp(68px, 6vh, 60px)"
                     : dimensions.width > 1250
                     ? "10vh"
                     : "auto",

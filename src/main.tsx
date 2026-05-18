@@ -6,12 +6,12 @@ import { routeTree } from './routeTree.gen'
 
 import './styles.css'
 import reportWebVitals from './reportWebVitals.ts'
-import { initGA, trackPageView } from './utils/analytics'
+import { trackPageView } from './utils/analytics'
 
 // Initialize Google Analytics
 // Note: Google tag is loaded directly in index.html for better detection
 // This ensures tracking works even if the environment variable is not set
-const GA_MEASUREMENT_ID = import.meta.env.VITE_GA_MEASUREMENT_ID || 'G-7XFPNKHW0M'
+const GA_MEASUREMENT_ID = import.meta.env.VITE_GA_MEASUREMENT_ID
 
 // Create a new router instance
 const router = createRouter({

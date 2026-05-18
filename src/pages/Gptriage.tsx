@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLenis } from '@/hooks/useLenis';
 import SparkIcon from '@/assets/Asset19.svg';
 import { FooterSection } from '@/components/common/footer';
 import { GPTriageOverview } from '@/components/gptriage/GPTriageOverview';
@@ -7,6 +8,7 @@ import Outcome from '@/components/gptriage/Outcome';
 import Testimonial from '@/components/gptriage/Testimonial';
 
 const GPTriage: React.FC = () => {
+  useLenis();
 
   return (
     <div className="relative bg-white font-bahnschrift">

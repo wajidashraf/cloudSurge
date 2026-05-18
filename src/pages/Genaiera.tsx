@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLenis } from '@/hooks/useLenis';
 import SparkIcon from '@/assets/Asset19.svg';
 import { FooterSection } from '@/components/common/footer';
 import Outcome from '@/components/Genera/Outcome';
@@ -7,6 +8,7 @@ import { GeneraOverview } from '@/components/Genera/GeneraOverview';
 import { GeneraSolution } from '@/components/Genera/GeneraSolution';
 
 const Genera: React.FC = () => {
+  useLenis();
 
   return (
     <div className="relative bg-white font-bahnschrift">

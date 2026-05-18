@@ -351,7 +351,7 @@ const WhatWeDeliver: React.FC = () => {
 
         @media (max-width: 480px) {
           .wwd-section  { padding: 48px 0; }
-          .wwd-inner    { padding: 0 16px; }
+          .wwd-inner    { padding: 0 24px; }
         }
       `}</style>
 

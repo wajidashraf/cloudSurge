@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLenis } from '@/hooks/useLenis';
 import SparkIcon from '@/assets/Asset19.svg';
 import { FooterSection } from '@/components/common/footer';
 import Outcome from '@/components/Fawrii/Outcome';
@@ -6,7 +7,8 @@ import Testimonial from '@/components/Fawrii/Testimonial';
 import { FawriiOverview } from '@/components/Fawrii/FawriiOverview';
 import { FawriiSolution } from '@/components/Fawrii/FawriiSolution';
 
-const Zaptica: React.FC = () => {
+const Fawrii: React.FC = () => {
+  useLenis();
 
   return (
     <div className="relative bg-white font-bahnschrift">
@@ -31,4 +33,4 @@ const Zaptica: React.FC = () => {
   );
 };
 
-export default Zaptica;
+export default Fawrii;

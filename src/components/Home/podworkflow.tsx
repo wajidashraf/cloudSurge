@@ -475,14 +475,15 @@ const PodWorkflowSection: React.FC = () => {
             gap: 24px;
           }
           .pod-step-wrapper {
-            flex-direction: row;
-            align-items: flex-start;
+            flex-direction: column;
+            align-items: center;
             width: 100%;
-            gap: 12px;
+            gap: 0;
+            padding: 0 4px;
           }
           .pod-step-badge {
-            margin-bottom: 0;
-            margin-top: 8px;
+            margin-bottom: -24px;
+            margin-top: 0;
             width: 40px;
             height: 40px;
             font-size: 20px;
@@ -491,8 +492,8 @@ const PodWorkflowSection: React.FC = () => {
             width: 100%;
             height: auto;
             min-height: 80px;
-            padding: 16px;
-            align-items: flex-start;
+            padding: 40px 16px 16px;
+            align-items: center;
             flex: 1;
           }
           .pod-step-icon {
@@ -500,7 +501,7 @@ const PodWorkflowSection: React.FC = () => {
             height: 28px;
           }
           .pod-step-title {
-            text-align: left;
+            text-align: center;
             font-size: 16px;
           }
           .pod-step-duration span {

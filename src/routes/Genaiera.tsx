@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import '../App.css'
 import Genera from '@/pages/Genaiera'
 
-export const Route = createFileRoute('/Genaiera')({
+export const Route = createFileRoute('/genaiera')({
   component: App,
 })
 
