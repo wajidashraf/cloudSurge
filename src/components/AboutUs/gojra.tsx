@@ -108,7 +108,7 @@ const Gojra: React.FC<GojraProps> = ({
       <section className="mx-auto px-4 lg:px-6 max-w-[1280px] py-8 sm:py-16 md:py-8 lg:py-10 xl:py-12 2xl:py-16 h-full flex items-end pb-4">
         <div className="">
           <h2 className="text-2xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl leading-tight flex flex-col sm:flex-row flex-wrap items-start pt-12">
-            <div className=" px-2 md:px-0 flex flex-col items-start mr-0 sm:mr-3">
+            <div className=" px-3 md:px-2 flex flex-col items-start mr-0 sm:mr-3">
               {lines.map((line, idx) => (
                 <motion.div
                   key={idx}
