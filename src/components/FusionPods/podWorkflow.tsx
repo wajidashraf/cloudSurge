@@ -157,7 +157,7 @@ const PodWorkFlow: React.FC = () => {
                   className={showActive ? "pod-step-btn-active" : ""}
                   style={{
                     ...styles.stepBtn,
-                    ...(isFirst || isLast ? { borderTop: "4px solid #EB4124" } : {}),
+                    ...(isFirst ? { borderTop: "4px solid #EB4124" } : {}),
                     ...(showActive ? styles.stepBtnActive : {}),
                   }}
                   onClick={() => goTo(i)}

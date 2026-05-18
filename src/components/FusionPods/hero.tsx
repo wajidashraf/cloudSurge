@@ -156,7 +156,10 @@ const Hero = () => {
 
           {/* CTAs */}
           <motion.div variants={fadeUp} className="flex flex-col md:flex-row gap-3">
-            <button
+            <a
+              href="https://bookings.cloud.microsoft/book/FreeScaleUp@cloudsurge.uk/s/Abz0MDpi3kuyMsftsPEmMQ2?ismsaljsauthenabled=true"
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center justify-center font-semibold rounded-md transition-all duration-200 hover:bg-white/90 hover:scale-105 active:scale-95"
               style={{
                 background: "#FFFFFF",
@@ -170,10 +173,11 @@ const Hero = () => {
               }}
             >
               Get a Pod in 48 hours
-            </button>
+            </a>
 
             {/* Secondary: outline white */}
-            <button
+            <Link
+              to="/fusion-pods"
               className="flex items-center justify-center font-semibold rounded-md transition-all duration-200 hover:bg-white/15 active:scale-95"
               style={{
                 fontFamily:
@@ -189,7 +193,7 @@ const Hero = () => {
               }}
             >
               See how it works
-            </button>
+            </Link>
           </motion.div>
         </motion.div>
       </div>
@@ -266,9 +270,9 @@ const Hero = () => {
             {/* Action buttons — Figma: flex-row gap:16px */}
             <div className="flex flex-row gap-4 flex-wrap ">
               {/* Primary: white bg, red text */}
-              <Link
-                to="/contact"
-                className=" flex items-center justify-center font-semibold rounded-md transition-all duration-200 hover:bg-white/90 hover:scale-105 active:scale-95"
+               <a
+              href="https://bookings.cloud.microsoft/book/FreeScaleUp@cloudsurge.uk/s/Abz0MDpi3kuyMsftsPEmMQ2?ismsaljsauthenabled=true"
+              className=" flex items-center justify-center font-semibold rounded-md transition-all duration-200 hover:bg-white/90 hover:scale-105 active:scale-95"
                 style={{
                   fontFamily:
                     "'Bahnschrift', 'DIN Condensed', 'Arial Narrow', sans-serif",
@@ -283,11 +287,11 @@ const Hero = () => {
                 }}
               >
                 Get a Pod in 48 hours
-              </Link>
+              </a>
 
               {/* Secondary: outline white */}
               <Link
-                to="/success-stories"
+                to="/fusion-pods"
                 className="flex items-center justify-center font-semibold rounded-md transition-all duration-200 hover:bg-white/15 active:scale-95"
                 style={{
                   fontFamily:
