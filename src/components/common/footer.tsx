@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import type { FC } from 'react';
 import logo from '@/assets/CS_red.svg';
+import play from '@/assets/play1.png';
 import { Link } from '@tanstack/react-router';
 
 const FONT = "'Bahnschrift', 'DIN Alternate', 'Arial Narrow', sans-serif";
@@ -156,7 +157,7 @@ export const FooterSection: FC = () => {
         .footer-submit {
           width: 32px;
           height: 32px;
-          background: #EF4123;
+          // background: #EF4123;
           border: none;
           border-radius: 50%;
           cursor: pointer;
@@ -353,9 +354,10 @@ export const FooterSection: FC = () => {
                     aria-label="Email address"
                   />
                   <button className="footer-submit" type="submit" aria-label="Subscribe">
-                    <svg width="12" height="14" viewBox="0 0 12 14" fill="none">
+                    {/* <svg width="12" height="14" viewBox="0 0 12 14" fill="none">
                       <path d="M2 1L10 7L2 13" stroke="#D9D9D9" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
+                    </svg> */}
+                    <img src={play} alt="" />
                   </button>
                 </form>
               )}
