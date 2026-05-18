@@ -104,7 +104,7 @@ const WhatisPod: React.FC = () => {
             className="w-full md:w-[52%] flex-shrink-0"
             style={{
               // Figma: text starts at 163px = 11.3% of 1440px
-              paddingLeft: 'clamp(0px, 8.3vw, 120px)',
+              paddingLeft: 'clamp(0px, 5.3vw, 120px)',
               // Figma: text is 585px wide within that
               paddingRight: 'clamp(1rem, 2vw, 28px)',
             }}
@@ -144,13 +144,8 @@ const WhatisPod: React.FC = () => {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
-            className="w-full md:flex-1 flex justify-center md:justify-start md:items-start"
-            style={{
-              // Figma image starts at 913px from left edge of 1440 section.
-              // The left col takes up 52%, so image column starts at 52%.
-              // 913/1440 = 63.4% from section left. Gap = 63.4 - 52 = 11.4% = ~164px
-              paddingLeft: 'clamp(0px, 11.4vw, 164px)',
-            }}
+            className="w-full md:pl-30 lg:pl-40 md:flex-1 flex justify-center md:justify-start md:items-start"
+           
           >
             <img
               src={img}

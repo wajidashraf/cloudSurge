@@ -149,48 +149,50 @@ const PodWorkFlow: React.FC = () => {
               const isActive = i === activeIndex;
               const isHovered = hoveredIndex === i;
               const showActive = hoveredIndex !== null ? isHovered : isActive;
+              const isFirst = i === 0;
+              const isLast = i === steps.length - 1;
               return (
-                <React.Fragment key={step.id}>
-                  <div style={i === 0 ? {} : styles.divider} />
-                  <button
-                    className={showActive ? "pod-step-btn-active" : ""}
+                <button
+                  key={step.id}
+                  className={showActive ? "pod-step-btn-active" : ""}
+                  style={{
+                    ...styles.stepBtn,
+                    ...(isFirst || isLast ? { borderTop: "4px solid #EB4124" } : {}),
+                    ...(showActive ? styles.stepBtnActive : {}),
+                  }}
+                  onClick={() => goTo(i)}
+                  onMouseEnter={() => setHoveredIndex(i)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                >
+                  <span
                     style={{
-                      ...styles.stepBtn,
-                      ...(showActive ? styles.stepBtnActive : {}),
+                      ...styles.stepLabel,
+                      ...(showActive ? styles.stepLabelActive : {}),
                     }}
-                    onClick={() => goTo(i)}
-                    onMouseEnter={() => setHoveredIndex(i)}
-                    onMouseLeave={() => setHoveredIndex(null)}
                   >
-                    <span
-                      style={{
-                        ...styles.stepLabel,
-                        ...(showActive ? styles.stepLabelActive : {}),
-                      }}
-                    >
-                      {step.label}
-                    </span>
-                    <span
-                      style={{
-                        ...styles.stepArrow,
-                        ...(showActive ? styles.stepArrowActive : {}),
-                      }}
-                    >
-                      →
-                    </span>
-                  </button>
-                </React.Fragment>
+                    {step.label}
+                  </span>
+                </button>
               );
             })}
-            <div style={styles.divider} />
           </div>
 
           {/* CTA */}
-          <a href="#" style={styles.ctaBtn}>
+          <a
+            href="/#pricing"
+            style={styles.ctaBtn}
+            onClick={(e) => {
+              e.preventDefault();
+              window.location.href = "/#pricing";
+              setTimeout(() => {
+                document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" });
+              }, 100);
+            }}
+          >
             <span style={styles.ctaIcon}>
               <ArrowIcon />
             </span>
-            <span style={styles.ctaText}>price overview</span>
+            <span className="mt-2" style={styles.ctaText}>price overview</span>
           </a>
         </div>
       </div>
@@ -272,9 +274,9 @@ const PodWorkFlow: React.FC = () => {
 
         /* ── Mobile: collapse vertical gap when stacked ── */
         @media (max-width: 640px) {
-          .pod-step-btn-active {
-            transform: translateX(-8px) !important;
-          }
+          // .pod-step-btn-active {
+          //   transform: translateX(-8px) !important;
+          // }
           .pod-content {
             gap: 4px !important;
             padding: 12px 20px !important;
@@ -414,12 +416,12 @@ const styles: Record<string, React.CSSProperties> = {
   /* Right panel */
   rightPanel: {
     flex: "1 1 280px",
-    maxWidth: "580px",
     display: "flex",
     flexDirection: "column",
     gap: "0px",
     paddingTop: "clamp(0px, 1vw, 12px)",
     marginLeft: "30px",
+    width: "100%",
   },
 
   stepList: {
@@ -427,11 +429,6 @@ const styles: Record<string, React.CSSProperties> = {
     flexDirection: "column",
     gap: "0px",
   },
-  // divider: {
-  //   height: "4px",
-  //   backgroundColor: "#EB4124",
-  //   width: "100%",
-  // },
   stepBtn: {
     background: "transparent",
     // border: "none",
@@ -461,19 +458,6 @@ const styles: Record<string, React.CSSProperties> = {
   stepLabelActive: {
     color: "#fff",
   },
-  stepArrow: {
-    fontSize: "clamp(18px, 2.5vw, 36px)",
-    color: "transparent",
-    opacity: 0,
-    transition: "color 0.35s ease, opacity 0.35s ease, transform 0.35s ease",
-    transform: "translateX(-6px)",
-  },
-  stepArrowActive: {
-    color: "#fff",
-    opacity: 1,
-    transform: "translateX(0px)",
-  },
-
   /* CTA */
   ctaBtn: {
     display: "flex",
