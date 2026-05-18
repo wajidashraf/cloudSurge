@@ -264,18 +264,11 @@ const Hero = () => {
             </p>
 
             {/* Action buttons — Figma: flex-row gap:16px */}
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                gap: "16px",
-                flexWrap: "wrap",
-              }}
-            >
+            <div className="flex flex-col sm:flex-row gap-4 flex-wrap">
               {/* Primary: white bg, red text */}
               <Link
                 to="/contact"
-                className="flex items-center justify-center font-semibold rounded-md transition-all duration-200 hover:bg-white/90 hover:scale-105 active:scale-95"
+                className=" flex items-center justify-center font-semibold rounded-md transition-all duration-200 hover:bg-white/90 hover:scale-105 active:scale-95"
                 style={{
                   fontFamily:
                     "'Bahnschrift', 'DIN Condensed', 'Arial Narrow', sans-serif",
@@ -285,7 +278,7 @@ const Hero = () => {
                   padding: "6px 24px",
                   fontSize: "clamp(0.9rem, 1.25vw, 18px)",
                   lineHeight: "150%",
-                  minWidth: "clamp(120px, 13.7vw, 197px)",
+                  minWidth: "clamp(187px, 13.7vw, 197px)",
                   height: "39px",
                 }}
               >
@@ -305,7 +298,7 @@ const Hero = () => {
                   padding: "6px 24px",
                   fontSize: "clamp(0.9rem, 1.25vw, 18px)",
                   lineHeight: "150%",
-                  minWidth: "clamp(100px, 11.3vw, 163px)",
+                  minWidth: "clamp(185px, 11.3vw, 163px)",
                   height: "39px",
                 }}
               >
