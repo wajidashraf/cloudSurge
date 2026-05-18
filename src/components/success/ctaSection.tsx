@@ -159,7 +159,7 @@ const CtaSection: React.FC = () => {
               }}
             >
               {/* Primary CTA — Figma: 188×39, gradient bg */}
-              <Link to="/contact" className="cta-btn-primary">
+              <a href="/https://bookings.cloud.microsoft/book/FreeScaleUp@cloudsurge.uk/s/Abz0MDpi3kuyMsftsPEmMQ2?ismsaljsauthenabled=true" className="cta-btn-primary">
                 <span
                   style={{
                     fontFamily: "'Bahnschrift', 'DIN Alternate', sans-serif",
@@ -172,7 +172,7 @@ const CtaSection: React.FC = () => {
                 >
                   Start a Conversation
                 </span>
-              </Link>
+              </a>
 
              
             </motion.div>

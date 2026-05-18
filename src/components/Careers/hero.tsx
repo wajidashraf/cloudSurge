@@ -26,7 +26,7 @@ const Hero = () => {
       </div>
 
       {/* Text Container Centered */}
-      <div className="flex-1 flex  pt-4 bg-transparent z-10 absolute top-auto translate-y-20 md:translate-y-30 py-35 left-1/2 transform -translate-x-1/2 px-0 items-center justify-center text-center w-full md:max-w-full lg:max-w-full xl:max-w-full 2xl:max-w-5xl">
+      <div className="flex-1 flex  pt-4 bg-transparent z-10 absolute top-auto translate-y-25 md:translate-y-30 py-35 left-1/2 transform -translate-x-1/2 px-0 items-center justify-center text-center w-full md:max-w-full lg:max-w-full xl:max-w-full 2xl:max-w-5xl">
         <motion.div
           initial="hidden"
           animate="visible"

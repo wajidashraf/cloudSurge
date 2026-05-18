@@ -41,8 +41,8 @@ export default function CardsGrid() {
   return (
     <div className="w-full flex justify-center px-4 pb-8 md:pb-15">
       <div
-        className="w-full max-w-[1280px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
-        style={{ marginTop: '-3%', zIndex: 10}}
+        className="w-full max-w-[1280px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 -mt-50 sm:-mt-40 md:-mt-20 lg:-mt-10 "
+        style={{ zIndex: 10}}
       >
         {cards.map(({ id, img, title, text }) => (
           <div
