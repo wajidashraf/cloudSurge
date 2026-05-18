@@ -234,7 +234,7 @@ const Hero: React.FC = () => {
                       : `clamp(300px, 50.17%, 301px)`,
                 bottom:
                   dimensions.width < 450
-                    ? "clamp(20vh, 6vh, 60px)"
+                    ? "clamp(27vh, 6vh, 60px)"
                     : dimensions.width < 560
                       ? "clamp(15vh, 6vh, 60px)"
                       : dimensions.width < 768
