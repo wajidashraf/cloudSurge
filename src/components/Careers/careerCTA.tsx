@@ -61,6 +61,13 @@ const CareerCta: React.FC = () => {
         }
         .cta-btn-secondary:hover span { color: #fff; }
         .cta-btn-secondary:active { transform: translateY(0); }
+
+        @media (max-width: 480px) {
+          .cta-btn-primary,
+          .cta-btn-secondary {
+            width: 180px !important;
+          }
+        }
       `}</style>
 
       <section
