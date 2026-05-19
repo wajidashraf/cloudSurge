@@ -44,7 +44,7 @@ const OpeningsSection: React.FC = () => {
   const iconY = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
 
   return (
-    <section className="relative rounded-lg overflow-hidden mx-4 md:mx-8 py-26 md:py-16 lg:py-20 xl:py-24 2xl:py-35 mt-8 md:mt-12 lg:mt-16 xl:mt-18 2xl:mt-21">
+    <section id='applyNow' className="relative rounded-lg overflow-hidden mx-4 md:mx-8 py-26 md:py-16 lg:py-20 xl:py-24 2xl:py-35 mt-8 md:mt-12 lg:mt-16 xl:mt-18 2xl:mt-21">
       {/* Header Tab floating above */}
       <div className="absolute top-26 md:top-16 lg:top-20 xl:top-24 2xl:top-35 z-10 right-4 md:right-20 lg:right-28 xl:right-36 2xl:right-45 transform -translate-y-1/2 px-6 md:px-12 lg:px-14 xl:px-16 2xl:px-20 py-3 md:py-4 lg:py-4 xl:py-4 2xl:py-5 pb-4 md:pb-6 lg:pb-6 xl:pb-7 2xl:pb-8 mb-4 md:mb-0">
         <svg

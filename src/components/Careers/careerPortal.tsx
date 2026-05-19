@@ -172,7 +172,12 @@ const CareerPortal: React.FC = () => {
                   cursor: 'pointer',
                   padding: '0',
                 }}
-                onClick={() => {}}
+                onClick={() => {
+                  const element = document.getElementById('applyNow');
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
               >
                 <ArrowIcon />
                 <span
