@@ -1,7 +1,7 @@
 import logoWhite from "@/assets/logo-white.png";
 
 const links = [
-  { label: "YouTube", href: "https://www.youtube.com/@cloudsurge" },
+  { label: "YouTube", href: "https://www.youtube.com/@Cloud-Surge" },
   { label: "LinkedIn", href: "https://www.linkedin.com/company/cloud-surge" },
   { label: "Instagram", href: "https://www.instagram.com/cloudsurgeuk/" },
   { label: "Visit Our Website", href: "https://www.cloudsurge.uk" },
