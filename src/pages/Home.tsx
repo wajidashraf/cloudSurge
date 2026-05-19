@@ -11,6 +11,7 @@ import wordpress from '@/assets/marquee_logos/wordpress.png';
 import azuredevops from '@/assets/marquee_logos/devicon_azuredevops.png';
 import react from '@/assets/marquee_logos/devicon_react.png';
 import figma from '@/assets/marquee_logos/logos_figma.png';
+import msLogo from '@/assets/marquee_logos/logos_microsoft-icon.png';
 import html from '@/assets/marquee_logos/devicon_html5.png';
 import image14 from '@/assets/marquee_logos/image 14.png';
 import js from '@/assets/marquee_logos/java-script 1.png';
@@ -99,6 +100,7 @@ export const Home: React.FC = () => {
           salesforce,
           wordpress,
           azuredevops,
+          msLogo,
           react,
           figma,
           html,

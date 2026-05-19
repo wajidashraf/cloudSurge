@@ -9,8 +9,9 @@ const ScrollingImages: React.FC<ScrollingImagesProps> = ({
   images,
   speed = 8,
 }) => {
-  // Exactly two copies — translating -50% lands on a pixel-identical frame,
-  // eliminating the sub-pixel rounding jump at the loop boundary.
+  // 5 copies, translate -60% = exactly 3 copies' width. The reset frame is
+  // pixel-identical to the start (copy 4 == copy 1), and 2 copies remain to
+  // fill the viewport — no sub-pixel rounding jump at the loop boundary.
   const tripled = [...images, ...images, ...images, ...images, ...images];
 
 
@@ -19,7 +20,7 @@ const ScrollingImages: React.FC<ScrollingImagesProps> = ({
       <style>{`
         @keyframes seamless-scroll {
           from { transform: translate3d(0, 0, 0); }
-          to   { transform: translate3d(-50%, 0, 0); }
+          to   { transform: translate3d(-60%, 0, 0); }
         }
         .scroll-track {
           /* translate3d keeps the element on its own GPU compositing layer,
