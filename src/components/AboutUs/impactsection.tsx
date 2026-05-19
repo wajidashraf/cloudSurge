@@ -83,7 +83,7 @@ const ImpactSection: React.FC = () => {
                 <img
                   src={briefcase}
                   alt="Click icon"
-                  className="ml-4 w-10 h-10 sm:w-14 sm:h-14 md:w-12 md:h-12 lg:w-14 lg:h-14 xl:w-16 xl:h-16 2xl:w-16 2xl:h-16 flex-shrink-0"
+                  className="ml-4 w-5 h-5 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 xl:w-16 xl:h-16 2xl:w-16 2xl:h-16 flex-shrink-0"
                 />
               </div>
             </div>
