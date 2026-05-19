@@ -7,12 +7,13 @@ const FONT = "'Bahnschrift', 'DIN Alternate', sans-serif";
 
 const ArrowIcon: React.FC = () => (
   <svg
-    width="20"
-    height="25"
+    width="17"
+    height="20"
     viewBox="0 0 20 25"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{ flexShrink: 0 }}
+    
   >
     <g clipPath="url(#wwd-arrow-clip)">
       <path
@@ -215,9 +216,11 @@ const WhatWeOffer: React.FC = () => {
                 </div>
               </div>
 
-              <Link to={card.to} className="wwo-link align-baseline">
+              <Link to={card.to} className="wwo-link flex align-start ">
                 <ArrowIcon />
+                <span className="-mb-1">
                 {card.linkLabel}
+                </span>
               </Link>
             </motion.div>
           ))}

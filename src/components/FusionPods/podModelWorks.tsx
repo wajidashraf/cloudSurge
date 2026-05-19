@@ -11,17 +11,17 @@ interface Step {
 const steps: Step[] = [
   {
     number: '1',
-    heading: 'Define Your Requirements',
+    heading: 'Tell us what you are working on',
     text: 'We start by deeply understanding your project goals, technical stack, and team dynamics — mapping the exact skills and seniority levels your pod will need to deliver from day one.',
   },
   {
     number: '2',
-    heading: 'Assemble Your Pod',
+    heading: 'We assemble your Pod',
     text: 'We rapidly source, vet, and onboard senior engineers, architects, and specialists who are pre-aligned to your culture — fully integrated and shipping within days, not months.',
   },
   {
     number: '3',
-    heading: 'Deploy, Iterate & Scale',
+    heading: 'You are running in 48 hours',
     text: 'Your pod operates as a true extension of your team — hitting sprint goals, adapting to feedback, and scaling capacity up or down as your roadmap evolves.',
   },
 ];

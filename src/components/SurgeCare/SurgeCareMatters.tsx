@@ -32,6 +32,8 @@ const cards = [
 const SurgeCareMatters = () => {
   const sectionRef = useRef(null);
   const [visible, setVisible] = useState(false);
+  const headingRefs = useRef<(HTMLHeadingElement | null)[]>([]);
+  const [headingMinHeight, setHeadingMinHeight] = useState<number | undefined>(undefined);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -45,6 +47,27 @@ const SurgeCareMatters = () => {
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const computeMaxHeight = () => {
+      const isMobile = window.matchMedia("(max-width: 768px)").matches;
+      if (isMobile) {
+        setHeadingMinHeight(undefined);
+        return;
+      }
+      headingRefs.current.forEach((el) => {
+        if (el) el.style.minHeight = "0px";
+      });
+      const max = headingRefs.current.reduce((acc, el) => {
+        if (!el) return acc;
+        return Math.max(acc, el.getBoundingClientRect().height);
+      }, 0);
+      setHeadingMinHeight(max);
+    };
+    computeMaxHeight();
+    window.addEventListener("resize", computeMaxHeight);
+    return () => window.removeEventListener("resize", computeMaxHeight);
   }, []);
 
   return (
@@ -252,7 +275,15 @@ const SurgeCareMatters = () => {
                   className="scm-card-img"
                 />
                 <div className="scm-card-body">
-                  <h3 className="scm-card-heading">{card.heading}</h3>
+                  <h3
+                    className="scm-card-heading"
+                    ref={(el) => {
+                      headingRefs.current[i] = el;
+                    }}
+                    style={headingMinHeight ? { minHeight: headingMinHeight } : undefined}
+                  >
+                    {card.heading}
+                  </h3>
                   <p className="scm-card-text">{card.text}</p>
                 </div>
               </article>

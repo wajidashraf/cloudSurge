@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, useInView } from "framer-motion";
 import { Link } from "@tanstack/react-router";
 import gpTriage from "@/assets/GP-Logo 3.png";
@@ -74,23 +74,28 @@ const CARDS = [
 ];
 
 const TOTAL = CARDS.length;
-// 5 copies gives ample buffer on both sides for any visibleCount
 const CLONED = [...CARDS, ...CARDS, ...CARDS, ...CARDS, ...CARDS];
-const CLONE_OFFSET = TOTAL * 2; // track starts here (2nd copy = real start)
+const CLONE_OFFSET = TOTAL * 2;
 const CARD_GAP = 16;
-const AUTO_MS = 1667;
+const AUTO_MS = 2600;
 const CS_LOGO_W = 40;
 const CS_LOGO_H = 40;
 const BASE_W = 441;
 const BASE_H = 608;
+const LERP = 0.09; // smoothness factor (lower = smoother / slower)
+const SWIPE_THRESHOLD = 50;
 
 const getVisibleCount = (w: number): number => {
   if (w >= 1536) return 5;
   if (w >= 1280) return 4;
-  if (w >= 768) return 3;
-  if (w >= 520) return 2;
+  if (w >= 900) return 3;
+  if (w >= 600) return 2;
   return 1;
 };
+
+const prefersReducedMotion = () =>
+  typeof window !== "undefined" &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 // ─── Card ─────────────────────────────────────────────────────────────────────
 interface CardProps {
@@ -128,6 +133,7 @@ const ProjectCard: React.FC<CardProps> = ({
         position: "relative",
         flexShrink: 0,
         overflow: "hidden",
+        borderRadius: 4,
       }}
     >
       <div
@@ -268,6 +274,13 @@ const CarouselProgress: React.FC<ProgressProps> = ({
           height: 4,
           background: "#FFFFFF",
           borderRadius: 2,
+          cursor: "pointer",
+        }}
+        onClick={(e) => {
+          const rect = (e.currentTarget as HTMLDivElement).getBoundingClientRect();
+          const f = (e.clientX - rect.left) / rect.width;
+          const i = Math.round(f * (total - 1));
+          onDotClick(Math.max(0, Math.min(total - 1, i)));
         }}
       >
         <div
@@ -279,7 +292,7 @@ const CarouselProgress: React.FC<ProgressProps> = ({
             width: `${fraction * 100}%`,
             background: "#EF4123",
             borderRadius: 2,
-            transition: "width 0.5s ease",
+            transition: "width 0.45s cubic-bezier(0.22,1,0.36,1)",
           }}
         />
       </div>
@@ -290,7 +303,7 @@ const CarouselProgress: React.FC<ProgressProps> = ({
           left: logoX,
           width: CS_LOGO_W,
           height: CS_LOGO_H,
-          transition: "left 0.5s ease",
+          transition: "left 0.45s cubic-bezier(0.22,1,0.36,1)",
           pointerEvents: "none",
         }}
       >
@@ -305,26 +318,64 @@ const CarouselProgress: React.FC<ProgressProps> = ({
   );
 };
 
+// ─── Nav button ───────────────────────────────────────────────────────────────
+const NavButton: React.FC<{
+  direction: "prev" | "next";
+  onClick: () => void;
+}> = ({ direction, onClick }) => (
+  <button
+    type="button"
+    className="nav-btn"
+    aria-label={direction === "prev" ? "Previous" : "Next"}
+    onClick={onClick}
+  >
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+      {direction === "prev" ? (
+        <path
+          d="M15 18l-6-6 6-6"
+          stroke="#5D5D5D"
+          strokeWidth="2.2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      ) : (
+        <path
+          d="M9 6l6 6-6 6"
+          stroke="#5D5D5D"
+          strokeWidth="2.2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      )}
+    </svg>
+  </button>
+);
+
 // ─── Main ─────────────────────────────────────────────────────────────────────
 const SuccessProjectsCard: React.FC = () => {
-  const [paused, setPaused] = useState(false);
-  const [trackIndex, setTrackIndex] = useState(CLONE_OFFSET); // points into CLONED
-  const [isAnimated, setIsAnimated] = useState(true);
-const [viewportW, setViewportW] = useState(0);
+  const [trackIndex, setTrackIndex] = useState(CLONE_OFFSET);
+  const [viewportW, setViewportW] = useState(0);
   const [winW, setWinW] = useState(() =>
     typeof window !== "undefined" ? window.innerWidth : 1280,
   );
 
   const viewportRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
+  const rafRef = useRef<number | undefined>(undefined);
+  const currentOffsetRef = useRef(0);
+  const targetOffsetRef = useRef(0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | undefined>(
     undefined,
   );
-  const transitioning = useRef(false);
+  const interactingRef = useRef(false); // true while user drags/touches
+  const dragStartXRef = useRef(0);
+  const dragDeltaXRef = useRef(0);
+  const isDraggingRef = useRef(false);
 
   const sectionInView = useInView(sectionRef, { once: true, amount: 0.15 });
 
-  // Measure viewport once on mount and on resize
+  // Measure viewport on mount / resize
   useEffect(() => {
     const measure = () => {
       setWinW(window.innerWidth);
@@ -341,50 +392,96 @@ const [viewportW, setViewportW] = useState(0);
       ? (viewportW - CARD_GAP * (visibleCount - 1)) / visibleCount
       : BASE_W;
 
-  // Logical index in real CARDS (0-based)
+  const stepSize = cardWidth + CARD_GAP;
   const current = (((trackIndex - CLONE_OFFSET) % TOTAL) + TOTAL) % TOTAL;
 
-  // After animation completes, silently snap back to the middle copy if needed
+  // Sync target offset when trackIndex changes
   useEffect(() => {
-    if (!isAnimated) return;
-    transitioning.current = true;
-    const t = setTimeout(() => {
-      transitioning.current = false;
-      // Normalise back to the CLONE_OFFSET..CLONE_OFFSET+TOTAL-1 window
-      setTrackIndex((prev) => {
-        const logicalIdx = (((prev - CLONE_OFFSET) % TOTAL) + TOTAL) % TOTAL;
+    targetOffsetRef.current = -(trackIndex * stepSize);
+  }, [trackIndex, stepSize]);
+
+  // rAF-driven smooth interpolation toward target offset (Lenis-style)
+  useEffect(() => {
+    const reduced = prefersReducedMotion();
+    const tick = () => {
+      const target = targetOffsetRef.current + (isDraggingRef.current ? dragDeltaXRef.current : 0);
+      const cur = currentOffsetRef.current;
+      const diff = target - cur;
+      if (reduced) {
+        currentOffsetRef.current = target;
+      } else if (Math.abs(diff) < 0.1) {
+        currentOffsetRef.current = target;
+      } else {
+        currentOffsetRef.current = cur + diff * LERP;
+      }
+      if (trackRef.current) {
+        trackRef.current.style.transform = `translate3d(${currentOffsetRef.current}px,0,0)`;
+      }
+      rafRef.current = requestAnimationFrame(tick);
+    };
+    rafRef.current = requestAnimationFrame(tick);
+    return () => {
+      if (rafRef.current !== undefined) cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
+
+  // Silent snap back to middle copy when index drifts to outer clones
+  useEffect(() => {
+    if (trackIndex < TOTAL || trackIndex >= TOTAL * 4) {
+      // Wait until lerp settles, then snap silently
+      const id = setTimeout(() => {
+        const logicalIdx = (((trackIndex - CLONE_OFFSET) % TOTAL) + TOTAL) % TOTAL;
         const target = CLONE_OFFSET + logicalIdx;
-        if (prev !== target) {
-          // silent jump: disable animation then update
-          setIsAnimated(false);
-          return target;
-        }
-        return prev;
-      });
-    }, 920); // must be < AUTO_MS so snap completes before next tick
-    return () => clearTimeout(t);
-  }, [trackIndex, isAnimated]);
+        // Hard-set offset to avoid visible jump animation
+        currentOffsetRef.current = -(target * stepSize);
+        targetOffsetRef.current = currentOffsetRef.current;
+        setTrackIndex(target);
+      }, 700);
+      return () => clearTimeout(id);
+    }
+  }, [trackIndex, stepSize]);
 
-  // Re-enable animation one rAF after a silent jump
+  // Auto-advance — only pauses during active user interaction (drag)
   useEffect(() => {
-    if (isAnimated) return;
-    const id = requestAnimationFrame(() => setIsAnimated(true));
-    return () => cancelAnimationFrame(id);
-  }, [isAnimated]);
-
-  // Auto-advance
-  useEffect(() => {
-    if (paused) return;
     intervalRef.current = setInterval(() => {
-      setTrackIndex((prev) => {
-        setIsAnimated(true);
-        return prev + 1;
-      });
+      if (interactingRef.current) return;
+      setTrackIndex((prev) => prev + 1);
     }, AUTO_MS);
     return () => clearInterval(intervalRef.current);
-  }, [paused]);
+  }, []);
 
-  const offset = -(trackIndex * (cardWidth + CARD_GAP));
+  const goPrev = useCallback(() => setTrackIndex((p) => p - 1), []);
+  const goNext = useCallback(() => setTrackIndex((p) => p + 1), []);
+  const goTo = useCallback(
+    (logical: number) => {
+      setTrackIndex(CLONE_OFFSET + logical);
+    },
+    [],
+  );
+
+  // Drag / swipe handlers (pointer events cover mouse + touch + pen)
+  const onPointerDown = (e: React.PointerEvent) => {
+    interactingRef.current = true;
+    isDraggingRef.current = true;
+    dragStartXRef.current = e.clientX;
+    dragDeltaXRef.current = 0;
+    (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
+  };
+  const onPointerMove = (e: React.PointerEvent) => {
+    if (!isDraggingRef.current) return;
+    dragDeltaXRef.current = e.clientX - dragStartXRef.current;
+  };
+  const endDrag = () => {
+    if (!isDraggingRef.current) return;
+    const delta = dragDeltaXRef.current;
+    isDraggingRef.current = false;
+    dragDeltaXRef.current = 0;
+    interactingRef.current = false;
+    if (Math.abs(delta) > SWIPE_THRESHOLD) {
+      if (delta < 0) goNext();
+      else goPrev();
+    }
+  };
 
   return (
     <>
@@ -392,19 +489,28 @@ const [viewportW, setViewportW] = useState(0);
         .projects-section { font-family:'Bahnschrift','DIN Alternate','Arial Narrow',sans-serif; }
         .project-card { transition: box-shadow 0.25s ease, transform 0.25s ease; }
         .project-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,.12); transform: translateY(-4px); }
-        .nav-btn { width:44px;height:44px;border-radius:50%;border:2px solid #5D5D5D;background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s,border-color .2s;flex-shrink:0; }
-        .nav-btn:hover { background:#EF4123;border-color:#EF4123; }
+        .nav-btn { width:44px;height:44px;border-radius:50%;border:2px solid #5D5D5D;background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s,border-color .2s,transform .2s;flex-shrink:0; }
+        .nav-btn:hover { background:#EF4123;border-color:#EF4123; transform: scale(1.05); }
         .nav-btn:hover svg path { stroke:#fff; }
+        .nav-btn:active { transform: scale(0.96); }
+        .carousel-track { touch-action: pan-y; user-select: none; cursor: grab; }
+        .carousel-track:active { cursor: grabbing; }
+        .carousel-nav-row { display:flex; align-items:center; gap:16px; }
+        @media (max-width: 900px) {
+          .nav-btn { display: none; }
+        }
+        @media (max-width: 600px) {
+          .projects-inner { padding: 56px 20px 40px !important; }
+        }
       `}</style>
 
       <section
         ref={sectionRef}
         className="projects-section"
         style={{ background: "#E8E5E5" }}
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
       >
         <div
+          className="projects-inner"
           style={{
             maxWidth: 1600,
             margin: "0 auto",
@@ -447,7 +553,7 @@ const [viewportW, setViewportW] = useState(0);
               lineHeight: "104%",
               textAlign: "center",
               color: "#5D5D5D",
-              margin: "0 auto 56px",
+              margin: "0 auto 40px",
               maxWidth: 1055,
             }}
           >
@@ -464,20 +570,24 @@ const [viewportW, setViewportW] = useState(0);
               ease: [0.22, 1, 0.36, 1],
               delay: 0.24,
             }}
-            style={{ display: "flex", alignItems: "center", gap: 16 }}
+            className="carousel-nav-row"
           >
-           
+            <NavButton direction="prev" onClick={goPrev} />
+
             <div ref={viewportRef} style={{ flex: 1, overflow: "hidden" }}>
               <div
+                ref={trackRef}
+                className="carousel-track"
                 style={{
                   display: "flex",
                   gap: CARD_GAP,
-                  transform: `translateX(${offset}px)`,
-                  transition: isAnimated
-                    ? "transform 0.55s cubic-bezier(0.4,0,0.2,1)"
-                    : "none",
                   willChange: "transform",
                 }}
+                onPointerDown={onPointerDown}
+                onPointerMove={onPointerMove}
+                onPointerUp={endDrag}
+                onPointerCancel={endDrag}
+                onPointerLeave={endDrag}
               >
                 {CLONED.map((card, i) => (
                   <ProjectCard
@@ -495,7 +605,8 @@ const [viewportW, setViewportW] = useState(0);
                 ))}
               </div>
             </div>
-           
+
+            <NavButton direction="next" onClick={goNext} />
           </motion.div>
 
           <motion.div
@@ -506,7 +617,7 @@ const [viewportW, setViewportW] = useState(0);
             <CarouselProgress
               current={current}
               total={TOTAL}
-              onDotClick={() => {}}
+              onDotClick={goTo}
             />
           </motion.div>
         </div>

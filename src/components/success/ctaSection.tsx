@@ -159,7 +159,7 @@ const CtaSection: React.FC = () => {
               }}
             >
               {/* Primary CTA — Figma: 188×39, gradient bg */}
-              <a href="/https://bookings.cloud.microsoft/book/FreeScaleUp@cloudsurge.uk/s/Abz0MDpi3kuyMsftsPEmMQ2?ismsaljsauthenabled=true" className="cta-btn-primary">
+              <a href="https://bookings.cloud.microsoft/book/FreeScaleUp@cloudsurge.uk" target="_blank" className="cta-btn-primary">
                 <span
                   style={{
                     fontFamily: "'Bahnschrift', 'DIN Alternate', sans-serif",

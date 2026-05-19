@@ -169,9 +169,9 @@ const CtaSection: React.FC = () => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
         >
-          <Link to="/fusion-pods" className="cta-btn-primary">
+          <a href="https://bookings.cloud.microsoft/book/FreeScaleUp@cloudsurge.uk" target="_blank" className="cta-btn-primary">
             Book a free delivery assessment
-          </Link>
+          </a>
         </motion.div>
       </div>
     </section>

@@ -40,9 +40,9 @@ const Hero: React.FC = () => {
           </span>
 
           {/* CTA Button */}
-          <Link to="/fusion-pods" style={styles.ctaButton} className="hero-cta-btn">
+          <a href="https://bookings.cloud.microsoft/book/FreeScaleUp@cloudsurge.uk" target="_blank" style={styles.ctaButton} className="hero-cta-btn">
             <span style={styles.ctaText}>Find out if Surge Care is right for you</span>
-          </Link>
+          </a>
         </div>
       </div>
 

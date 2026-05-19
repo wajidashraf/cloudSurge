@@ -98,7 +98,7 @@ const Hero = () => {
               letterSpacing: "-0.01em",
             }}
           >
-            Fusion Pod
+            Fusion Pods
           </motion.h1>
 
           {/* Subtitle */}
@@ -240,7 +240,7 @@ const Hero = () => {
               marginBottom: "clamp(1.5rem, 2.5vw, 40px)",
             }}
           >
-            Fusion Pod
+            Fusion Pods
           </motion.h1>
 
           {/* Content block — Figma: flex-col gap:40px */}
@@ -271,7 +271,7 @@ const Hero = () => {
             <div className="flex flex-row gap-4 flex-wrap ">
               {/* Primary: white bg, red text */}
                <a
-              href="https://bookings.cloud.microsoft/book/FreeScaleUp@cloudsurge.uk/s/Abz0MDpi3kuyMsftsPEmMQ2?ismsaljsauthenabled=true"
+              href="https://bookings.cloud.microsoft/book/FreeScaleUp@cloudsurge.uk"
               className=" flex items-center justify-center font-semibold rounded-md transition-all duration-200 hover:bg-white/90 hover:scale-105 active:scale-95"
                 style={{
                   fontFamily:

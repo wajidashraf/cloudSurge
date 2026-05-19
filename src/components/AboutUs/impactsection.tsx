@@ -140,7 +140,7 @@ const ImpactSection: React.FC = () => {
           {/* Actions */}
           <div className="flex flex-col md:flex-row items-center gap-4">
             <a
-              href="/careers"
+              href="https://bookings.cloud.microsoft/book/FreeScaleUp@cloudsurge.uk"
               className="flex items-center justify-center px-3 py-1.5 rounded-md  transition-opacity"
               style={{
                 minWidth: "184px",
@@ -157,12 +157,12 @@ const ImpactSection: React.FC = () => {
                   lineHeight: "150%",
                 }}
               >
-                Explore Careers
+                Grow your business
               </span>
             </a>
 
             <a
-              href="/contact"
+              href="/careers"
               className="flex items-center justify-center px-3 py-1.5 rounded-md border border-[#EC3F24] hover:bg-[#EC3F24]/5 transition-colors"
               style={{ minWidth: "156px", height: "39px" }}
             >
@@ -174,7 +174,7 @@ const ImpactSection: React.FC = () => {
                   lineHeight: "150%",
                 }}
               >
-                Grow your business
+              Explore Careers
               </span>
             </a>
           </div>

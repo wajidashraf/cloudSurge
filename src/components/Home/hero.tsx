@@ -210,13 +210,13 @@ const Hero: React.FC = () => {
           >
             See how a Pod works
           </Link>
-          <Link
-            to="/contact"
+          <a
+            href="https://bookings.cloud.microsoft/book/FreeScaleUp@cloudsurge.uk" target="_blank"
             className="hero-btn text-white hover:bg-white hover:text-[#EC3F24]"
             style={{ fontFamily: "'Bahnschrift', 'DIN Alternate', sans-serif" }}
           >
             Talk to the team
-          </Link>
+          </a>
         </div>
       </motion.div>
     </div>

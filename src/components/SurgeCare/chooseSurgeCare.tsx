@@ -436,7 +436,8 @@ const WhyOrganisationsChoose: React.FC = () => {
 
             <div className="cta-actions">
               <a
-                href="/https://bookings.cloud.microsoft/book/FreeScaleUp@cloudsurge.uk/s/Abz0MDpi3kuyMsftsPEmMQ2?ismsaljsauthenabled=true"
+                href="https://bookings.cloud.microsoft/book/FreeScaleUp@cloudsurge.uk"
+                target="_blank"
                 className="cta-btn-primary"
                 aria-label="Book a platform review call"
               >

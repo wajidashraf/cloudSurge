@@ -229,8 +229,8 @@ const PodWorkFlow: React.FC = () => {
 
           {/* Actions */}
           <div className="flex flex-row items-center gap-4">
-            <Link
-              to="/contact"
+            <a
+              href="https://bookings.cloud.microsoft/book/FreeScaleUp@cloudsurge.uk"
               className="flex items-center justify-center px-3 py-1.5 rounded-md  transition-opacity"
               style={{
                 minWidth: "184px",
@@ -248,7 +248,7 @@ const PodWorkFlow: React.FC = () => {
               >
                 Get a Pod in 48 hours
               </span>
-            </Link>
+            </a>
           </div>
         </motion.div>
       </section>
