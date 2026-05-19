@@ -96,6 +96,7 @@ export const Home: React.FC = () => {
           dynamics365,
           microsoftAzure,
           powerPlatform,
+          microsoftCopilot,
           salesforce,
           wordpress,
           azuredevops,
