@@ -15,6 +15,7 @@ import msLogo from '@/assets/marquee_logos/logos_microsoft-icon.png';
 import html from '@/assets/marquee_logos/devicon_html5.png';
 import image14 from '@/assets/marquee_logos/image 14.png';
 import js from '@/assets/marquee_logos/java-script 1.png';
+import vscode from '@/assets/marquee_logos/devicon_vscode.png';
 import aws from '@/assets/marquee_logos/aws_icon.png';
 import git from '@/assets/marquee_logos/mdi_github.png';
 import dynamics365 from '@/assets/marquee_logos/Dynamics365_scalable.svg';
@@ -107,7 +108,18 @@ export const Home: React.FC = () => {
           image14,
           js,
           aws,
-          git
+          git,
+          vscode,
+          microsoftPartner,
+          salesforce,
+          wordpress,
+          azuredevops,
+          msLogo,
+          react,
+          figma,
+          html,
+          image14,
+          js,
           
         ]} />
       </Suspense>
