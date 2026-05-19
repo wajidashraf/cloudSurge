@@ -587,7 +587,7 @@ const SuccessStories: React.FC = () => {
             to="/success-stories"
             style={{
               display: "inline-flex",
-              alignItems: "center",
+              alignItems: "end",
               gap: 10,
               fontFamily: FONT,
               fontWeight: 400,
@@ -600,7 +600,7 @@ const SuccessStories: React.FC = () => {
             <span
               style={{
                 display: "inline-flex",
-                alignItems: "center",
+                alignItems: "start",
                 justifyContent: "center",
                 width: 32,
                 height: 32,

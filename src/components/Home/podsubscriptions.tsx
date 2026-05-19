@@ -62,7 +62,7 @@ const plans: Plan[] = [
     gradient: 'from-[#F06A61] to-[#F06A61]',
     textColor: 'text-[#FFE3E3]',
     labelColor: 'text-[#FFE3E3]',
-    borderColor: 'border-[#e08880]',
+    borderColor: 'border-[#d7d7d7]',
     image: logo,
     imgSize: 40,
     details: ['12 (36 consultant days)', 'Yes', 'Yes', 'Weekly', 'Monthly', 'Yes'],
@@ -80,7 +80,7 @@ const plans: Plan[] = [
     gradient: 'from-[#EF4123] to-[#EF4123]',
     textColor: 'text-[#ffffff]',
     labelColor: 'text-[#ffffff]',
-    borderColor: 'border-[#c03010]',
+    borderColor: 'border-[#f2f2f2]',
     image: logo,
     imgSize: 60,
     details: ['18 (54 consultant days)', 'Dedicated Pod', 'Yes', 'Weekly × 2', 'Monthly × 2', 'Yes'],
@@ -202,17 +202,17 @@ const PlanCard: React.FC<PlanCardProps> = ({ plan, index }) => {
         `}
       </style>
       {index === 3 && (
-        <Link
-        to="/contact"
+        <a
+        href="/https://bookings.cloud.microsoft/book/FreeScaleUp@cloudsurge.uk/s/Abz0MDpi3kuyMsftsPEmMQ2?ismsaljsauthenabled=true"
         target="_blank"
         rel="noopener noreferrer"
         className='flex absolute -bottom-16 subs-button'
       >
          <ArrowIcon />
-        <span className="ml-2 lg:ml-4 text-gray-500">
+        <span className="ml-2 mt-1 lg:ml-4 text-gray-500">
           Schedule Consultation
         </span>
-      </Link>
+      </a>
       )}
     </div>
   );
