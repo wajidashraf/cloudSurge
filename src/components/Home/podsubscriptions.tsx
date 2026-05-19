@@ -209,7 +209,7 @@ const PlanCard: React.FC<PlanCardProps> = ({ plan, index }) => {
         className='flex absolute -bottom-16 subs-button'
       >
          <ArrowIcon />
-        <span className="ml-2 mt-1 lg:ml-4 text-gray-500">
+        <span className="ml-2  lg:ml-4 text-gray-500">
           Schedule Consultation
         </span>
       </a>

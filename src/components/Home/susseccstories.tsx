@@ -600,7 +600,7 @@ const SuccessStories: React.FC = () => {
             <span
               style={{
                 display: "inline-flex",
-                alignItems: "start",
+                alignItems: "center",
                 justifyContent: "center",
                 width: 32,
                 height: 32,

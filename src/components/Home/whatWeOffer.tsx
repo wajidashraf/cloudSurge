@@ -141,7 +141,7 @@ const WhatWeOffer: React.FC = () => {
         /* ── Link ── */
         .wwo-link {
           display: inline-flex;
-          align-items: baseline;
+          align-items: center;
           gap: 8px;
           margin-top: 56px;
           text-decoration: none;
