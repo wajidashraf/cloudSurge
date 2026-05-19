@@ -7,6 +7,15 @@ import { useLenis } from '@/hooks/useLenis';
 // Import marquee logos
 import copilotStudio from '@/assets/marquee_logos/CopilotStudio_scalable.svg';
 import dataverse from '@/assets/marquee_logos/Dataverse_scalable.svg';
+import wordpress from '@/assets/marquee_logos/wordpress.png';
+import azuredevops from '@/assets/marquee_logos/devicon_azuredevops.png';
+import react from '@/assets/marquee_logos/devicon_react.png';
+import figma from '@/assets/marquee_logos/logos_figma.png';
+import html from '@/assets/marquee_logos/devicon_html5.png';
+import image14 from '@/assets/marquee_logos/image 14.png';
+import js from '@/assets/marquee_logos/java-script 1.png';
+import aws from '@/assets/marquee_logos/aws_icon.png';
+import git from '@/assets/marquee_logos/mdi_github.png';
 import dynamics365 from '@/assets/marquee_logos/Dynamics365_scalable.svg';
 import microsoftAzure from '@/assets/marquee_logos/Microsoft_Azure.svg.png';
 import microsoftCopilot from '@/assets/marquee_logos/Microsoft_Copilot_Icon.svg.png';
@@ -19,6 +28,7 @@ import WhoWeHelp from '@/components/Home/whoWeHelp';
 import WhatWeOffer from '@/components/Home/whatWeOffer';
 import CtaSection from '@/components/Home/ctaSection';
 import ToolsActionButton from '@/components/common/ToolsActionButton';
+
 
 
 const ScrollToTop = lazy(
@@ -86,7 +96,16 @@ export const Home: React.FC = () => {
           microsoftCopilot,
           powerPlatform,
           microsoftPartner,
-          salesforce
+          salesforce,
+          wordpress,
+          azuredevops,
+          react,
+          figma,
+          html,
+          image14,
+          js,
+          aws,
+          git
           
         ]} />
       </Suspense>
