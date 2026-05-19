@@ -97,7 +97,6 @@ export const Home: React.FC = () => {
           microsoftAzure,
           microsoftCopilot,
           powerPlatform,
-          microsoftPartner,
           salesforce,
           wordpress,
           azuredevops,
@@ -110,15 +109,8 @@ export const Home: React.FC = () => {
           aws,
           git,
           vscode,
-          microsoftPartner,
           salesforce,
           wordpress,
-          azuredevops,
-          msLogo,
-          react,
-          figma,
-          html,
-          image14,
           js,
           
         ]} />
