@@ -5,7 +5,7 @@ const links = [
   { label: "LinkedIn", href: "https://www.linkedin.com/company/cloud-surge" },
   { label: "Instagram", href: "https://www.instagram.com/cloudsurgeuk/" },
   { label: "Visit Our Website", href: "https://www.cloudsurge.uk" },
-  { label: "Book a Consultation Call", href: "/contact" },
+  { label: "Book a Consultation Call", href:"https://bookings.cloud.microsoft/book/FreeScaleUp@cloudsurge.uk" },
   { label: "Contact Us", href: "/contact" },
 ];
 
