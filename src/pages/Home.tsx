@@ -105,12 +105,9 @@ export const Home: React.FC = () => {
           figma,
           html,
           image14,
-          js,
           aws,
           git,
           vscode,
-          salesforce,
-          wordpress,
           js,
           
         ]} />

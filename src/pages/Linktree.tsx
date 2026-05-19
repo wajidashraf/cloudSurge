@@ -1,13 +1,15 @@
 import logoWhite from "@/assets/logo-white.png";
 
 const links = [
-  { label: "YouTube", href: "https://www.youtube.com/@Cloud-Surge" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/company/cloud-surge" },
-  { label: "Instagram", href: "https://www.instagram.com/cloudsurgeuk/" },
+  
   { label: "Visit Our Website", href: "https://www.cloudsurge.uk" },
   { label: "Book a Consultation Call", href:"https://bookings.cloud.microsoft/book/FreeScaleUp@cloudsurge.uk" },
-  { label: "Contact Us", href: "/contact" },
 ];
+
+const socialLinks = [{ label: "YouTube", href: "https://www.youtube.com/@Cloud-Surge" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/cloud-surge" },
+  { label: "Instagram", href: "https://www.instagram.com/cloudsurgeuk/" },
+  { label: "Contact Us", href: "/contact" },]
 
 export const Linktree: React.FC = () => {
   return (
@@ -32,8 +34,32 @@ export const Linktree: React.FC = () => {
         </p>
 
         {/* Link Buttons */}
-        <div style={styles.linksContainer}>
+        <div style={styles.sociallinksContainer}>
+          {/* <h3 className="text-2xl font-bold text-white">Follow us on socials.</h3> */}
           {links.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              style={styles.linkButton}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.opacity = "0.85";
+                (e.currentTarget as HTMLAnchorElement).style.transform =
+                  "scale(0.98)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.opacity = "1";
+                (e.currentTarget as HTMLAnchorElement).style.transform =
+                  "scale(1)";
+              }}
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+        {/* Link Buttons */}
+        <div style={styles.linksContainer}>
+          <h3 className="text-xl md:text-2xl text-white">Follow us on socials:</h3>
+          {socialLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
@@ -153,6 +179,16 @@ const styles: Record<string, React.CSSProperties> = {
     width: "100%",
     maxWidth: "384px",
     margin: "65px 0px 80px",
+  },
+
+  sociallinksContainer: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    gap: "16px",
+    width: "100%",
+    maxWidth: "384px",
+    margin: "25px 0px 20px",
   },
 
   linkButton: {
