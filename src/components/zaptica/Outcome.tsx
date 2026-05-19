@@ -44,18 +44,18 @@ export const Outcome = () => (
       </p>
       
       {/* Feature grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 mb-8 md:mb-12">
+      <div className="grid grid-cols-1 md:max-w-[600px] mx-auto md:grid-cols-2 justify-items-center gap-8 md:gap-10 mb-8 md:mb-12">
         {/* Card 1 */}
-        <div className="bg-white p-4 sm:p-5 md:p-6 text-left">
+        <div className="bg-white p-4 sm:p-5 md:p-6 text-left max-w-[280px]">
           <img src={time2} alt="Scalability & Flexibility" className="h-8 sm:h-10 md:h-12 w-8 sm:w-10 md:w-12 mb-3 sm:mb-4" />
-          <h3 className="text-base sm:text-lg font-semibold text-[#EF4123] mb-1 sm:mb-2">Scalability & Flexibility</h3>
+          <h3 className="text-base sm:text-lg font-semibold text-[#EF4123] mb-1 sm:mb-2">Seamless project execution</h3>
           <p className="text-[#EF4123] text-xs sm:text-sm pb-4">
             <strong></strong> The Pod ensured on-time delivery with complete confidence in execution.
           </p>
         </div>
 
         {/* Card 2 */}
-        <div className="bg-white p-4 sm:p-5 md:p-6 text-left">
+        <div className="bg-white p-4 sm:p-5 md:p-6 text-left max-w-[280px]">
           <img src={steps} alt="Cost Efficiency" className="h-8 sm:h-10 md:h-12 mb-3 sm:mb-4" />
           <h3 className="text-base sm:text-lg font-semibold text-[#EF4123] mb-1 sm:mb-2">Stronger competitive positioning</h3>
           <p className="text-[#EF4123] text-xs sm:text-sm pb-4">
@@ -64,8 +64,8 @@ export const Outcome = () => (
         </div>
 
         {/* Card 3 */}
-        <div className="bg-white p-4 sm:p-5 md:p-6 text-left">
-          <img src={arrow} alt="Faster Time‑to‑Market" className="h-8 sm:h-10 md:h-11 mb-3 sm:mb-4" />
+        <div className="bg-white p-4 sm:p-5 md:p-6 text-left max-w-[280px]">
+         <img src={timeline} alt="Faster Time‑to‑Market" className="h-8 sm:h-10 md:h-11 mb-3 sm:mb-4" />
           <h3 className="text-base sm:text-lg font-semibold text-[#EF4123] mb-1 sm:mb-2">Reduced operational stress</h3>
           <p className="text-[#EF4123] text-xs sm:text-sm pb-4">
             <strong></strong> The partnership allowed Zaptica to focus on project leadership while Cloud Surge handled execution.
@@ -73,8 +73,8 @@ export const Outcome = () => (
         </div>
 
         {/* Card 4 */}
-        <div className="bg-white p-4 sm:p-5 md:p-6 text-left">
-          <img src={timeline} alt="Faster Time‑to‑Market" className="h-8 sm:h-10 md:h-11 mb-3 sm:mb-4" />
+        <div className="bg-white p-4 sm:p-5 md:p-6 text-left max-w-[280px]">
+           <img src={arrow} alt="Faster Time‑to‑Market" className="h-8 sm:h-10 md:h-11 mb-3 sm:mb-4" />
           <h3 className="text-base sm:text-lg font-semibold text-[#EF4123] mb-1 sm:mb-2">Future scalability</h3>
           <p className="text-[#EF4123] text-xs sm:text-sm pb-4">
             <strong></strong> The model provided a framework for Zaptica to take on more large-scale projects without hesitation confidently.

@@ -42,9 +42,9 @@ export const Outcome = () => (
       </p>
 
       {/* Feature grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 mb-8 md:mb-12">
+     <div className="grid grid-cols-1 md:max-w-[600px] mx-auto md:grid-cols-2 justify-items-center gap-8 md:gap-10 mb-8 md:mb-12">
         {/* Card 1 */}
-        <div className="bg-white p-4 sm:p-5 md:p-6 text-left">
+        <div className="bg-white p-4 sm:p-5 md:p-6 text-left max-w-[280px]">
           <img
             src={time2}
             alt="Scalability & Flexibility"
@@ -60,7 +60,7 @@ export const Outcome = () => (
         </div>
 
         {/* Card 2 */}
-        <div className="bg-white p-4 sm:p-5 md:p-6 text-left">
+        <div className="bg-white p-4 sm:p-5 md:p-6 text-left max-w-[280px]">
           <img
             src={steps}
             alt="Cost Efficiency"
@@ -77,12 +77,13 @@ export const Outcome = () => (
         </div>
 
         {/* Card 3 */}
-        <div className="bg-white p-4 sm:p-5 md:p-6 text-left">
-          <img
-            src={arrow}
+        <div className="bg-white p-4 sm:p-5 md:p-6 text-left max-w-[280px]">
+            <img
+            src={timeline}
             alt="Faster Time‑to‑Market"
-            className="h-8 sm:h-10 md:h-12 mb-3 sm:mb-4"
+            className="h-8 sm:h-10 md:h-11 mb-3 sm:mb-4"
           />
+          
           <h3 className="text-base sm:text-lg font-semibold text-[#EF4123] mb-1 sm:mb-2">
             Solid Foundation
           </h3>
@@ -93,11 +94,11 @@ export const Outcome = () => (
         </div>
 
         {/* Card 4 */}
-        <div className="bg-white p-4 sm:p-5 md:p-6 text-left">
-          <img
-            src={timeline}
+        <div className="bg-white p-4 sm:p-5 md:p-6 text-left max-w-[280px]">
+        <img
+            src={arrow}
             alt="Faster Time‑to‑Market"
-            className="h-8 sm:h-10 md:h-11 mb-3 sm:mb-4"
+            className="h-8 sm:h-10 md:h-12 mb-3 sm:mb-4"
           />
           <h3 className="text-base sm:text-lg font-semibold text-[#EF4123] mb-1 sm:mb-2">
             Seamless Transactions

@@ -10,11 +10,11 @@ export const Testimonial = () => (
       <div className="flex flex-col sm:flex-row items-start mb-6 sm:mb-8">
        
         <p className="text-[#8E8E8E] leading-relaxed text-left text-lg sm:text-xl">
-          <span className="pe-2">
+          <span className="pe-1">
             <img
               src={quoteIcon}
               alt="Quote icon"
-              className="h-6 sm:h-7 lg:h-8 w-6 sm:w-7 lg:w-8 flex-shrink-0 mr-0 sm:mr-3 lg:mr-4 mb-3 sm:mb-0 inline-block sm:ml-0"
+              className="h-6 sm:h-7 md:-mt-4 lg:h-8 w-6 sm:w-7 lg:w-8 flex-shrink-0 mr-0 sm:mr-3 lg:mr-4 mb-3 sm:mb-0 inline-block sm:ml-0"
             />
           </span>
           The <strong>Fusion Pod model</strong> enabled rapid delivery,
@@ -24,7 +24,7 @@ export const Testimonial = () => (
       </div>
 
       {/* Bottom Call-to-Action */}
-      <div className="border-4 sm:border-6 mb-20 lg:border-8 border-[#E94325] p-4 sm:p-5 lg:p-6 mt-8 sm:mt-12 lg:mt-16 flex flex-col lg:flex-row justify-between items-start">
+      <div className="border-4 sm:border-6 mb-20 lg:border-8 border-[#E94325] p-4 sm:p-5 lg:p-6 mt-8 sm:mt-12 lg:mt-16 flex flex-col lg:flex-row justify-between items-end">
         {/* Left Text Section */}
         <div className="text-[#EF4123] text-left mb-6 lg:mb-0">
           <h3 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-semibold">
