@@ -162,7 +162,7 @@ const CardFooter: React.FC<{
             lineHeight: 1.3,
           }}
         >
-          {author},
+          {author}
         </p>
         <p
           style={{
