@@ -32,14 +32,14 @@ export const Outcome = () => (
       </h2>
 
       {/* Intro text */}
-      <p className="text-[#5B5B5B] mb-4 sm:mb-5 text-left mt-6 sm:mt-8 md:mt-10 text-2xl sm:text-3xl md:text-4xl max-w-full sm:max-w-[85%] md:max-w-[70%] lg:max-w-[100%]">
+      <p className="text-[#5B5B5B] mb-4 sm:mb-5 text-left mt-6 sm:mt-8 md:mt-10 text-xl sm:text-2xl md:text-3xl max-w-full sm:max-w-[85%] md:max-w-[70%] lg:max-w-[100%]">
         The AI-powered canvas app demonstrated how generative AI can elevate
         day-to-day business operations by combining intelligence, speed, and
         simplicity, setting the stage for further innovation.
       </p>
 
       {/* Feature grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 mb-8 md:mb-12 px-4 sm:px-6 md:px-8 md:w-[700px] mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 mb-8 md:mb-12">
         {/* Card 1 */}
         <div className="bg-white p-4 sm:p-5 md:p-6 text-left">
           <img

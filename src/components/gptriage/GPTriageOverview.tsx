@@ -35,10 +35,10 @@ export const GPTriageOverview: React.FC = () => {
 
       {/* Bottom "challenge" section */}
       <div className="p-4 sm:p-6 lg:p-8  bg-[#F2F2F2] flex flex-col sm:flex-row items-start space-y-4 sm:space-y-0 sm:space-x-8 lg:space-x-16 pb-8 sm:pb-12 lg:pb-16">
-        <img src={PuzzleIcon} alt="Challenge icon" className="w-24 sm:w-32 lg:w-40 flex-shrink-0 mx-auto sm:mx-0" />
+        <img src={PuzzleIcon} alt="Challenge icon" className="w-24 sm:w-32 lg:w-40 flex-shrink-0 mx-0" />
         <div className="flex-1 lg:pl-8 lg:pt-2">
-          <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#2C3189] capitalize mb-2 text-center sm:text-left">challenge</h3>
-          <p className="text-[#5B5B5B] leading-relaxed text-center sm:text-left text-sm sm:text-base">
+          <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#2C3189] capitalize mb-2 text-left">challenge</h3>
+          <p className="text-[#5B5B5B] leading-relaxed text-left text-sm sm:text-base">
             GP Triage set out to modernise the traditional GP booking process with an AI-driven
             system capable of automatically assessing patient symptoms, determining severity, and
             allocating appropriate appointment slots. The challenge lay in building a sophisticated

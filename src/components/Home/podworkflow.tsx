@@ -409,7 +409,7 @@ const PodWorkflowSection: React.FC = () => {
           text-align: center;
           color: #757272;
           max-width: 954px;
-          margin: 40px 0 0;
+          margin: 40px auto 0;
         }
 
         /* ── CTA button ── */

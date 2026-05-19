@@ -39,7 +39,7 @@ export const Outcome = () => (
       </p>
 
       {/* Feature grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 mb-8 md:mb-12 px-4 sm:px-6 md:px-8 md:w-[700px] mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 mb-8 md:mb-12">
         {/* Card 1 */}
         <div className="bg-white p-4 sm:p-5 md:p-6 text-left">
           <img

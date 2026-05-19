@@ -15,7 +15,7 @@ import time from "@/assets/four_arrow.png";
 import time2 from "@/assets/watch.png";
 export const Outcome = () => (
   <section className="bg-[#F2F2F2] py-8 sm:py-12 md:py-16 max-w-6xl divide-y mx-auto mt-2 mb-2">
-    <div className="max-w-5xl mx-auto px-4 sm:px-6">
+    <div className="max-w-5xl mx-auto px-4">
       {/* Header */}
       <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#EF4123] mb-4 lowercase text-left">
         <div className="flex flex-col">
@@ -42,7 +42,7 @@ export const Outcome = () => (
       </p>
 
       {/* Feature grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 mb-8 md:mb-12 px-4 sm:px-6 md:px-8 md:w-[700px] mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 mb-8 md:mb-12">
         {/* Card 1 */}
         <div className="bg-white p-4 sm:p-5 md:p-6 text-left">
           <img

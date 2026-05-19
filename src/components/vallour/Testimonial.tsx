@@ -8,12 +8,15 @@ export const Testimonial = () => (
     <section className="max-w-6xl mx-auto px-4 xl:px-0 py-8 sm:py-10 md:py-12">
       {/* Quote + text */}
       <div className="flex flex-col sm:flex-row items-start mb-6 sm:mb-8">
-        <img
-          src={quoteIcon}
-          alt="Quote icon"
-          className="h-6 sm:h-8 w-6 sm:w-8 flex-shrink-0 mb-2 sm:mb-0 sm:mr-4"
-        />
+       
         <p className="text-[#8E8E8E] leading-relaxed text-left text-lg sm:text-xl">
+          <span className="pe-2">
+            <img
+              src={quoteIcon}
+              alt="Quote icon"
+              className="h-6 sm:h-7 lg:h-8 w-6 sm:w-7 lg:w-8 flex-shrink-0 mr-0 sm:mr-3 lg:mr-4 mb-3 sm:mb-0 inline-block sm:ml-0"
+            />
+          </span>
           The <strong>Fusion Pod model</strong> enabled rapid delivery,
           combining agile prototyping, clinical validation, and technical
           precision, without overextending client resources or timelines.
@@ -21,9 +24,9 @@ export const Testimonial = () => (
       </div>
 
       {/* Bottom Call-to-Action */}
-      <div className="border-4 sm:border-6 mb-20 lg:border-8 w-full mx-auto border-[#E94325] p-4 sm:p-5 lg:p-6 mt-8 sm:mt-12 lg:mt-16 flex flex-col lg:flex-row justify-between items-end">
+      <div className="border-4 sm:border-6 mb-20 lg:border-8 border-[#E94325] p-4 sm:p-5 lg:p-6 mt-8 sm:mt-12 lg:mt-16 flex flex-col lg:flex-row justify-between items-start">
         {/* Left Text Section */}
-        <div className="text-[#EF4123] text-center lg:text-left mb-6 lg:mb-0">
+        <div className="text-[#EF4123] text-left mb-6 lg:mb-0">
           <h3 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-semibold">
             Be Part of
           </h3>
@@ -33,7 +36,7 @@ export const Testimonial = () => (
         </div>
 
         {/* Right Links Section */}
-        <div className="flex flex-col  w-full lg:w-auto items-center lg:items-start">
+        <div className="flex flex-col w-full lg:w-auto items-start">
           <a
             href="/contact"
             className="flex items-center text-[#E94227] text-lg sm:text-xl lg:text-2xl hover:scale-105 transition-transform"

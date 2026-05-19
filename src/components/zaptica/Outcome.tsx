@@ -44,7 +44,7 @@ export const Outcome = () => (
       </p>
       
       {/* Feature grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 mb-8 md:mb-12 px-4 sm:px-6 md:px-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 mb-8 md:mb-12">
         {/* Card 1 */}
         <div className="bg-white p-4 sm:p-5 md:p-6 text-left">
           <img src={time2} alt="Scalability & Flexibility" className="h-8 sm:h-10 md:h-12 w-8 sm:w-10 md:w-12 mb-3 sm:mb-4" />
