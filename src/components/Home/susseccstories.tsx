@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { StarIcon } from "@heroicons/react/24/solid";
 import redIcon from "@/assets/redicon.svg";
-import ceoFawriiImg from "@/assets/man.png";
+import ceoFawriiImg from "@/assets/FawriiCEO.png";
 import triageLogo from "@/assets/triage.svg";
 import zapticaLogo from "@/assets/zaptica.webp";
 import { Link } from "@tanstack/react-router";
