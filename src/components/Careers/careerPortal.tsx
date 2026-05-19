@@ -129,7 +129,7 @@ const CareerPortal: React.FC = () => {
                 maxWidth: '492px',
               }}
             >
-              Join Our Team
+              Apply Through Our Careers Portal
             </motion.h1>
 
             {/* Subtitle */}
@@ -145,8 +145,7 @@ const CareerPortal: React.FC = () => {
                 maxWidth: '534px',
               }}
             >
-              We're always looking for talented individuals who are passionate
-              about what they do. Explore our open roles or reach out directly.
+              We take your AI-generated code and transform it into a secure, scalable application that you own and control.
             </motion.p>
 
             {/* CTA Buttons */}
@@ -241,8 +240,7 @@ const CareerPortal: React.FC = () => {
                   textAlign: 'justify',
                 }}
               >
-                All applications are reviewed thoroughly. We aim to respond to
-                every submission within 2–3 weeks of receipt.
+                We review applications regularly. If your experience fits, we’ll reach out to schedule a short first conversation.
               </p>
             </motion.div>
           </motion.div>

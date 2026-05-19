@@ -70,6 +70,7 @@ const PodModelSection: React.FC = () => {
         {cards.map(({ id, title, description, imageSrc, bg, border, text }, idx) => {
           return (
             <motion.div
+            
               key={id}
               initial={{ y: 100, opacity: 0 }}
               animate={isInView ? { y: 0, opacity: 1 } : { y: 100, opacity: 0 }}
@@ -78,10 +79,10 @@ const PodModelSection: React.FC = () => {
                 delay: idx * 0.2, 
                 ease: [0.25, 0.1, 0.25, 1] // ease-in-out curve
               }}
-              className={`${bg} ${border} border-[#CECECE] pl-6 md:pl-8 lg:pl-10 xl:pl-12 2xl:pl-14 pt-6 pb-6 md:pt-0 md:pb-0 flex flex-col justify-center items-start w-full max-w-[90vw] mx-auto md:w-[380px] lg:w-[440px] xl:w-[480px] 2xl:w-[496px] h-auto min-h-[200px] md:h-[320px] lg:h-[350px] xl:h-[370px] 2xl:h-[400px] md:aspect-square cursor-pointer`}
+              className={`${bg} ${border} relative border-[#CECECE] pl-6 md:pl-8 lg:pl-10 xl:pl-12 2xl:pl-14 pt-6 pb-6 md:pt-0 md:pb-0 flex flex-col justify-start items-start w-full max-w-[90vw] mx-auto md:w-[380px] lg:w-[440px] xl:w-[480px] 2xl:w-[496px] h-auto min-h-[200px] md:h-[320px] lg:h-[350px] xl:h-[370px] 2xl:h-[400px] md:aspect-square cursor-pointer`}
             >
-              <img src={imageSrc} alt={title} className="w-12 md:w-16 lg:w-16 xl:w-18 2xl:w-20 mb-3 md:mb-3 lg:mb-3 xl:mb-3 2xl:mb-4 object-contain" />
-              <h3 className={`text-xl md:text-3xl lg:text-3xl xl:text-3xl 2xl:text-4xl mb-2 ${text}`}>{title}</h3>
+              <img src={imageSrc} alt={title} className={`absolute top-6 ${idx === 0 || idx === 3 ? "w-9 md:w-[2.925rem] lg:w-[3.15rem] xl:w-[3.375rem] 2xl:w-[4.05rem]" : "w-10 md:w-13 lg:w-14 xl:w-15 2xl:w-18"} mb-3 md:mb-3 lg:mb-3 xl:mb-3 2xl:mb-4 object-contain`}  />
+              <h3 className={`text-xl md:text-3xl lg:text-3xl xl:text-3xl 2xl:text-4xl mb-2 mt-[28%] ${text}`}>{title}</h3>
               <p className={` text-[19px] leading-relaxed ${text} max-w-[85%] md:max-w-[80%]`}>
                 {description}
               </p>

@@ -149,7 +149,7 @@ const CareerCta: React.FC = () => {
                 justifyContent: "center",
               }}
             >
-              <Link to="/contact" className="cta-btn-primary" >
+              <a href="https://bookings.cloud.microsoft/book/FreeScaleUp@cloudsurge.uk" target="_blank" className="cta-btn-primary" >
                 <span
                   style={{
                     fontFamily: "'Bahnschrift', 'DIN Alternate', sans-serif",
@@ -162,7 +162,7 @@ const CareerCta: React.FC = () => {
                 >
                   Grow your business
                 </span>
-              </Link>
+              </a>
               <Link to="/careers" className="cta-btn-secondary">
                 <span
                   style={{

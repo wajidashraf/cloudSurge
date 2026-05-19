@@ -10,8 +10,8 @@ export const GPTriageOverview: React.FC = () => {
       {/* Top section: 2 columns */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-0">
         {/* Left */}
-        <div className="p-4 sm:p-6 lg:p-8 flex flex-col justify-center items-center bg-[#EEFBFF] mb-2 lg:mb-2">
-          <img src={TriageLogo} alt="GP Triage logo" className="w-48 sm:w-64 lg:w-80 mb-8 sm:mb-12 lg:mb-20" />
+        <div className="p-4 sm:p-6 lg:p-8 flex flex-col justify-start items-center bg-[#EEFBFF] mb-2 lg:mb-2">
+          <img src={TriageLogo} alt="GP Triage logo" className="w-48 mt-2 md:mt-4 sm:w-64 lg:w-80 mb-8 sm:mb-16 lg:mb-30" />
           <h2 className="text-[#5B5B5B] text-2xl sm:text-3xl lg:text-5xl leading-snug text-center">
             <strong>
             revolutionising  </strong>

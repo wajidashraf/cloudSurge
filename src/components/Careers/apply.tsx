@@ -46,13 +46,18 @@ const OpeningsSection: React.FC = () => {
   return (
     <section className="relative rounded-lg overflow-hidden mx-4 md:mx-8 py-26 md:py-16 lg:py-20 xl:py-24 2xl:py-35 mt-8 md:mt-12 lg:mt-16 xl:mt-18 2xl:mt-21">
       {/* Header Tab floating above */}
-      <div className="absolute top-26 md:top-16 lg:top-20 xl:top-24 2xl:top-35 z-10 right-4 md:right-20 lg:right-28 xl:right-36 2xl:right-45 transform -translate-y-1/2 bg-[#F2F2F2] px-6 md:px-12 lg:px-14 xl:px-16 2xl:px-20 py-3 md:py-4 lg:py-4 xl:py-4 2xl:py-5 pb-4 md:pb-6 lg:pb-6 xl:pb-7 2xl:pb-8 mb-4 md:mb-0" style={{
-        borderRadius: '20px 20px 0 0',
-        borderBottomLeftRadius: '0',
-        borderBottomRightRadius: '0',
-        clipPath: 'polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%)'
-      }}>
-        <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-4xl 2xl:text-5xl font-bold text-[#ef4213] ">Openings</h2>
+      <div className="absolute top-26 md:top-16 lg:top-20 xl:top-24 2xl:top-35 z-10 right-4 md:right-20 lg:right-28 xl:right-36 2xl:right-45 transform -translate-y-1/2 px-6 md:px-12 lg:px-14 xl:px-16 2xl:px-20 py-3 md:py-4 lg:py-4 xl:py-4 2xl:py-5 pb-4 md:pb-6 lg:pb-6 xl:pb-7 2xl:pb-8 mb-4 md:mb-0">
+        <svg
+          className="absolute inset-0 w-full h-full"
+          preserveAspectRatio="none"
+          viewBox="0 0 100 100"
+        >
+          <path
+            d="M 15,3 Q 15,0 18,0 L 82,0 Q 85,0 85,3 L 100,100 L 0,100 Z"
+            fill="#F2F2F2"
+          />
+        </svg>
+        <h2 className="relative text-2xl md:text-3xl lg:text-4xl xl:text-4xl 2xl:text-5xl font-bold text-[#ef4213]">Openings</h2>
       </div>
 
       {/* Content Background */}

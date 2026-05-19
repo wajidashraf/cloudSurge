@@ -7,25 +7,25 @@ const cards = [
   {
     id: 1,
     img: bulbImg,
-    title: 'Innovative Environment',
+    title: 'Innovative \n Environment',
     text: 'We embrace new ideas, cutting-edge tech, and creative thinking.',
   },
   {
     id: 2,
     img: globe,
-    title: 'Global Impact',
+    title: 'Global \n Impact',
     text: 'Our solutions & academy model empower communities across the world.',
   },
   {
     id: 3,
     img: grow,
-    title: 'Continuous Growth',
+    title: 'Continuous \n Growth',
     text: 'We invest in training, certifications, and personal development.',
   },
   {
     id: 4,
     img: team,
-    title: 'Team Spirit',
+    title: 'Team \n Spirit',
     text: "Collaboration is at our core — everyone's voice matters.",
   },
 ];
@@ -54,7 +54,7 @@ export default function CardsGrid() {
               alt={title}
               className={`${imgClass[id]} mb-4`}
             />
-            <h3 className="text-2xl md:text-3xl text-[#EF4123] font-semibold mb-2">
+            <h3 className="whitespace-pre-line text-2xl md:text-3xl text-[#EF4123] font-semibold mb-2">
               {title}
             </h3>
             <p className="text-sm md:text-base text-[#EF4123] leading-relaxed">

@@ -534,7 +534,7 @@ const SuccessProjectsCard: React.FC = () => {
             }}
           >
             100+ projects delivered. 98% client satisfaction. Clients including
-            Fawrii, GP Triage, Genera, and Vallour.
+            Fawrii, GP Triage, Genaiera, and Vallour.
           </motion.h2>
 
           <motion.p
@@ -558,7 +558,7 @@ const SuccessProjectsCard: React.FC = () => {
             }}
           >
             We have supported product teams, Microsoft Partners, and enterprise
-            organisations across healthcare, education, and professional
+            organisations across healthcare, education and professional
             services. Below is a selection of the work and the results.
           </motion.p>
 
