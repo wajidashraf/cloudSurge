@@ -195,7 +195,7 @@ const CareerPortal: React.FC = () => {
               </motion.button>
 
               {/* Button 2 — Submit Speculative */}
-              <motion.button
+              {/* <motion.button
                 whileHover={{ x: 5 }}
                 transition={{ type: 'spring', stiffness: 400, damping: 20 }}
                 style={{
@@ -221,7 +221,7 @@ const CareerPortal: React.FC = () => {
                 >
                   Submit a Speculative Application
                 </span>
-              </motion.button>
+              </motion.button> */}
             </motion.div>
 
             {/* Info Footer */}
