@@ -7,6 +7,10 @@ import PuzzleIcon from '@/assets/puzzle.svg'
 export const ZapticaOverview: React.FC = () => {
   return (
     <div className="max-w-6xl mx-auto divide-y divide-gray-200 mt-8 sm:mt-12 md:mt-20 mb-2 px-4 sm:px-6 md:px-0">
+
+      
+
+
       {/* Top section: 2 columns */}
       <div className="grid grid-cols-1 lg:grid-cols-2 ">
         {/* Left */}
