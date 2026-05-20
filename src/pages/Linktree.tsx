@@ -189,7 +189,7 @@ const styles: Record<string, React.CSSProperties> = {
     gap: "16px",
     width: "100%",
     maxWidth: "384px",
-    margin: "65px 0px 80px",
+    margin: "30px 0px 80px",
   },
 
   sociallinksContainer: {
