@@ -13,7 +13,6 @@ const CtaSection: React.FC = () => {
       ref={ref}
       style={{
         width: "100%",
-        background: "rgba(237, 150, 150, 0.35)",
         fontFamily: FONT,
         boxSizing: "border-box",
       }}
