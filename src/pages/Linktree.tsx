@@ -169,7 +169,7 @@ const styles: Record<string, React.CSSProperties> = {
     color: "#FFFFFF",
     // Desktop max: 558px, Mobile: 241px
     maxWidth: "clamp(241px, 40vw, 558px)",
-    marginBottom: "26px",
+    marginBottom: "20px",
   },
   socialSubtitle: {
     fontWeight: 500,
@@ -189,7 +189,7 @@ const styles: Record<string, React.CSSProperties> = {
     gap: "16px",
     width: "100%",
     maxWidth: "384px",
-    margin: "30px 0px 80px",
+    margin: "25px 0px 80px",
   },
 
   sociallinksContainer: {

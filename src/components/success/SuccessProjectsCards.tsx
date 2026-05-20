@@ -82,8 +82,9 @@ const CS_LOGO_W = 40;
 const CS_LOGO_H = 40;
 const BASE_W = 441;
 const BASE_H = 608;
-const LERP = 0.09; // smoothness factor (lower = smoother / slower)
-const SWIPE_THRESHOLD = 50;
+const LERP = 0.18; // smoothness factor (lower = smoother / slower)
+const SWIPE_THRESHOLD = 40;
+const AUTOPLAY_RESUME_MS = 2500;
 
 const getVisibleCount = (w: number): number => {
   if (w >= 1536) return 5;
@@ -262,8 +263,9 @@ const CarouselProgress: React.FC<ProgressProps> = ({
     window.addEventListener("resize", update);
     return () => window.removeEventListener("resize", update);
   }, []);
-  const fraction = total > 1 ? current / (total - 1) : 0;
+  const fraction = total > 0 ? (current + 1) / total : 0;
   const logoX = fraction * Math.max(0, barW - CS_LOGO_W);
+  const ticks = Array.from({ length: total - 1 }, (_, i) => (i + 1) / total);
   return (
     <div style={{ position: "relative", marginTop: 90, paddingBottom: 48 }}>
       <div
@@ -295,6 +297,26 @@ const CarouselProgress: React.FC<ProgressProps> = ({
             transition: "width 0.45s cubic-bezier(0.22,1,0.36,1)",
           }}
         />
+        {ticks.map((t, i) => (
+          <div
+            key={i}
+            onClick={(e) => {
+              e.stopPropagation();
+              onDotClick(i);
+            }}
+            style={{
+              position: "absolute",
+              left: `${t * 100}%`,
+              top: -3,
+              transform: "translateX(-50%)",
+              width: 2,
+              height: 10,
+              background: "#FFFFFF",
+              borderRadius: 1,
+              cursor: "pointer",
+            }}
+          />
+        ))}
       </div>
       <div
         style={{
@@ -460,12 +482,16 @@ const SuccessProjectsCard: React.FC = () => {
   );
 
   // Drag / swipe handlers (pointer events cover mouse + touch + pen)
+  const resumeTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(
+    undefined,
+  );
   const onPointerDown = (e: React.PointerEvent) => {
     interactingRef.current = true;
     isDraggingRef.current = true;
     dragStartXRef.current = e.clientX;
     dragDeltaXRef.current = 0;
-    (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
+    if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current);
+    e.currentTarget.setPointerCapture?.(e.pointerId);
   };
   const onPointerMove = (e: React.PointerEvent) => {
     if (!isDraggingRef.current) return;
@@ -476,11 +502,13 @@ const SuccessProjectsCard: React.FC = () => {
     const delta = dragDeltaXRef.current;
     isDraggingRef.current = false;
     dragDeltaXRef.current = 0;
-    interactingRef.current = false;
-    if (Math.abs(delta) > SWIPE_THRESHOLD) {
-      if (delta < 0) goNext();
-      else goPrev();
+    if (Math.abs(delta) > SWIPE_THRESHOLD && stepSize > 0) {
+      const steps = Math.max(1, Math.round(Math.abs(delta) / stepSize));
+      setTrackIndex((p) => p + (delta < 0 ? steps : -steps));
     }
+    resumeTimerRef.current = setTimeout(() => {
+      interactingRef.current = false;
+    }, AUTOPLAY_RESUME_MS);
   };
 
   return (
