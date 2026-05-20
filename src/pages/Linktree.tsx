@@ -131,6 +131,7 @@ const styles: Record<string, React.CSSProperties> = {
   container: {
     width: "100%",
     maxWidth: "1280px",
+    minHeight: "calc(100vh - 80px)",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -229,6 +230,7 @@ const styles: Record<string, React.CSSProperties> = {
     width: "100%",
     maxWidth: "1200px",
     borderTop: "1px solid #FFFFFF",
+    marginTop: "auto",
     marginBottom: "24px",
   },
 
