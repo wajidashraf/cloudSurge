@@ -59,7 +59,7 @@ export const Linktree: React.FC = () => {
         </div>
         {/* Link Buttons */}
         <div style={styles.linksContainer}>
-          <h3 className="text-xl md:text-2xl text-white">Follow us on socials:</h3>
+         <p style={styles.socialSubtitle}>Follow us on socials:</p>
           {socialLinks.map((link) => (
             <a
               key={link.label}
@@ -143,7 +143,7 @@ const styles: Record<string, React.CSSProperties> = {
 
   logo: {
     // Desktop: ~137x184px, Mobile: ~96x129px
-    width: "clamp(72px, 10vw, 137px)",
+    width: "clamp(55px, 8vw, 107px)",
     height: "auto",
     objectFit: "contain",
   },
@@ -169,7 +169,17 @@ const styles: Record<string, React.CSSProperties> = {
     color: "#FFFFFF",
     // Desktop max: 558px, Mobile: 241px
     maxWidth: "clamp(241px, 40vw, 558px)",
-    marginBottom: "32px",
+    marginBottom: "26px",
+  },
+  socialSubtitle: {
+    fontWeight: 500,
+    // Desktop: 20px, Mobile: 12px
+    fontSize: "clamp(13px, 1.5vw, 24px)",
+    lineHeight: "1.4",
+    textAlign: "center",
+    color: "#FFFFFF",
+    // Desktop max: 558px, Mobile: 241px
+    maxWidth: "clamp(241px, 40vw, 558px)",
   },
 
   linksContainer: {
