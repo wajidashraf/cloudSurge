@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import logo from '@/assets/redicon.svg';
 import { ArrowIcon } from '../common/svgIcons';
@@ -95,8 +95,17 @@ const plans: Plan[] = [
   },
 ];
 
-const TailoredPodSubscriptions: React.FC = () => (
+const TailoredPodSubscriptions: React.FC = () => {
+  useEffect(() => {
+    if (sessionStorage.getItem("scrollToPricing") === "1" || window.location.hash === "#pricing") {
+      sessionStorage.removeItem("scrollToPricing");
+      setTimeout(() => {
+        document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    }
+  }, []);
 
+  return (
   <section id="pricing" className="container mx-auto w-full px-6 sm:px-10 md:px-5 2xl:px-[150px] -mt-16 pb-30 bg-white">
     <h2 className="text-5xl md:text-6xl lg:text-6xl xl:text-6xl 2xl:text-7xl font-extrabold text-center text-[#ef4123] mb-16 md:mb-32">
       Tailored Pod <br /> Subscriptions
@@ -108,9 +117,10 @@ const TailoredPodSubscriptions: React.FC = () => (
       ))}
     </div>
 
-    
+
   </section>
-);
+  );
+};
 
 interface PlanCardProps {
   plan: Plan;

@@ -178,22 +178,25 @@ const PodWorkFlow: React.FC = () => {
           </div>
 
           {/* CTA */}
-          <a
-            href="/#pricing"
+          <Link
+            to="/"
+            hash="pricing"
             style={styles.ctaBtn}
-            onClick={(e) => {
-              e.preventDefault();
-              window.location.href = "/#pricing";
-              setTimeout(() => {
-                document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" });
-              }, 100);
+            onClick={() => {
+              if (window.location.pathname === "/") {
+                setTimeout(() => {
+                  document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" });
+                }, 50);
+              } else {
+                sessionStorage.setItem("scrollToPricing", "1");
+              }
             }}
           >
             <span style={styles.ctaIcon}>
               <ArrowIcon />
             </span>
             <span className="mt-2" style={styles.ctaText}>price overview</span>
-          </a>
+          </Link>
         </div>
       </div>
 
@@ -231,7 +234,7 @@ const PodWorkFlow: React.FC = () => {
           <div className="flex flex-row items-center gap-4">
             <a
               href="https://bookings.cloud.microsoft/book/FreeScaleUp@cloudsurge.uk"
-              className="flex items-center justify-center px-3 py-1.5 rounded-md  transition-opacity"
+              className="flex items-center justify-center px-5 py-2 rounded-md  transition-opacity"
               style={{
                 minWidth: "184px",
                 height: "39px",
@@ -353,7 +356,7 @@ const styles: Record<string, React.CSSProperties> = {
     gap: "clamp(20px, 4vw, 60px)",
     padding: "clamp(16px, 4vw, 65px) clamp(12px, 3vw, 20px)",
     flex: 1,
-    alignItems: "center",
+    alignItems: "flex-start",
     justifyContent: "space-between",
     flexWrap: "wrap" as const,
   },
@@ -418,7 +421,7 @@ const styles: Record<string, React.CSSProperties> = {
     display: "flex",
     flexDirection: "column",
     gap: "0px",
-    paddingTop: "clamp(0px, 1vw, 12px)",
+    // paddingTop: "clamp(0px, 1vw, 12px)",
     marginLeft: "30px",
     width: "100%",
   },
