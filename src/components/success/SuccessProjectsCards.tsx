@@ -533,7 +533,7 @@ const SuccessProjectsCard: React.FC = () => {
               maxWidth: 987,
             }}
           >
-            100+ projects delivered. 98% client satisfaction. Clients including
+            100+ projects delivered. 100% client satisfaction. Clients including
             Fawrii, GP Triage, Genaiera, and Vallour.
           </motion.h2>
 

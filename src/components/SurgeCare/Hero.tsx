@@ -29,7 +29,7 @@ const Hero: React.FC = () => {
         
         </p>
         <p style={styles.subheadline}>
-          We keep your platform secure, stable and performing, 24/7.
+          We keep your platform secure, stable and performing.
         </p>
 
         {/* Actions */}

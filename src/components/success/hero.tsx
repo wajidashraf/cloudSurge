@@ -24,8 +24,8 @@ const Hero: React.FC = () => {
   /* ── Scroll-driven unmask (0.5 → 1) ── */
   const unmaskProgress = useMotionValue(0.5);
   const unmaskSpring = useSpring(unmaskProgress, {
-    stiffness: 100,
-    damping: 25,
+    stiffness: 180,
+    damping: 22,
   });
 
   // Image clip – bottom-to-top reveal
@@ -57,16 +57,14 @@ const Hero: React.FC = () => {
 
   /* ── Unlock after unmasking completes ── */
   useEffect(() => {
-    const unsub = unmaskSpring.on("change", (v) => {
-      if (v >= 0.999) setUnmaskingComplete(true);
+    const unsub = unmaskProgress.on("change", (v) => {
+      if (v >= 1) setUnmaskingComplete(true);
     });
     return unsub;
-  }, [unmaskSpring]);
+  }, [unmaskProgress]);
 
   useEffect(() => {
-    if (!unmaskingComplete) return;
-    const t = setTimeout(() => setLocked(false), 300);
-    return () => clearTimeout(t);
+    if (unmaskingComplete) setLocked(false);
   }, [unmaskingComplete]);
 
   /* ── Reset hero when user scrolls back to the very top ── */
@@ -97,7 +95,7 @@ const Hero: React.FC = () => {
     const onWheel = (e: WheelEvent) => {
       if (!locked) return;
       e.preventDefault();
-      const step = e.deltaY > 0 ? 0.3 : -0.3;
+      const step = e.deltaY > 0 ? 0.5 : -0.5;
       unmaskProgress.set(
         Math.max(0.5, Math.min(1, unmaskProgress.get() + step)),
       );
@@ -113,7 +111,7 @@ const Hero: React.FC = () => {
       e.preventDefault();
       const dy = lastY - e.touches[0].clientY;
       lastY = e.touches[0].clientY;
-      const step = dy > 0 ? 0.3 : -0.3;
+      const step = dy > 0 ? 0.5 : -0.5;
       unmaskProgress.set(
         Math.max(0.5, Math.min(1, unmaskProgress.get() + step)),
       );
