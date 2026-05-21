@@ -99,7 +99,7 @@ const PodWorkFlow: React.FC = () => {
   const current = steps[displayIndex];
 
   return (
-    <section style={styles.section}>
+    <section style={styles.section} id="podworkflow">
       {/* Scrolling watermark */}
       <div style={styles.marqueeWrapper}>
         <div style={styles.marqueeTrack}>
@@ -152,15 +152,24 @@ const PodWorkFlow: React.FC = () => {
               const isFirst = i === 0;
               const isLast = i === steps.length - 1;
               return (
-                <button
+                <div
                   key={step.id}
+                  role="button"
+                  tabIndex={0}
                   className={showActive ? "pod-step-btn-active" : ""}
                   style={{
                     ...styles.stepBtn,
                     ...(isFirst ? { borderTop: "4px solid #EB4124" } : {}),
                     ...(showActive ? styles.stepBtnActive : {}),
+                    ...(isFirst && showActive ? { marginTop: 0 } : {}),
                   }}
                   onClick={() => goTo(i)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      goTo(i);
+                    }
+                  }}
                   onMouseEnter={() => setHoveredIndex(i)}
                   onMouseLeave={() => setHoveredIndex(null)}
                 >
@@ -172,7 +181,7 @@ const PodWorkFlow: React.FC = () => {
                   >
                     {step.label}
                   </span>
-                </button>
+                </div>
               );
             })}
           </div>
@@ -234,6 +243,7 @@ const PodWorkFlow: React.FC = () => {
           <div className="flex flex-row items-center gap-4">
             <a
               href="https://bookings.cloud.microsoft/book/FreeScaleUp@cloudsurge.uk"
+              target="_blank"
               className="flex items-center justify-center px-5 py-2 rounded-md  transition-opacity"
               style={{
                 minWidth: "184px",
@@ -243,7 +253,7 @@ const PodWorkFlow: React.FC = () => {
               }}
             >
               <span
-                className="text-white text-[15px] lg:text-[17px]"
+                className="text-white text-[15px] px-2 lg:text-[17px]"
                 style={{
                   fontFamily: "Bahnschrift, sans-serif",
                   lineHeight: "150%",
@@ -433,7 +443,9 @@ const styles: Record<string, React.CSSProperties> = {
   },
   stepBtn: {
     background: "transparent",
-    // border: "none",
+    borderTop: "none",
+    borderLeft: "none",
+    borderRight: "none",
     borderBottom: "4px solid #EB4124",
     cursor: "pointer",
     display: "flex",
@@ -449,6 +461,8 @@ const styles: Record<string, React.CSSProperties> = {
     backgroundColor: "rgba(235, 65, 36, 1)",
     // transform: "translateX(-20px)",
     borderBottom: "4px solid #EB4124",
+    borderTop: "4px solid #EB4124",
+    marginTop: "-4px",
   },
   stepLabel: {
     fontSize: "clamp(22px, 4vw, 50px)",

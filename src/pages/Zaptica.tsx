@@ -26,7 +26,8 @@ const Zaptica: React.FC = () => {
         </div>
 
         <Link
-          to="/"
+          to="/success-stories"
+          hash="project-cards-section"
           className="close absolute right-10 "
           style={{ cursor: "pointer" }}
         >

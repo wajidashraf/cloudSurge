@@ -212,7 +212,8 @@ const Hero: React.FC = () => {
                       : `clamp(-16px, ${(-31 / 600) * 100}%, -10px)`,
                 width:
                   dimensions.width < 768
-                    ? "85vw"
+                    ? "85vw" : dimensions.width >= 2561
+                      ? "1280px"
                     : dimensions.width >= 2200
                       ? "1160px"
                       : dimensions.width >= 1800
@@ -239,11 +240,13 @@ const Hero: React.FC = () => {
                     ? "35px"
                     : dimensions.width < 768
                       ? "20px"
+                      : dimensions.width >= 2561
+                        ? "1350px"  
                       : dimensions.width >= 2200
-                        ? "1250px"
+                        ? "1250px"  
                         : dimensions.width >= 1800
                           ? "1050px"
-                          : `clamp(260px, 52.08%, 750px)`,
+                          : `clamp(260px, 52.08%, 850px)`,
                 right:
                   dimensions.width < 768
                     ? "20px"
@@ -254,14 +257,15 @@ const Hero: React.FC = () => {
                         : `clamp(100px, 22.15%, 319px)`,
                 top:
                   dimensions.width < 768
-                    ? "auto"
+                    ? "auto" : dimensions.width >= 2561
+                      ? "850px" 
                     : dimensions.width >= 2200
-                      ? "750px"
+                      ? "750px" 
                       : dimensions.width >= 1800
-                        ? "500px"
+                        ? "640px"
                         : dimensions.width > 1250
                           ? "auto"
-                          : `clamp(300px, 50.17%, 301px)`,
+                          : `clamp(300px, 50.17%, 310px)`,
                 bottom:
                   dimensions.width < 450
                     ? "clamp(27vh, 6vh, 60px)"

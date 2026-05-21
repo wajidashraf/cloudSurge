@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import bg from "@/assets/Fusion-pod.png";
 import icon from "@/assets/fusion-pod-Icon.png";
 import bgMobile from "@/assets/Fusion-pod-mobile.png";
-import { Link } from "@tanstack/react-router";
 
 // ─── Animation Variants ────────────────────────────────────────────────
 const containerVariants = {
@@ -22,6 +21,35 @@ const fadeUp = {
 const fadeIn = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { duration: 0.6, ease: "easeOut" } },
+};
+
+const scrollToPodWorkflow = () => {
+  const scrollTo = (el: HTMLElement) => {
+    const top = el.getBoundingClientRect().top + window.pageYOffset;
+    window.scrollTo({ top, behavior: "smooth" });
+  };
+
+  const existing = document.getElementById("podworkflow");
+  if (existing) {
+    scrollTo(existing);
+    return;
+  }
+
+  // PodWorkFlow is lazy-mounted after the model section comes into view.
+  // Nudge the page down to trigger the IntersectionObserver, then poll
+  // for the element to appear and scroll to it.
+  window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+
+  const start = Date.now();
+  const interval = window.setInterval(() => {
+    const el = document.getElementById("podworkflow");
+    if (el) {
+      window.clearInterval(interval);
+      scrollTo(el);
+    } else if (Date.now() - start > 4000) {
+      window.clearInterval(interval);
+    }
+  }, 100);
 };
 
 // ─── Hero Component ────────────────────────────────────────────────────
@@ -176,9 +204,10 @@ const Hero = () => {
             </a>
 
             {/* Secondary: outline white */}
-            <Link
-              to="/fusion-pods"
-              className="flex items-center justify-center font-semibold rounded-md transition-all duration-200 hover:bg-white/15 active:scale-95"
+            <button
+              type="button"
+              onClick={scrollToPodWorkflow}
+              className="cursor-pointer flex items-center justify-center font-semibold rounded-md transition-all duration-200 hover:bg-white/15 active:scale-95"
               style={{
                 fontFamily:
                   "'Bahnschrift', 'DIN Condensed', 'Arial Narrow', sans-serif",
@@ -193,7 +222,7 @@ const Hero = () => {
               }}
             >
               See how it works
-            </Link>
+            </button>
           </motion.div>
         </motion.div>
       </div>
@@ -272,6 +301,7 @@ const Hero = () => {
               {/* Primary: white bg, red text */}
                <a
               href="https://bookings.cloud.microsoft/book/FreeScaleUp@cloudsurge.uk"
+              target="_blank"
               className=" flex items-center justify-center font-semibold rounded-md transition-all duration-200 hover:bg-white/90 hover:scale-105 active:scale-95"
                 style={{
                   fontFamily:
@@ -290,9 +320,10 @@ const Hero = () => {
               </a>
 
               {/* Secondary: outline white */}
-              <Link
-                to="/fusion-pods"
-                className="flex items-center justify-center font-semibold rounded-md transition-all duration-200 hover:bg-white/15 active:scale-95"
+              <button
+                type="button"
+                onClick={scrollToPodWorkflow}
+                className="cursor-pointer flex items-center justify-center font-semibold rounded-md transition-all duration-200 hover:bg-white/15 active:scale-95"
                 style={{
                   fontFamily:
                     "'Bahnschrift', 'DIN Condensed', 'Arial Narrow', sans-serif",
@@ -307,7 +338,7 @@ const Hero = () => {
                 }}
               >
                 See how it works
-              </Link>
+              </button>
             </div>
           </motion.div>
         </motion.div>

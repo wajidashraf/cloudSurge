@@ -24,7 +24,8 @@ const GPTriage: React.FC = () => {
           <img src={SparkIcon} alt="CloudSurge" className="h-8 sm:h-10 lg:h-12" />
         </div>
          <Link
-                  to="/"
+                  to="/success-stories"
+                  hash="project-cards-section"
                   className="close absolute right-10 "
                   style={{ cursor: "pointer" }}
                 >

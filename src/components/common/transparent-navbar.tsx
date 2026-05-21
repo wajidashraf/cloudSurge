@@ -112,9 +112,15 @@ const Navbar: React.FC<NavbarProps> = ({ delayAnimation = false }) => {
             ))}
           </div>
             <a
-              href="https://outlook.office.com/book/FreeScaleUp@cloudsurge.uk/s/Abz0MDpi3kuyMsftsPEmMQ2?ismsaljsauthenabled=true"
+              href="https://outlook.office.com/book/FreeScaleUp@cloudsurge.uk/s/Abz0MDpi3kuyMsftsPEmMQ2?ismsaljsauthenabled=true&utm_source=navbar&utm_medium=button&utm_campaign=consultation"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => {
+                const w = window as unknown as { gtag?: (...args: unknown[]) => void };
+                if (typeof w.gtag === "function") {
+                  w.gtag("event", "navbar_click", { button_name: "consultation" });
+                }
+              }}
               className="border-2 border-white text-white px-1.5 sm:px-2 md:px-2 lg:px-3 xl:px-3 2xl:px-4 py-0.5 sm:py-1 md:py-1 lg:py-1.5 xl:py-1.5 2xl:py-2 rounded-full text-[9px] sm:text-xs md:text-xs lg:text-sm xl:text-sm 2xl:text-lg flex items-center gap-0.5 sm:gap-1 md:gap-1 lg:gap-1.5 xl:gap-1.5 2xl:gap-2 hover:bg-white/10 transition whitespace-nowrap flex-shrink-0 mr-1 sm:mr-0"
             >
               <svg

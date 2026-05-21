@@ -25,7 +25,8 @@ const Fawrii: React.FC = () => {
           <img src={SparkIcon} alt="CloudSurge" className="h-12" />
         </div>
         <Link
-          to="/"
+          to="/success-stories"
+          hash="project-cards-section"
           className="close absolute right-10 "
           style={{ cursor: "pointer" }}
         >

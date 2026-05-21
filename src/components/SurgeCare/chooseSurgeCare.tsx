@@ -214,8 +214,8 @@ const WhyOrganisationsChoose: React.FC = () => {
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          padding: 6px 12px;
-          width: 245px;
+          padding: 8px 18px;
+          width: 270x;
           height: 39px;
           border-radius: 6px;
           background: linear-gradient(

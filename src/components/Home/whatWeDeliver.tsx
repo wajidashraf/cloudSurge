@@ -207,41 +207,12 @@ const CardStack: React.FC<StackProps> = ({
               justifyContent: "flex-start",
               gap: small ? 6 : 12,
               cursor: "pointer",
-              // Hit-detection is handled by overlay zones below so hovered cards
-              // don't trap the mouse over neighbours they visually cover.
-              pointerEvents: "none",
               // Smooth background & shadow on hover (CSS transition covers what framer doesn't)
               transition: "background 0.25s ease, box-shadow 0.25s ease",
             }}
           >
             <CardContent card={card} small={small} />
           </motion.div>
-        );
-      })}
-
-      {/* Hit zones — each card is only hoverable on its visible strip */}
-      {cards.map((card, i) => {
-        const isLast = i === cards.length - 1;
-        const top = i * stripH;
-        const height = isLast ? cardH : stripH;
-        const w = widths[i];
-        const left = (containerW - w) / 2;
-        return (
-          <div
-            key={`hit-${card.title}`}
-            onMouseEnter={() => setHoveredIndex(i)}
-            onMouseLeave={() => setHoveredIndex(null)}
-            style={{
-              position: "absolute",
-              top,
-              left,
-              width: w,
-              height,
-              zIndex: cards.length + 20 + i,
-              cursor: "pointer",
-              background: "transparent",
-            }}
-          />
         );
       })}
     </div>
@@ -251,7 +222,7 @@ const CardStack: React.FC<StackProps> = ({
 /* ── Media query hook ── */
 function useMediaQuery(query: string): boolean {
   const [matches, setMatches] = React.useState<boolean>(() =>
-    typeof window !== "undefined" ? window.matchMedia(query).matches : false
+    typeof window !== "undefined" ? window.matchMedia(query).matches : false,
   );
   React.useEffect(() => {
     if (typeof window === "undefined") return;
@@ -267,7 +238,43 @@ function useMediaQuery(query: string): boolean {
 /* ── CTA Links — no animation, just static ── */
 const CTALinks: React.FC = () => (
   <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-    {[{label:"Book a consultation today", link: "/contact"} , {label:"Explore Fusion Pods",link: "/fusion-pods"}].map((item, i) => (
+    <Link
+      to="/contact"
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        gap: 10,
+        fontFamily: "'Bahnschrift','Segoe UI',sans-serif",
+        fontWeight: 600,
+        fontSize: "clamp(16px, 2vw, 22px)",
+        letterSpacing: "-0.04em",
+        color: "#E94227",
+        textDecoration: "none",
+      }}
+    >
+      <ArrowIcon />
+      Book a consultation today
+    </Link>
+
+    <Link
+      to="/fusion-pods"
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        gap: 10,
+        fontFamily: "'Bahnschrift','Segoe UI',sans-serif",
+        fontWeight: 600,
+        fontSize: "clamp(16px, 2vw, 22px)",
+        letterSpacing: "-0.04em",
+        color: "#E94227",
+        textDecoration: "none",
+      }}
+    >
+      <ArrowIcon />
+      Explore Fusion Pods
+    </Link>
+
+    {/* {[{label:"Book a consultation today", link: "/contact"} , {label:"Explore Fusion Pods",link: "/fusion-pods"}].map((item, i) => (
       <Link
         key={i}
         to={item.link}
@@ -286,7 +293,7 @@ const CTALinks: React.FC = () => (
         <ArrowIcon />
         {item.label}
       </Link>
-    ))}
+    ))} */}
   </div>
 );
 
@@ -317,7 +324,9 @@ const LeftPanel: React.FC<{ mobile?: boolean }> = ({ mobile }) => (
       style={{
         fontFamily: "'Bahnschrift','Segoe UI',sans-serif",
         fontWeight: 350,
-        fontSize: mobile ? "clamp(14px, 3.5vw, 18px)" : "clamp(15px, 1.8vw, 20px)",
+        fontSize: mobile
+          ? "clamp(14px, 3.5vw, 18px)"
+          : "clamp(15px, 1.8vw, 20px)",
         lineHeight: 1.5,
         color: "#727272",
         margin: mobile ? "0 0 24px" : "0 0 36px",

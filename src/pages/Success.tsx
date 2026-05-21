@@ -1,5 +1,6 @@
 import Navbar from '@/components/common/colored-navbar'
 import { lazy, Suspense, useEffect } from 'react';
+import { useLocation } from '@tanstack/react-router';
 
 import { useLenis } from '@/hooks/useLenis';
 import { setPageSEO } from '@/utils/seo';
@@ -18,6 +19,7 @@ const FooterSection   = lazy(() =>
 
 export const Success: React.FC = () => {
   useLenis();
+  const location = useLocation();
 
   const simpleFallback = <div className="text-center py-8"></div>;
 
@@ -30,6 +32,29 @@ export const Success: React.FC = () => {
       path: '/success-stories',
     });
   }, []);
+
+  // Scroll to hash target, polling because the section is lazy-loaded
+  useEffect(() => {
+    const hash = location.hash?.replace(/^#/, '');
+    if (!hash) return;
+    let cancelled = false;
+    const start = Date.now();
+    const tryScroll = () => {
+      if (cancelled) return;
+      const el = document.getElementById(hash);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+      if (Date.now() - start < 5000) {
+        requestAnimationFrame(tryScroll);
+      }
+    };
+    tryScroll();
+    return () => {
+      cancelled = true;
+    };
+  }, [location.hash]);
   return (
     <>
         <div className="font-bahnschrift">

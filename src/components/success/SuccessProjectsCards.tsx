@@ -557,6 +557,7 @@ const SuccessProjectsCard: React.FC = () => {
 
       <section
         ref={sectionRef}
+        id="project-cards-section"
         className="projects-section"
         style={{ background: "#E8E5E5" }}
       >

@@ -95,7 +95,7 @@ const AccordionItem = ({ icon, alt, title, detail, index, open, onToggle, inView
           >
             <path
               d="M2 2L12 12L22 2"
-              stroke="#000"
+              stroke="#5d5d5d"
               strokeWidth="2.5"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -224,7 +224,7 @@ const WhatsIncluded = () => {
           font-weight: 600;
           font-size: 24px;
           line-height: 1.2;
-          color: #000000;
+          color: #5d5d5d;
         }
 
         .wi-chevron {
@@ -233,6 +233,7 @@ const WhatsIncluded = () => {
           align-items: center;
           justify-content: center;
           transition: transform 0.3s ease;
+          
         }
 
         .wi-item--open .wi-chevron {

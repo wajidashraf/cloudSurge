@@ -1,16 +1,39 @@
 import logoWhite from "@/assets/logo-white.png";
 
+const withUtm = (href: string, campaign: string) => {
+  const utm = `utm_source=linktree&utm_medium=button&utm_campaign=${campaign}`;
+  if (href.startsWith("/") || href.startsWith("#")) {
+    return href.includes("?") ? `${href}&${utm}` : `${href}?${utm}`;
+  }
+  try {
+    const url = new URL(href);
+    url.searchParams.set("utm_source", "linktree");
+    url.searchParams.set("utm_medium", "button");
+    url.searchParams.set("utm_campaign", campaign);
+    return url.toString();
+  } catch {
+    return href.includes("?") ? `${href}&${utm}` : `${href}?${utm}`;
+  }
+};
+
+const trackClick = (buttonName: string) => {
+  const w = window as unknown as { gtag?: (...args: unknown[]) => void };
+  if (typeof w.gtag === "function") {
+    w.gtag("event", "linktree_click", { button_name: buttonName });
+  }
+};
+
 const links = [
-  
-  { label: "Visit Our Website", href: "https://www.cloudsurge.uk" },
-  { label: "Book a Consultation Call", href:"https://bookings.cloud.microsoft/book/FreeScaleUp@cloudsurge.uk" },
-  { label: "Contact Us", href: "/contact" },
+  { label: "Visit Our Website", href: "https://www.cloudsurge.uk", campaign: "website" },
+  { label: "Book a Consultation Call", href: "https://bookings.cloud.microsoft/book/FreeScaleUp@cloudsurge.uk", campaign: "consultation" },
+  { label: "Contact Us", href: "/contact", campaign: "contact_us" },
 ];
 
-const socialLinks = [{ label: "YouTube", href: "https://www.youtube.com/@Cloud-Surge" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/company/cloud-surge" },
-  { label: "Instagram", href: "https://www.instagram.com/cloudsurgeuk/" },
-]
+const socialLinks = [
+  { label: "YouTube", href: "https://www.youtube.com/@Cloud-Surge", campaign: "youtube" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/cloud-surge", campaign: "linkedin" },
+  { label: "Instagram", href: "https://www.instagram.com/cloudsurgeuk/", campaign: "instagram" },
+];
 
 export const Linktree: React.FC = () => {
   return (
@@ -36,11 +59,13 @@ export const Linktree: React.FC = () => {
 
         {/* Link Buttons */}
         <div style={styles.sociallinksContainer}>
-          {/* <h3 className="text-2xl font-bold text-white">Follow us on socials.</h3> */}
           {links.map((link) => (
             <a
               key={link.label}
-              href={link.href}
+              href={withUtm(link.href, link.campaign)}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackClick(link.campaign)}
               style={styles.linkButton}
               onMouseEnter={(e) => {
                 (e.currentTarget as HTMLAnchorElement).style.opacity = "0.85";
@@ -63,7 +88,10 @@ export const Linktree: React.FC = () => {
           {socialLinks.map((link) => (
             <a
               key={link.label}
-              href={link.href}
+              href={withUtm(link.href, link.campaign)}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackClick(link.campaign)}
               style={styles.linkButton}
               onMouseEnter={(e) => {
                 (e.currentTarget as HTMLAnchorElement).style.opacity = "0.85";

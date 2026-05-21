@@ -74,7 +74,7 @@ const CtaSection: React.FC = () => {
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          padding: 6px 24px;
+          padding: 8px 28px;
           height: 39px;
           background: linear-gradient(90deg, #EC3F24 0%, #EC3F24 20%, #7300BF 65%, #0A0A9A 100%);
           border-radius: 6px;

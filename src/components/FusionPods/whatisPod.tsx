@@ -89,24 +89,18 @@ const WhatisPod: React.FC = () => {
               Text:  left 163px (11.3%), width 585px (40.6%), top 294px
               Image: left 913px (63.4%), top 282px, 266×254px
         */}
-        <div className="flex flex-col md:flex-row items-center md:items-start w-full gap-8 md:gap-0">
+        <div className="flex flex-col md:flex-row items-center md:items-center w-full gap-10 md:gap-6 lg:gap-8">
 
           {/* ── Body Text ─────────────────────────────────── */}
-          {/*
-              Figma: left 163px = 11.3% left-indent, width 585px = 40.6%
-              24px, Bahnschrift 350, line-height 95%, #EF4123
-          */}
           <motion.div
             variants={fadeLeft}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
-            className="w-full md:w-[52%] flex-shrink-0"
+            className="w-full md:w-[58%] lg:w-[55%] flex-shrink-0 flex md:justify-start justify-center"
             style={{
-              // Figma: text starts at 163px = 11.3% of 1440px
               paddingLeft: 'clamp(0px, 5.3vw, 120px)',
-              // Figma: text is 585px wide within that
-              paddingRight: 'clamp(1rem, 2vw, 28px)',
+              paddingRight: 'clamp(0px, 2vw, 28px)',
             }}
           >
             <p
@@ -114,8 +108,7 @@ const WhatisPod: React.FC = () => {
                 fontFamily: bahnschrift,
                 fontWeight: 350,
                 fontSize: 'clamp(1rem, 1.67vw, 24px)',
-                // Figma: line-height 95% — intentionally tight, editorial feel
-                lineHeight: '95%',
+                lineHeight: '120%',
                 color: '#EF4123',
                 margin: 0,
                 maxWidth: 'min(585px, 100%)',
@@ -125,7 +118,7 @@ const WhatisPod: React.FC = () => {
               together. It is led by a Pod Lead who handles project management
               and quality assurance. The team is assembled specifically for your
               project, whether customised from scratch or drawn from a
-              pre-formed group. 
+              pre-formed group.
               <br />
               <br />
               The difference between a Pod and a group of
@@ -135,24 +128,18 @@ const WhatisPod: React.FC = () => {
           </motion.div>
 
           {/* ── Image ─────────────────────────────────────── */}
-          {/*
-              Figma: left 913px (63.4%), width 266px, height 254px
-              Centres itself in the remaining ~48% right column
-          */}
           <motion.div
             variants={fadeRight}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
-            className="w-full md:pl-30 lg:pl-40 md:flex-1 flex justify-center md:justify-start md:items-start"
-           
+            className="w-full md:w-[42%] lg:w-[45%] flex justify-center md:justify-center items-center"
           >
             <img
               src={img}
               alt="Pod team with CloudSurge logo"
               style={{
-                // Figma: 266.33px × 254px — scale fluidly with viewport
-                width: 'clamp(160px, 18.5vw, 266px)',
+                width: 'clamp(180px, 20vw, 266px)',
                 height: 'auto',
                 objectFit: 'contain',
                 display: 'block',
