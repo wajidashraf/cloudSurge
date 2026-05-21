@@ -179,8 +179,18 @@ const Hero: React.FC = () => {
         />
 
         {/* ── Centred content wrapper ── */}
-        <div className="absolute inset-0 flex justify-center lg:pt-10 xl:pt-12 2xl:pt-35">
-          <div className="relative w-full max-w-[1440px] h-full">
+        <div className="absolute inset-0 flex justify-center lg:pt-10 xl:pt-12 2xl:pt-20">
+          <div
+            className="relative w-full h-full"
+            style={{
+              maxWidth:
+                dimensions.width >= 2200
+                  ? "2000px"
+                  : dimensions.width >= 1800
+                    ? "1700px"
+                    : "1440px",
+            }}
+          >
             {/* ── Groww SVG ── */}
             <motion.div
               className="absolute z-10"
@@ -188,16 +198,26 @@ const Hero: React.FC = () => {
                 left:
                   dimensions.width < 768
                     ? "50%"
-                    : `clamp(40px, ${(137 / 1440) * 100}vw, 137px)`,
+                    : dimensions.width >= 2200
+                      ? "190px"
+                      : dimensions.width >= 1800
+                        ? "160px"
+                        : `clamp(40px, ${(137 / 1440) * 100}vw, 137px)`,
                 top: dimensions.width < 450
                     ? "100px":
                   dimensions.width < 768
                     ? "40px"
-                    : `clamp(-16px, ${(-31 / 600) * 100}%, -10px)`,
+                    : dimensions.width >= 1800
+                      ? "20px"
+                      : `clamp(-16px, ${(-31 / 600) * 100}%, -10px)`,
                 width:
                   dimensions.width < 768
                     ? "85vw"
-                    : `clamp(260px, ${(693 / 1440) * 100}vw, 693px)`,
+                    : dimensions.width >= 2200
+                      ? "1160px"
+                      : dimensions.width >= 1800
+                        ? "920px"
+                        : `clamp(260px, ${(693 / 1440) * 100}vw, 693px)`,
                 transform: dimensions.width < 768 ? "translateX(-50%)" : "none",
                 clipPath: clipPath,
               }}
@@ -219,17 +239,29 @@ const Hero: React.FC = () => {
                     ? "35px"
                     : dimensions.width < 768
                       ? "20px"
-                      : `clamp(260px, 52.08%, 750px)`,
+                      : dimensions.width >= 2200
+                        ? "1250px"
+                        : dimensions.width >= 1800
+                          ? "1050px"
+                          : `clamp(260px, 52.08%, 750px)`,
                 right:
                   dimensions.width < 768
                     ? "20px"
-                    : `clamp(100px, 22.15%, 319px)`,
+                    : dimensions.width >= 2200
+                      ? "190px"
+                      : dimensions.width >= 1800
+                        ? "160px"
+                        : `clamp(100px, 22.15%, 319px)`,
                 top:
                   dimensions.width < 768
                     ? "auto"
-                    : dimensions.width > 1250
-                      ? "auto"
-                      : `clamp(300px, 50.17%, 301px)`,
+                    : dimensions.width >= 2200
+                      ? "750px"
+                      : dimensions.width >= 1800
+                        ? "500px"
+                        : dimensions.width > 1250
+                          ? "auto"
+                          : `clamp(300px, 50.17%, 301px)`,
                 bottom:
                   dimensions.width < 450
                     ? "clamp(27vh, 6vh, 60px)"
@@ -237,9 +269,11 @@ const Hero: React.FC = () => {
                       ? "clamp(15vh, 6vh, 60px)"
                       : dimensions.width < 768
                         ? "clamp(68px, 6vh, 60px)"
-                        : dimensions.width > 1250
-                          ? "10vh"
-                          : "auto",
+                        : dimensions.width >= 1800
+                          ? "auto"
+                          : dimensions.width > 1250
+                            ? "10vh"
+                            : "auto",
 
                 opacity: contentOpacity,
                 clipPath: textClipPath,
