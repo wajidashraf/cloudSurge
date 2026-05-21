@@ -145,6 +145,7 @@ const CardStack: React.FC<StackProps> = ({
   const [hoveredIndex, setHoveredIndex] = React.useState<number | null>(null);
   const totalH = cardH + (cards.length - 1) * (cardH - overlap);
   const someHovered = hoveredIndex !== null;
+  const stripH = cardH - overlap;
 
   return (
     <div style={{ position: "relative", width: containerW, height: totalH }}>
@@ -206,12 +207,41 @@ const CardStack: React.FC<StackProps> = ({
               justifyContent: "flex-start",
               gap: small ? 6 : 12,
               cursor: "pointer",
+              // Hit-detection is handled by overlay zones below so hovered cards
+              // don't trap the mouse over neighbours they visually cover.
+              pointerEvents: "none",
               // Smooth background & shadow on hover (CSS transition covers what framer doesn't)
               transition: "background 0.25s ease, box-shadow 0.25s ease",
             }}
           >
             <CardContent card={card} small={small} />
           </motion.div>
+        );
+      })}
+
+      {/* Hit zones — each card is only hoverable on its visible strip */}
+      {cards.map((card, i) => {
+        const isLast = i === cards.length - 1;
+        const top = i * stripH;
+        const height = isLast ? cardH : stripH;
+        const w = widths[i];
+        const left = (containerW - w) / 2;
+        return (
+          <div
+            key={`hit-${card.title}`}
+            onMouseEnter={() => setHoveredIndex(i)}
+            onMouseLeave={() => setHoveredIndex(null)}
+            style={{
+              position: "absolute",
+              top,
+              left,
+              width: w,
+              height,
+              zIndex: cards.length + 20 + i,
+              cursor: "pointer",
+              background: "transparent",
+            }}
+          />
         );
       })}
     </div>

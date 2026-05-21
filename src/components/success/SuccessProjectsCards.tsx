@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+﻿import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, useInView } from "framer-motion";
 import { Link } from "@tanstack/react-router";
 import gpTriage from "@/assets/GP-Logo 3.png";
@@ -77,14 +77,14 @@ const TOTAL = CARDS.length;
 const CLONED = [...CARDS, ...CARDS, ...CARDS, ...CARDS, ...CARDS];
 const CLONE_OFFSET = TOTAL * 2;
 const CARD_GAP = 16;
-const AUTO_MS = 2600;
+const AUTO_MS = 4000;
 const CS_LOGO_W = 40;
 const CS_LOGO_H = 40;
 const BASE_W = 441;
 const BASE_H = 608;
-const LERP = 0.18; // smoothness factor (lower = smoother / slower)
-const SWIPE_THRESHOLD = 40;
-const AUTOPLAY_RESUME_MS = 2500;
+const LERP = 0.18; // smoothness factor for settle animation
+const SWIPE_THRESHOLD = 8; // px before we consider it a drag (not a click)
+const RESUME_DELAY_MS = 1500; // pause auto-advance briefly after interaction
 
 const getVisibleCount = (w: number): number => {
   if (w >= 1536) return 5;
@@ -263,9 +263,8 @@ const CarouselProgress: React.FC<ProgressProps> = ({
     window.addEventListener("resize", update);
     return () => window.removeEventListener("resize", update);
   }, []);
-  const fraction = total > 0 ? (current + 1) / total : 0;
+  const fraction = total > 1 ? current / (total - 1) : 0;
   const logoX = fraction * Math.max(0, barW - CS_LOGO_W);
-  const ticks = Array.from({ length: total - 1 }, (_, i) => (i + 1) / total);
   return (
     <div style={{ position: "relative", marginTop: 90, paddingBottom: 48 }}>
       <div
@@ -297,26 +296,6 @@ const CarouselProgress: React.FC<ProgressProps> = ({
             transition: "width 0.45s cubic-bezier(0.22,1,0.36,1)",
           }}
         />
-        {ticks.map((t, i) => (
-          <div
-            key={i}
-            onClick={(e) => {
-              e.stopPropagation();
-              onDotClick(i);
-            }}
-            style={{
-              position: "absolute",
-              left: `${t * 100}%`,
-              top: -3,
-              transform: "translateX(-50%)",
-              width: 2,
-              height: 10,
-              background: "#FFFFFF",
-              borderRadius: 1,
-              cursor: "pointer",
-            }}
-          />
-        ))}
       </div>
       <div
         style={{
@@ -391,9 +370,12 @@ const SuccessProjectsCard: React.FC = () => {
     undefined,
   );
   const interactingRef = useRef(false); // true while user drags/touches
+  const hoveringRef = useRef(false);
   const dragStartXRef = useRef(0);
   const dragDeltaXRef = useRef(0);
+  const pointerDownRef = useRef(false);
   const isDraggingRef = useRef(false);
+  const resumeTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   const sectionInView = useInView(sectionRef, { once: true, amount: 0.15 });
 
@@ -422,22 +404,28 @@ const SuccessProjectsCard: React.FC = () => {
     targetOffsetRef.current = -(trackIndex * stepSize);
   }, [trackIndex, stepSize]);
 
-  // rAF-driven smooth interpolation toward target offset (Lenis-style)
+  // rAF-driven smooth interpolation toward target offset.
+  // While dragging, the track follows the finger 1:1 (no smoothing) so the
+  // gesture feels direct. On release we ease into the committed target.
   useEffect(() => {
     const reduced = prefersReducedMotion();
     const tick = () => {
-      const target = targetOffsetRef.current + (isDraggingRef.current ? dragDeltaXRef.current : 0);
-      const cur = currentOffsetRef.current;
-      const diff = target - cur;
-      if (reduced) {
-        currentOffsetRef.current = target;
-      } else if (Math.abs(diff) < 0.1) {
-        currentOffsetRef.current = target;
+      let next: number;
+      if (isDraggingRef.current) {
+        next = targetOffsetRef.current + dragDeltaXRef.current;
       } else {
-        currentOffsetRef.current = cur + diff * LERP;
+        const target = targetOffsetRef.current;
+        const cur = currentOffsetRef.current;
+        const diff = target - cur;
+        if (reduced || Math.abs(diff) < 0.3) {
+          next = target;
+        } else {
+          next = cur + diff * LERP;
+        }
       }
+      currentOffsetRef.current = next;
       if (trackRef.current) {
-        trackRef.current.style.transform = `translate3d(${currentOffsetRef.current}px,0,0)`;
+        trackRef.current.style.transform = `translate3d(${next}px,0,0)`;
       }
       rafRef.current = requestAnimationFrame(tick);
     };
@@ -463,53 +451,90 @@ const SuccessProjectsCard: React.FC = () => {
     }
   }, [trackIndex, stepSize]);
 
-  // Auto-advance — only pauses during active user interaction (drag)
+  // Auto-advance — pauses while user is hovering or interacting, and for a
+  // short cooldown after release so the carousel doesn't lurch immediately.
   useEffect(() => {
     intervalRef.current = setInterval(() => {
-      if (interactingRef.current) return;
+      if (interactingRef.current || hoveringRef.current) return;
       setTrackIndex((prev) => prev + 1);
     }, AUTO_MS);
     return () => clearInterval(intervalRef.current);
   }, []);
 
-  const goPrev = useCallback(() => setTrackIndex((p) => p - 1), []);
-  const goNext = useCallback(() => setTrackIndex((p) => p + 1), []);
-  const goTo = useCallback(
-    (logical: number) => {
-      setTrackIndex(CLONE_OFFSET + logical);
-    },
-    [],
-  );
-
-  // Drag / swipe handlers (pointer events cover mouse + touch + pen)
-  const resumeTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(
-    undefined,
-  );
-  const onPointerDown = (e: React.PointerEvent) => {
+  const scheduleResume = useCallback(() => {
     interactingRef.current = true;
-    isDraggingRef.current = true;
-    dragStartXRef.current = e.clientX;
-    dragDeltaXRef.current = 0;
     if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current);
-    e.currentTarget.setPointerCapture?.(e.pointerId);
-  };
-  const onPointerMove = (e: React.PointerEvent) => {
-    if (!isDraggingRef.current) return;
-    dragDeltaXRef.current = e.clientX - dragStartXRef.current;
-  };
-  const endDrag = () => {
-    if (!isDraggingRef.current) return;
-    const delta = dragDeltaXRef.current;
-    isDraggingRef.current = false;
-    dragDeltaXRef.current = 0;
-    if (Math.abs(delta) > SWIPE_THRESHOLD && stepSize > 0) {
-      const steps = Math.max(1, Math.round(Math.abs(delta) / stepSize));
-      setTrackIndex((p) => p + (delta < 0 ? steps : -steps));
-    }
     resumeTimerRef.current = setTimeout(() => {
       interactingRef.current = false;
-    }, AUTOPLAY_RESUME_MS);
+    }, RESUME_DELAY_MS);
+  }, []);
+
+  const goPrev = useCallback(() => {
+    scheduleResume();
+    setTrackIndex((p) => p - 1);
+  }, [scheduleResume]);
+  const goNext = useCallback(() => {
+    scheduleResume();
+    setTrackIndex((p) => p + 1);
+  }, [scheduleResume]);
+  const goTo = useCallback(
+    (logical: number) => {
+      scheduleResume();
+      setTrackIndex(CLONE_OFFSET + logical);
+    },
+    [scheduleResume],
+  );
+
+  // Drag / swipe handlers (pointer events cover mouse + touch + pen).
+  // We delay the "isDragging" flip until movement exceeds a small threshold,
+  // so plain clicks on links inside cards still work.
+  const onPointerDown = (e: React.PointerEvent) => {
+    // Ignore non-primary buttons (right-click, etc.)
+    if (e.button !== 0 && e.pointerType === "mouse") return;
+    pointerDownRef.current = true;
+    interactingRef.current = true;
+    dragStartXRef.current = e.clientX;
+    dragDeltaXRef.current = 0;
   };
+  const onPointerMove = (e: React.PointerEvent) => {
+    if (!pointerDownRef.current) return;
+    const delta = e.clientX - dragStartXRef.current;
+    if (!isDraggingRef.current) {
+      if (Math.abs(delta) < SWIPE_THRESHOLD) return;
+      isDraggingRef.current = true;
+      (e.currentTarget as HTMLElement).setPointerCapture?.(e.pointerId);
+    }
+    dragDeltaXRef.current = delta;
+  };
+  const endDrag = () => {
+    if (!pointerDownRef.current) return;
+    const wasDragging = isDraggingRef.current;
+    const delta = dragDeltaXRef.current;
+    pointerDownRef.current = false;
+    isDraggingRef.current = false;
+    dragDeltaXRef.current = 0;
+    if (wasDragging && stepSize > 0) {
+      // Commit the drag based on distance so a long swipe can move
+      // multiple cards. Threshold of half a step feels natural.
+      const steps = Math.round(-delta / stepSize);
+      if (steps !== 0) {
+        setTrackIndex((p) => p + steps);
+      }
+    }
+    scheduleResume();
+  };
+
+  // Pause on hover (desktop)
+  const onMouseEnter = () => {
+    hoveringRef.current = true;
+  };
+  const onMouseLeave = () => {
+    hoveringRef.current = false;
+  };
+
+  useEffect(() => () => {
+    if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current);
+  }, []);
 
   return (
     <>
@@ -524,11 +549,9 @@ const SuccessProjectsCard: React.FC = () => {
         .carousel-track { touch-action: pan-y; user-select: none; cursor: grab; }
         .carousel-track:active { cursor: grabbing; }
         .carousel-nav-row { display:flex; align-items:center; gap:16px; }
-        @media (max-width: 900px) {
-          .nav-btn { display: none; }
-        }
         @media (max-width: 600px) {
           .projects-inner { padding: 56px 20px 40px !important; }
+          .nav-btn { width:38px; height:38px; }
         }
       `}</style>
 
@@ -561,8 +584,8 @@ const SuccessProjectsCard: React.FC = () => {
               maxWidth: 987,
             }}
           >
-            100+ projects delivered. 100% client satisfaction. Clients including
-            Fawrii, GP Triage, Genaiera, and Vallour.
+            100+ projects delivered. 98% client satisfaction. Clients including
+            Fawrii, GP Triage, Genera, and Vallour.
           </motion.h2>
 
           <motion.p
@@ -586,7 +609,7 @@ const SuccessProjectsCard: React.FC = () => {
             }}
           >
             We have supported product teams, Microsoft Partners, and enterprise
-            organisations across healthcare, education and professional
+            organisations across healthcare, education, and professional
             services. Below is a selection of the work and the results.
           </motion.p>
 
@@ -602,7 +625,12 @@ const SuccessProjectsCard: React.FC = () => {
           >
             <NavButton direction="prev" onClick={goPrev} />
 
-            <div ref={viewportRef} style={{ flex: 1, overflow: "hidden" }}>
+            <div
+              ref={viewportRef}
+              style={{ flex: 1, overflow: "hidden" }}
+              onMouseEnter={onMouseEnter}
+              onMouseLeave={onMouseLeave}
+            >
               <div
                 ref={trackRef}
                 className="carousel-track"
