@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 // Replace these with your actual imports:
-import image from '@/assets/careers-page.jpg'
+import image from '@/assets/careers-page.png'
 // import arrow from '@/components/common/arrow.svg'
 // const image = 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80';
 

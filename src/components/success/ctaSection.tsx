@@ -30,7 +30,7 @@ const CtaSection: React.FC = () => {
           background: linear-gradient(105deg, #ec3f24 0%, #ec3f24 40%, #7300bf 75%, #0a0a90 100%);
           border: none;
           border-radius: 6px;
-          padding: 6px 12px;
+          padding: 8px 20px;
           height: 39px;
           min-width: 188px;
           display: inline-flex;

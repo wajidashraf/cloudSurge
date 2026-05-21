@@ -30,7 +30,7 @@ const CareerCta: React.FC = () => {
           background: linear-gradient(105deg, #ec3f24 0%, #ec3f24 40%, #7300bf 75%, #0a0a90 100%);
           border: none;
           border-radius: 6px;
-          padding: 6px 12px;
+          padding: 8px 20px;
           height: 39px;
           min-width: 188px;
           display: inline-flex;
@@ -46,7 +46,7 @@ const CareerCta: React.FC = () => {
           background: transparent;
           border: 1px solid #EC3F24;
           border-radius: 6px;
-          padding: 6px 12px;
+          padding: 8px 20px;
           height: 39px;
           min-width: 156px;
           display: inline-flex;
@@ -58,8 +58,9 @@ const CareerCta: React.FC = () => {
         .cta-btn-secondary:hover  {
           background: #EC3F24;
           transform: translateY(-1px);
+          color: #fff;
         }
-        .cta-btn-secondary:hover span { color: #fff; }
+        .cta-btn-secondary:hover span { color: #fff !important; }
         .cta-btn-secondary:active { transform: translateY(0); }
 
         @media (max-width: 480px) {
@@ -163,13 +164,24 @@ const CareerCta: React.FC = () => {
                   Grow your business
                 </span>
               </a>
-              <Link to="/careers" className="cta-btn-secondary">
+              <Link
+                to="/careers"
+                hash="applyNow"
+                className="cta-btn-secondary"
+                onClick={(e) => {
+                  const el = document.getElementById("applyNow");
+                  if (el) {
+                    e.preventDefault();
+                    el.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }
+                }}
+              >
                 <span
                   style={{
                     fontWeight: 400,
                     fontSize:   17,
                     lineHeight: "150%",
-                    // color:      "#FFFFFF",
+                    color:      "#EC3F24",
                     whiteSpace: "nowrap",
                   }}
                 >
