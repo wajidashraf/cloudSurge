@@ -238,8 +238,10 @@ function useMediaQuery(query: string): boolean {
 /* ── CTA Links — no animation, just static ── */
 const CTALinks: React.FC = () => (
   <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-    <Link
-      to="/contact"
+    <a
+      href="https://bookings.cloud.microsoft/book/FreeScaleUp@cloudsurge.uk"
+      target="_blank"
+      rel="noreferrer"
       style={{
         display: "inline-flex",
         alignItems: "center",
@@ -254,7 +256,7 @@ const CTALinks: React.FC = () => (
     >
       <ArrowIcon />
       Book a consultation today
-    </Link>
+    </a>
 
     <Link
       to="/fusion-pods"
