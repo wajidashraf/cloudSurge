@@ -1,12 +1,84 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import clickIcon from '@/assets/clickwhite.png';
+
+declare global {
+  interface Window {
+    turnstile?: {
+      render: (el: HTMLElement, options: Record<string, unknown>) => string;
+      execute: (widgetId: string) => void;
+      reset: (widgetId?: string) => void;
+      remove: (widgetId: string) => void;
+    };
+  }
+}
+
+const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY as string | undefined;
 
 const ContactHero: React.FC = () => {
   const [form, setForm] = useState({ name: '', email: '', phone: '', company: '', message: '' });
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const turnstileContainerRef = useRef<HTMLDivElement | null>(null);
+  const turnstileWidgetId = useRef<string | null>(null);
+  const turnstileResolverRef = useRef<((token: string) => void) | null>(null);
+
+  useEffect(() => {
+    if (!TURNSTILE_SITE_KEY || !turnstileContainerRef.current) return;
+    let cancelled = false;
+    const tryRender = () => {
+      if (cancelled) return;
+      if (window.turnstile && turnstileContainerRef.current && !turnstileWidgetId.current) {
+        turnstileWidgetId.current = window.turnstile.render(turnstileContainerRef.current, {
+          sitekey: TURNSTILE_SITE_KEY,
+          size: 'invisible',
+          callback: (token: string) => {
+            if (turnstileResolverRef.current) {
+              turnstileResolverRef.current(token);
+              turnstileResolverRef.current = null;
+            }
+          },
+          'error-callback': () => {
+            if (turnstileResolverRef.current) {
+              turnstileResolverRef.current('');
+              turnstileResolverRef.current = null;
+            }
+          },
+        });
+      } else if (!window.turnstile) {
+        setTimeout(tryRender, 300);
+      }
+    };
+    tryRender();
+    return () => {
+      cancelled = true;
+      if (turnstileWidgetId.current && window.turnstile) {
+        try { window.turnstile.remove(turnstileWidgetId.current); } catch {}
+        turnstileWidgetId.current = null;
+      }
+    };
+  }, []);
+
+  const getTurnstileToken = (): Promise<string> => {
+    if (!TURNSTILE_SITE_KEY) return Promise.resolve('');
+    if (!window.turnstile || !turnstileWidgetId.current) return Promise.resolve('');
+    return new Promise<string>((resolve) => {
+      turnstileResolverRef.current = resolve;
+      try {
+        window.turnstile!.reset(turnstileWidgetId.current!);
+        window.turnstile!.execute(turnstileWidgetId.current!);
+      } catch {
+        resolve('');
+      }
+      setTimeout(() => {
+        if (turnstileResolverRef.current === resolve) {
+          turnstileResolverRef.current = null;
+          resolve('');
+        }
+      }, 15000);
+    });
+  };
 
   const validate = () => {
     const errs: { [key: string]: string } = {};
@@ -36,6 +108,7 @@ const ContactHero: React.FC = () => {
 
     const apiUrl = import.meta.env.VITE_API_URL || '';
     try {
+      const turnstileToken = await getTurnstileToken();
       const response = await fetch(`${apiUrl}/api/send-email`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -45,6 +118,7 @@ const ContactHero: React.FC = () => {
           phone: form.phone,
           company: form.company,
           message: form.message,
+          turnstileToken,
         }),
       });
       if (response.ok) {
@@ -202,6 +276,7 @@ const ContactHero: React.FC = () => {
                   </motion.div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-6 md:space-y-2 lg:space-y-3 xl:space-y-3 2xl:space-y-6">
+                    <div ref={turnstileContainerRef} style={{ display: 'none' }} />
                     <div className="text-center mb-6 md:mb-2 lg:mb-3 xl:mb-4 2xl:mb-8">
                       <h2 className="text-2xl md:text-lg lg:text-lg xl:text-xl 2xl:text-3xl font-bold text-white mb-2 md:mb-1 lg:mb-1 xl:mb-2 2xl:mb-2 flex items-center justify-center">
                         Get In Touch

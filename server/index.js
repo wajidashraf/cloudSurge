@@ -1,17 +1,37 @@
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
+import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
 import { EmailClient } from '@azure/communication-email';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors({ origin: true }));
-app.use(express.json());
+app.set('trust proxy', 1);
+app.use(helmet());
 
-// Use your registered sender/recipient from .env (e.g. info@cloudsurge.uk)
+const allowedOrigins = (process.env.ALLOWED_ORIGINS || '')
+  .split(',')
+  .map((s) => s.trim())
+  .filter(Boolean);
+
+app.use(
+  cors({
+    origin: (origin, cb) => {
+      if (!origin) return cb(null, true);
+      if (allowedOrigins.length === 0) return cb(null, true);
+      if (allowedOrigins.includes(origin)) return cb(null, true);
+      return cb(new Error('Not allowed by CORS'));
+    },
+  })
+);
+
+app.use(express.json({ limit: '16kb' }));
+
 const SENDER = process.env.AZURE_SENDER_EMAIL || 'Donotreply@vibesurge.uk';
 const RECIPIENT = process.env.CONTACT_RECIPIENT_EMAIL || 'info@cloudsurge.uk';
+const TURNSTILE_SECRET = process.env.TURNSTILE_SECRET_KEY || '';
 
 function normalizeConnectionString(s) {
   if (!s || typeof s !== 'string') return s;
@@ -46,14 +66,70 @@ function escapeHtml(s) {
     .replace(/'/g, '&#039;');
 }
 
-app.post('/api/send-email', async (req, res) => {
+function sanitizeLine(s) {
+  if (typeof s !== 'string') return '';
+  return s.replace(/[\r\n\t]+/g, ' ').trim();
+}
+
+function sanitizeMultiline(s) {
+  if (typeof s !== 'string') return '';
+  return s.replace(/\r\n?/g, '\n').trim();
+}
+
+const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+
+const contactLimiter = rateLimit({
+  windowMs: 10 * 60 * 1000,
+  max: 5,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Too many requests. Please try again later.' },
+});
+
+async function verifyTurnstile(token, ip) {
+  if (!TURNSTILE_SECRET) return { ok: true, skipped: true };
+  if (!token || typeof token !== 'string') return { ok: false };
+  try {
+    const body = new URLSearchParams();
+    body.append('secret', TURNSTILE_SECRET);
+    body.append('response', token);
+    if (ip) body.append('remoteip', ip);
+    const r = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      body,
+    });
+    const data = await r.json();
+    return { ok: !!data.success };
+  } catch (e) {
+    console.error('Turnstile verify error:', e.message);
+    return { ok: false };
+  }
+}
+
+app.post('/api/send-email', contactLimiter, async (req, res) => {
   if (!emailClient) {
     return res.status(503).json({ error: 'Email service not configured' });
   }
 
-  const { name, email, phone, company, message } = req.body || {};
+  const body = req.body || {};
+  const name = sanitizeLine(body.name).slice(0, 100);
+  const email = sanitizeLine(body.email).slice(0, 254);
+  const phone = sanitizeLine(body.phone).slice(0, 30);
+  const company = sanitizeLine(body.company).slice(0, 150);
+  const message = sanitizeMultiline(body.message).slice(0, 5000);
+  const turnstileToken = typeof body.turnstileToken === 'string' ? body.turnstileToken : '';
+
   if (!name || !email || !message) {
     return res.status(400).json({ error: 'Missing required fields: name, email, message' });
+  }
+  if (!EMAIL_RE.test(email)) {
+    return res.status(400).json({ error: 'Invalid email address' });
+  }
+
+  const ip = req.ip;
+  const verification = await verifyTurnstile(turnstileToken, ip);
+  if (!verification.ok) {
+    return res.status(400).json({ error: 'Captcha verification failed' });
   }
 
   const subject = `Cloud Surge Contact: ${name}${company ? ` (${company})` : ''}`;
@@ -114,12 +190,7 @@ app.post('/api/send-email', async (req, res) => {
     return res.status(200).json({ success: true });
   } catch (err) {
     console.error('Send email error:', err);
-    const message =
-      err?.details?.error?.message ||
-      err?.message ||
-      (typeof err?.error === 'string' ? err.error : null) ||
-      'Failed to send email';
-    return res.status(500).json({ error: message });
+    return res.status(500).json({ error: 'Failed to send message. Please try again later.' });
   }
 });
 
